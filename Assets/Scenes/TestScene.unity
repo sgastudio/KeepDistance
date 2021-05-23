@@ -390,8 +390,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 342960774}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalRotation: {x: 0.25881907, y: 0, z: 0, w: 0.9659259}
+  m_LocalPosition: {x: 0, y: 2.5, z: -4.3301272}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -412,13 +412,14 @@ MonoBehaviour:
   mode: 2
   targetObject: {fileID: 1622191542}
   targetPositionOffset: {x: 0, y: 0, z: 0}
+  followTargetRotation: 1
   snapObject: {fileID: 0}
   snapWeight: 0
   snapPositionOffset: {x: 0, y: 0, z: 0}
   snapRotationOffset: {x: 0, y: 0, z: 0}
   useAngleInstead: 1
   cameraDistance: 5
-  cameraAngle: {x: 0, y: 0}
+  cameraAngle: {x: 0, y: 30}
   enableRaycastDetection: 0
   enablePositionSlerp: 0
   positionSlerpParam: 0.5
@@ -693,11 +694,11 @@ PrefabInstance:
       objectReference: {fileID: 204549309}
     - target: {fileID: 1242906170, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
       propertyPath: startColor.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1242906170, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
       propertyPath: startColor.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1242906170, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
       propertyPath: startColor.r
@@ -710,6 +711,14 @@ PrefabInstance:
     - target: {fileID: 1242906170, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
       propertyPath: postionOffset.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242906170, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
+      propertyPath: originPosOffset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242906170, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
+      propertyPath: originPosOffset.y
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1913513231532759294, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
       propertyPath: m_Name
@@ -768,16 +777,32 @@ PrefabInstance:
       value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 7808939055611271983, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
+      propertyPath: m_Positions.Array.data[0].y
+      value: -0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7808939055611271983, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
+      propertyPath: m_Positions.Array.data[0].z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7808939055611271983, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
       propertyPath: m_Positions.Array.data[1].x
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7808939055611271983, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
-      propertyPath: m_Parameters.colorGradient.key0.b
+      propertyPath: m_Positions.Array.data[1].y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7808939055611271983, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
+      propertyPath: m_Positions.Array.data[1].z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7808939055611271983, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7808939055611271983, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7808939055611271983, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.r

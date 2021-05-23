@@ -12,6 +12,7 @@ public class CameraOperationInspector : Editor
     SerializedObject obj;
     public SerializedProperty targetObj;
     public SerializedProperty targetOffset;
+    public SerializedProperty followRotation;
     public SerializedProperty snapObj;
     public SerializedProperty snapPosOffset;
     public SerializedProperty snapRotOffset;
@@ -35,6 +36,7 @@ public class CameraOperationInspector : Editor
         snapPosOffset = obj.FindProperty("snapPositionOffset");
         snapRotOffset = obj.FindProperty("snapRotationOffset");
 
+        followRotation = obj.FindProperty("followTargetRotation");
         rawDistance = obj.FindProperty("cameraDistance");
         rawAngle = obj.FindProperty("cameraAngle");
 
@@ -100,13 +102,14 @@ public class CameraOperationInspector : Editor
             }
             EditorGUILayout.PropertyField(targetObj);
             EditorGUILayout.PropertyField(targetOffset);
-
+            EditorGUILayout.PropertyField(followRotation);
+            
             EditorGUILayout.PropertyField(switchRaycast);
             EditorGUILayout.PropertyField(switchPosSlerp);
 
             if(cameraOperation.enablePositionSlerp)
                 EditorGUILayout.PropertyField(ParamPosSlerp);
-            EditorGUILayout.PropertyField(switchRotSlerp);
+                EditorGUILayout.PropertyField(switchRotSlerp);
             if(cameraOperation.enableRotationSlerp)
                 EditorGUILayout.PropertyField(ParamRotSlerp);
             //Debug.Log("TPS");

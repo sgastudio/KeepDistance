@@ -21,10 +21,11 @@ public class CameraOperation : MonoBehaviour
     public GameObject targetObject;
     //public bool followTargetRotation;
     public Vector3 targetPositionOffset;
+    public bool followTargetRotation = true;
 
     [Header("Snapping")]
     public GameObject snapObject;
-    [Range(0f,1f)]
+    [Range(0f, 1f)]
     public float snapWeight = 1.0f;
     public Vector3 snapPositionOffset;
 
@@ -38,10 +39,10 @@ public class CameraOperation : MonoBehaviour
     [Header("Misc")]
     public bool enableRaycastDetection = false;
     public bool enablePositionSlerp = false;
-    [Range(0f,1f)]
+    [Range(0f, 1f)]
     public float positionSlerpParam = 0.5f;
     public bool enableRotationSlerp = false;
-    [Range(0f,1f)]
+    [Range(0f, 1f)]
     public float rotationSlerpParam = 0.5f;
 
     [Header("Development Settings")]
@@ -96,17 +97,23 @@ public class CameraOperation : MonoBehaviour
                 break;
 			*/
             case cameraMode.thirdPerson:
-                Vector3 cameraPosOffset = Vector3.zero;
+                Vector3 cameraPosOffset;
                 Vector3 desiredPos = Vector3.zero;
                 Vector3 basePos = Vector3.zero;
                 Vector3 posOffset = Vector3.zero;
 
-                cameraPosOffset.y = Mathf.Sin(cameraAngle.y * Mathf.Deg2Rad) * cameraDistance;
+                Vector2 calculatedAngle = followTargetRotation ? new Vector2(cameraAngle.x + targetObject.transform.rotation.eulerAngles.y, cameraAngle.y + targetObject.transform.rotation.eulerAngles.x) : new Vector2(cameraAngle.x, cameraAngle.y);
+
+                /*cameraPosOffset.y = Mathf.Sin(cameraAngle.y * Mathf.Deg2Rad) * cameraDistance;
                 float projectDistance = Mathf.Sqrt(cameraDistance * cameraDistance - cameraPosOffset.y * cameraPosOffset.y);
                 cameraPosOffset.z = -projectDistance * Mathf.Cos(cameraAngle.x * Mathf.Deg2Rad);
-                cameraPosOffset.x = -projectDistance * Mathf.Sin(cameraAngle.x * Mathf.Deg2Rad);
+                cameraPosOffset.x = -projectDistance * Mathf.Sin(cameraAngle.x * Mathf.Deg2Rad);*/
 
-                
+                cameraPosOffset.y = Mathf.Sin(calculatedAngle.y * Mathf.Deg2Rad) * cameraDistance;
+                float projectDistance = Mathf.Sqrt(cameraDistance * cameraDistance - cameraPosOffset.y * cameraPosOffset.y);
+                cameraPosOffset.z = -projectDistance * Mathf.Cos(calculatedAngle.x * Mathf.Deg2Rad);
+                cameraPosOffset.x = -projectDistance * Mathf.Sin(calculatedAngle.x * Mathf.Deg2Rad);
+
 
                 if (snapObject == null)
                 {
@@ -115,13 +122,13 @@ public class CameraOperation : MonoBehaviour
                 }
                 else
                 {
-                    basePos = snapObject.transform.position * snapWeight + (targetObject.transform.position +targetPositionOffset)*(1f-snapWeight);
-                    posOffset = snapPositionOffset * snapWeight + cameraPosOffset*(1f-snapWeight);
+                    basePos = snapObject.transform.position * snapWeight + (targetObject.transform.position + targetPositionOffset) * (1f - snapWeight);
+                    posOffset = snapPositionOffset * snapWeight + cameraPosOffset * (1f - snapWeight);
                 }
                 desiredPos = basePos + posOffset;
 
-                
-                if(enablePositionSlerp)
+
+                if (enablePositionSlerp)
                 {
                     this.transform.position = Vector3.Slerp(this.transform.position, desiredPos, positionSlerpParam);
                 }
@@ -131,14 +138,23 @@ public class CameraOperation : MonoBehaviour
                 }
                 //this.transform.position = desiredPos + snapPositionOffset + cameraPosOffset;
 
-                if (targetObject != null)
+                /*if (targetObject != null)
                 {
                     this.transform.LookAt(targetObject.transform.position + targetPositionOffset);
                 }
                 else
                 {
                     this.transform.rotation = targetObject.transform.rotation; //* Quaternion.Euler(snapRotationOffset);
+                }*/
+
+                /*if (followTargetRotation)
+                {
+                    this.transform.rotation = targetObject.transform.rotation * Quaternion.Euler(cameraAngle.y,0,0);
                 }
+                else
+                {*/
+                    this.transform.LookAt(targetObject.transform.position + targetPositionOffset);
+                //}
 
                 break;
             case cameraMode.firstPerson:
