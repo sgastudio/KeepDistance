@@ -102,7 +102,8 @@ public class CameraOperation : MonoBehaviour
                 Vector3 basePos = Vector3.zero;
                 Vector3 posOffset = Vector3.zero;
 
-                Vector2 calculatedAngle = followTargetRotation ? new Vector2(cameraAngle.x + targetObject.transform.rotation.eulerAngles.y, cameraAngle.y + targetObject.transform.rotation.eulerAngles.x) : new Vector2(cameraAngle.x, cameraAngle.y);
+                //Vector2 calculatedAngle = followTargetRotation ? new Vector2(cameraAngle.x + targetObject.transform.rotation.eulerAngles.y, cameraAngle.y + targetObject.transform.rotation.eulerAngles.x) : new Vector2(cameraAngle.x, cameraAngle.y);
+                Vector2 calculatedAngle = followTargetRotation ? new Vector2(cameraAngle.x + targetObject.transform.rotation.eulerAngles.y, cameraAngle.y) : new Vector2(cameraAngle.x, cameraAngle.y);
 
                 /*cameraPosOffset.y = Mathf.Sin(cameraAngle.y * Mathf.Deg2Rad) * cameraDistance;
                 float projectDistance = Mathf.Sqrt(cameraDistance * cameraDistance - cameraPosOffset.y * cameraPosOffset.y);
