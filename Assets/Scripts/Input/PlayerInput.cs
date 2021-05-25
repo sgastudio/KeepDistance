@@ -9,10 +9,22 @@ public class PlayerInput : MonoBehaviour
     public bool cursorVisible = true;
     public float aspectRate = 16 / 9;
     [Header("Axis")]
-    [ROA]
+    public string positionXAxisName = "Horizontal";
+    public string positionYAxisName = "Vertical";
+    [Space]
+    public string rotationXAxisName = "Mouse X";
+    public string rotationYAxisName = "Mouse Y";
+    [Space]
+    public string jumpAxisName = "Jump";
+    [Space]
+    public Vector2 positionAxisWeight = Vector2.one;
+    public Vector2 rotationAxisWeight =new Vector2(1,0);
+    [ROA,Space]
     public Vector2 positionAxis;
     [ROA]
     public Vector2 rotationAxis;
+    [ROA]
+    public float jumpAxis;
 
     void OnEnable()
     {
@@ -21,10 +33,10 @@ public class PlayerInput : MonoBehaviour
     }
 
     void FixedUpdate()
-    {   
-        
-        Vector3 desiredVelocity = new Vector3(positionAxis.x, 0, positionAxis.y);
- 
+    {
+
+        Vector3 desiredVelocity = new Vector3(positionAxis.x * positionAxisWeight.x, 0, positionAxis.y * positionAxisWeight.y);
+
         Vector3 caculatedVelocity = this.transform.rotation * desiredVelocity * 5.0f;
         this.transform.Translate(caculatedVelocity * Time.deltaTime, Space.World);
 
@@ -33,14 +45,16 @@ public class PlayerInput : MonoBehaviour
         this.transform.Translate(caculatedVelocity * Time.deltaTime, Space.Self);
         */
 
-        this.transform.rotation *= Quaternion.Euler(0, rotationAxis.x, 0);
+        
+        Vector3 desiredAngularVelocity = new Vector3(rotationAxis.y * rotationAxisWeight.y, rotationAxis.x * rotationAxisWeight.x, 0);
+        this.transform.rotation *= Quaternion.Euler(desiredAngularVelocity);
 
     }
 
     void Update()
     {
-        positionAxis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        rotationAxis = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-
+        positionAxis = new Vector2(Input.GetAxis(positionXAxisName), Input.GetAxis(positionYAxisName));
+        rotationAxis = new Vector2(Input.GetAxis(rotationXAxisName), Input.GetAxis(rotationYAxisName));
+        jumpAxis = Input.GetAxis("Jump");
     }
 }
