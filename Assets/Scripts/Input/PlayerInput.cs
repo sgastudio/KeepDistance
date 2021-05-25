@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,10 @@ public class PlayerInput : MonoBehaviour
     public Vector2 rotationAxis;
     [ROA]
     public float jumpAxis;
+    [Header("Movement")]
+    public float positionVelocity = 2.5f;
+    public float rotationVelocity = 10.0f;
+
 
     void OnEnable()
     {
@@ -37,7 +42,7 @@ public class PlayerInput : MonoBehaviour
 
         Vector3 desiredVelocity = new Vector3(positionAxis.x * positionAxisWeight.x, 0, positionAxis.y * positionAxisWeight.y);
 
-        Vector3 caculatedVelocity = this.transform.rotation * desiredVelocity * 5.0f;
+        Vector3 caculatedVelocity = this.transform.rotation * desiredVelocity * positionVelocity;
         this.transform.Translate(caculatedVelocity * Time.deltaTime, Space.World);
 
         /*
@@ -47,7 +52,8 @@ public class PlayerInput : MonoBehaviour
 
         
         Vector3 desiredAngularVelocity = new Vector3(rotationAxis.y * rotationAxisWeight.y, rotationAxis.x * rotationAxisWeight.x, 0);
-        this.transform.rotation *= Quaternion.Euler(desiredAngularVelocity);
+        Vector3 caculatedAngularVelocity = desiredAngularVelocity * rotationVelocity * Mathf.Rad2Deg;
+        this.transform.rotation *= Quaternion.Euler(caculatedAngularVelocity * Time.deltaTime);
 
     }
 
