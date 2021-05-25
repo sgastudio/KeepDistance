@@ -51,9 +51,10 @@ public class PlayerInput : MonoBehaviour
         */
 
         
-        Vector3 desiredAngularVelocity = new Vector3(rotationAxis.y * rotationAxisWeight.y, rotationAxis.x * rotationAxisWeight.x, 0);
+        Vector3 desiredAngularVelocity = new Vector3(rotationAxis.y * rotationAxisWeight.y * aspectRate, rotationAxis.x * rotationAxisWeight.x, 0);
         Vector3 caculatedAngularVelocity = desiredAngularVelocity * rotationVelocity * Mathf.Rad2Deg;
         this.transform.rotation *= Quaternion.Euler(caculatedAngularVelocity * Time.deltaTime);
+
 
     }
 
