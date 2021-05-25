@@ -154,7 +154,10 @@ public class CameraOperation : MonoBehaviour
                 }
                 else
                 {*/
-                    this.transform.LookAt(targetObject.transform.position + targetPositionOffset);
+                    if(enableRotationSlerp)
+                        this.transform.rotation = Quaternion.Slerp(this.transform.rotation,Quaternion.LookRotation(targetObject.transform.position + targetPositionOffset -this.transform.position),rotationSlerpParam);
+                    else
+                        this.transform.LookAt(targetObject.transform.position + targetPositionOffset);
                 //}
 
                 break;
