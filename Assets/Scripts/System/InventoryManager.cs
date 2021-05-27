@@ -56,8 +56,7 @@ public class InventoryManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AddItem("Test", ItemType.General, 2, testPrefab);
-        AddItem("Test2", ItemType.General, 10, testPrefab2);
+        
     }
 
     // Update is called once per frame
@@ -122,12 +121,13 @@ public class InventoryManager : MonoBehaviour
         if (FindItemIndex(itemName) >= 0)
         {
             FindItem(itemName).amount += addCount;
+            if(prefab)
+                GameObject.Destroy(prefab);
         }
         else
         {
             if (prefab && prefab.scene.isLoaded)
             {
-                Debug.Log(prefab.GetInstanceID());
                 prefab.SetActive(false);
                 prefab.transform.SetParent(this.transform);
                 prefab.transform.SetPositionAndRotation(this.transform.position, this.transform.rotation);
