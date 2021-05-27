@@ -31,9 +31,6 @@ public class InteractDetector : MonoBehaviour
             interactableList.Remove(sceneObj);
             LastInteractTime = Time.time;
             //Add to Inventory
-            sceneObj.SetActive(false);
-            sceneObj.transform.SetParent(this.transform);
-            sceneObj.transform.SetPositionAndRotation(this.transform.position,this.transform.rotation);
             inventory.AddItem("Test3",ItemType.General,1,sceneObj);
         }
 
