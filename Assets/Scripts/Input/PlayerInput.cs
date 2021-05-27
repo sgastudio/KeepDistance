@@ -16,16 +16,25 @@ public class PlayerInput : MonoBehaviour
     public string rotationXAxisName = "Mouse X";
     public string rotationYAxisName = "Mouse Y";
     [Space]
-    public string jumpAxisName = "Jump";
-    [Space]
     public Vector2 positionAxisWeight = Vector2.one;
     public Vector2 rotationAxisWeight =new Vector2(1,0);
-    [ROA,Space]
+    [Space]
+    public string jumpAxisName = "Jump";
+    public string fire1AxisName = "Fire1";
+    public string fire2AxisName = "Fire2";
+    public string interactAxisName = "Fire3";
+    [ROA,Header("Monitor")]
     public Vector2 positionAxis;
     [ROA]
     public Vector2 rotationAxis;
     [ROA]
     public float jumpAxis;
+    [ROA]
+    public float fire1Axis;
+    [ROA]
+    public float fire2Axis;
+    [ROA]
+    public float interactAxis;
     [Header("Movement")]
     public float positionVelocity = 2.5f;
     public float rotationVelocity = 10.0f;
@@ -51,7 +60,7 @@ public class PlayerInput : MonoBehaviour
         */
 
         
-        Vector3 desiredAngularVelocity = new Vector3(rotationAxis.y * rotationAxisWeight.y * aspectRate, rotationAxis.x * rotationAxisWeight.x, 0);
+        Vector3 desiredAngularVelocity = new Vector3(rotationAxis.y * rotationAxisWeight.y , rotationAxis.x * rotationAxisWeight.x / aspectRate, 0);
         Vector3 caculatedAngularVelocity = desiredAngularVelocity * rotationVelocity * Mathf.Rad2Deg;
         this.transform.rotation *= Quaternion.Euler(caculatedAngularVelocity * Time.deltaTime);
 
@@ -62,6 +71,9 @@ public class PlayerInput : MonoBehaviour
     {
         positionAxis = new Vector2(Input.GetAxis(positionXAxisName), Input.GetAxis(positionYAxisName));
         rotationAxis = new Vector2(Input.GetAxis(rotationXAxisName), Input.GetAxis(rotationYAxisName));
-        jumpAxis = Input.GetAxis("Jump");
+        jumpAxis = Input.GetAxis(jumpAxisName);
+        fire1Axis = Input.GetAxis(fire1AxisName);
+        fire2Axis = Input.GetAxis(fire2AxisName);
+        interactAxis = Input.GetAxis(interactAxisName);
     }
 }
