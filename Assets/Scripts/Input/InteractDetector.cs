@@ -10,9 +10,10 @@ public class InteractDetector : MonoBehaviour
     public string itemTag = "Item";
     public string switchTag = "Switch";
     public LayerMask mask;
+    public float interactDelay = 0.5f;
+    [ROA]
     public List<GameObject> interactableList;
     bool interactCooldown = false;
-    float interactCooldownTime = 1f;
     float LastInteractTime;
     void Start()
     {
@@ -22,7 +23,7 @@ public class InteractDetector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (input.interactAxis > 0 && interactCooldown == false)
+        if (input.interactAxis > 0 && interactCooldown == false && interactableList.Count>0)
         {
             interactCooldown = true;
             if (interactableList.Count > 1)
@@ -40,7 +41,7 @@ public class InteractDetector : MonoBehaviour
 
         }
 
-        if(Time.time>LastInteractTime + interactCooldownTime)
+        if(Time.time>LastInteractTime + interactDelay)
         {
             interactCooldown = false;
         }
