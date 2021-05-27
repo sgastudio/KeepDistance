@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class Manager_Scene : MonoBehaviour
+public class SceneControl : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -14,5 +14,10 @@ public class Manager_Scene : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void OnDestroy()
+    {
+        return;
     }
 }
