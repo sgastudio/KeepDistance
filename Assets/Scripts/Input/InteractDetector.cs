@@ -30,8 +30,14 @@ public class InteractDetector : MonoBehaviour
             GameObject sceneObj = interactableList[0];
             interactableList.Remove(sceneObj);
             LastInteractTime = Time.time;
+
             //Add to Inventory
-            inventory.AddItem("Test3",ItemType.General,1,sceneObj);
+            ItemAgent info = sceneObj.GetComponent<ItemAgent>();
+            if(info)
+                inventory.AddItem(info.itemName , info.type, info.amount, sceneObj);
+            else
+                inventory.AddItem("Item " + sceneObj.GetInstanceID().ToString(),ItemType.Unknown, 1, sceneObj);
+
         }
 
         if(Time.time>LastInteractTime + interactCooldownTime)

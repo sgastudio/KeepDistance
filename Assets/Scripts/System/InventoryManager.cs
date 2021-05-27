@@ -57,7 +57,7 @@ public class InventoryManager : MonoBehaviour
     void Start()
     {
         AddItem("Test", ItemType.General, 2, testPrefab);
-        AddItem("Test2", ItemType.General, 1, testPrefab2);
+        AddItem("Test2", ItemType.General, 10, testPrefab2);
     }
 
     // Update is called once per frame
@@ -188,6 +188,7 @@ public class InventoryManager : MonoBehaviour
         if (itemIndex < 0)
             return;
         //drop an instance
+        /*
         //GameObject.Instantiate(items[itemIndex].prefab, this.transform.position, this.transform.rotation);
         if (items[itemIndex].prefab)
         {
@@ -206,14 +207,63 @@ public class InventoryManager : MonoBehaviour
             GameObject emptyObject = new GameObject(items[itemIndex].name);
             emptyObject.tag = "Item";
             emptyObject.transform.SetPositionAndRotation(transform.position, this.transform.rotation);
-        }
-        
+        }*/
+
+
         if (items[itemIndex].amount > count)
-        {
+        {//only drop some of the item
             items[itemIndex].amount -= count;
+
+            if (items[itemIndex].prefab)
+            {//if the item have prefab/sceneObject
+                GameObject sceneObject = GameObject.Instantiate(items[itemIndex].prefab, this.transform.position, this.transform.rotation);
+                sceneObject.SetActive(true);
+                //if the prefab/sceneobject have Item Agent Component
+                if(sceneObject.GetComponent<ItemAgent>())
+                    sceneObject.GetComponent<ItemAgent>().SetInfo(items[itemIndex], count);
+                else
+                    sceneObject.AddComponent<ItemAgent>().SetInfo(items[itemIndex], count);
+            }
+            else
+            {//when there is no prefab or scene object of the item
+                GameObject emptyObject = new GameObject(items[itemIndex].name);
+                emptyObject.tag = "Item";
+                emptyObject.transform.SetPositionAndRotation(transform.position, this.transform.rotation);
+                emptyObject.AddComponent<ItemAgent>().SetInfo(items[itemIndex], count);
+                emptyObject.AddComponent<BoxCollider>();
+            }
         }
         else
-        {
+        {//all of the item will be droped
+
+            if (items[itemIndex].prefab)
+            {//if the item have prefab/sceneObject
+                GameObject sceneObject;
+                if (items[itemIndex].prefab.scene.isLoaded)
+                {
+                    items[itemIndex].prefab.SetActive(true);
+                    items[itemIndex].prefab.transform.SetParent(null);
+                    sceneObject = items[itemIndex].prefab;
+                }
+                else
+                {
+                    sceneObject = GameObject.Instantiate(items[itemIndex].prefab, this.transform.position, this.transform.rotation);
+                }
+                
+                if(sceneObject.GetComponent<ItemAgent>())
+                    sceneObject.GetComponent<ItemAgent>().SetInfo(items[itemIndex], items[itemIndex].amount);
+                else
+                    sceneObject.AddComponent<ItemAgent>().SetInfo(items[itemIndex], items[itemIndex].amount);
+            }
+            else
+            {//when there is no prefab or scene object of the item
+                GameObject emptyObject = new GameObject(items[itemIndex].name);
+                emptyObject.tag = "Item";
+                emptyObject.transform.SetPositionAndRotation(transform.position, this.transform.rotation);
+                emptyObject.AddComponent<ItemAgent>().SetInfo(items[itemIndex],  items[itemIndex].amount);
+                emptyObject.AddComponent<BoxCollider>();
+            }
+
             //optional operations if items are mounted on any points
             if (items[itemIndex].status > 0)
                 UnequipItem(itemIndex);
@@ -228,6 +278,7 @@ public class InventoryManager : MonoBehaviour
 
     public void TestEquip(string n)
     {
-        EquipItem("Test3", ItemStatus.RightHand);
+        //EquipItem("Test3", ItemStatus.RightHand);
+        RemoveItem("Test2");
     }
 }
