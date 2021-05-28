@@ -23,25 +23,35 @@ public class InteractDetector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (input.interactAxis > 0 && interactCooldown == false && interactableList.Count>0)
+        if (input.interactAxis > 0 && interactCooldown == false && interactableList.Count > 0)
         {
             interactCooldown = true;
             if (interactableList.Count > 1)
                 interactableList.Sort(compareDistance);
             GameObject sceneObj = interactableList[0];
-            interactableList.Remove(sceneObj);
             LastInteractTime = Time.time;
 
             //Add to Inventory
-            ItemAgent info = sceneObj.GetComponent<ItemAgent>();
-            if(info)
-                inventory.AddItem(info.itemName , info.type, info.amount, sceneObj);
-            else
-                inventory.AddItem("Item " + sceneObj.GetInstanceID().ToString(),ItemType.Unknown, 1, sceneObj);
+            if (sceneObj.tag == itemTag)
+            {
+                ItemAgent agent = sceneObj.GetComponent<ItemAgent>();
+                if (agent)
+                    inventory.AddItem(agent.itemName, agent.type, agent.amount, sceneObj);
+                else
+                    inventory.AddItem("Item " + sceneObj.GetInstanceID().ToString(), ItemType.Unknown, 1, sceneObj);
+                interactableList.Remove(sceneObj);
+            }
+            //Switch
+            else if (sceneObj.tag == switchTag)
+            {
+                SwitchAgent agent = sceneObj.GetComponent<SwitchAgent>();
+                if(agent)
+                    agent.SwitchOnce();
+            }
 
         }
 
-        if(Time.time>LastInteractTime + interactDelay)
+        if (Time.time > LastInteractTime + interactDelay)
         {
             interactCooldown = false;
         }
