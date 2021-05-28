@@ -1220,6 +1220,7 @@ GameObject:
   - component: {fileID: 1498289486}
   - component: {fileID: 1498289485}
   - component: {fileID: 1498289484}
+  - component: {fileID: 1498289488}
   - component: {fileID: 1498289483}
   m_Layer: 0
   m_Name: Cube
@@ -1351,6 +1352,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1498289488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498289482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7faa4d4169b603246a28540e79f717a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layers:
+    serializedVersion: 2
+    m_Bits: 0
+  tags: 
+  layerTagBlendMode: 0
+  targetEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  targetExit:
+    m_PersistentCalls:
+      m_Calls: []
+  activeList: []
+  Namea: 
 --- !u!1 &1622191542
 GameObject:
   m_ObjectHideFlags: 0
@@ -1780,15 +1806,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 945d493c70f36184daeb15ea088aac3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 1622191549}
-  input: {fileID: 1622191548}
-  itemTag: Item
-  switchTag: Switch
-  mask:
+  layers:
     serializedVersion: 2
     m_Bits: 0
+  tags: 0700000008000000
+  layerTagBlendMode: 0
+  targetEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  targetExit:
+    m_PersistentCalls:
+      m_Calls: []
+  activeList: []
+  inventory: {fileID: 1622191549}
+  input: {fileID: 1622191548}
+  itemTag: 7
+  switchTag: 8
   interactDelay: 0.5
-  interactableList: []
 --- !u!1 &2022336860
 GameObject:
   m_ObjectHideFlags: 0
