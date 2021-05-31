@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,45 +26,30 @@ public class LinePair
     public GameObject Object;
     public GameObject LineObject;
 }
-public class LineDetector : MonoBehaviour
+public class LineDetector : CollisionDetector
 {
+     [Header("Components")]
     public GameObject linePrefab;
-    public string targetTag = "Player";
-    public LayerMask targetLayer = 0;
     [ROA]
     public List<LinePair> playerList;
-    // Start is called before the first frame update
-    void Start()
-    {
 
+    void OnEnable()
+    {
+        base.targetEnter.AddListener(TriggerEnter);
+        base.targetExit.AddListener(TriggerExit);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TriggerEnter(Collider other)
     {
-
+        playerList.Add(new LinePair(other.gameObject, linePrefab, this.transform));
     }
-
-    void OnTriggerEnter(Collider other)
+    public void TriggerExit(Collider other)
     {
-        if (other.tag == targetTag || (other.gameObject.layer & targetLayer) != 0)
-        {
-            Debug.Log("Player Entered");
-            playerList.Add(new LinePair(other.gameObject, linePrefab, this.transform));
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.tag == targetTag || (other.gameObject.layer & targetLayer) != 0)
-        {
-            Debug.Log("Player Leaved");
-            LinePair pair = playerList.Find(result=>{
+         LinePair pair = playerList.Find(result=>{
                 return (result.Object == other.gameObject);
             });
             
             playerList.Remove(pair);
             GameObject.Destroy(pair.LineObject);
-        }
     }
 }
