@@ -16,8 +16,8 @@ public class CollisionDetector : MonoBehaviour
     public FilterMode layerTagBlendMode;
 
     [Header("Event")]
-    public UnityEvent targetEnter;
-    public UnityEvent targetExit;
+    public UnityEvent<Collider> targetEnter;
+    public UnityEvent<Collider> targetExit;
 
     [ROA, Space]
     public List<GameObject> activeList;
@@ -28,18 +28,12 @@ public class CollisionDetector : MonoBehaviour
         activeList.Clear();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void OnTriggerExit(Collider other)
     {
         if (blendTest(other))
         {
             activeList.Remove(other.gameObject);
-            targetExit.Invoke();
+            targetExit.Invoke(other);
         }
     }
 
@@ -48,7 +42,7 @@ public class CollisionDetector : MonoBehaviour
         if (blendTest(other))
         {
             activeList.Add(other.gameObject);
-            targetEnter.Invoke();
+            targetEnter.Invoke(other);
         }
     }
 
