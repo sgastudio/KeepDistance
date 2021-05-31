@@ -47,8 +47,6 @@ public class MountPoint
 
 public class InventoryManager : MonoBehaviour
 {
-    public GameObject testPrefab;
-    public GameObject testPrefab2;
     public List<Item> items;
     public List<MountPoint> mountPoints;
 
@@ -288,16 +286,5 @@ public class InventoryManager : MonoBehaviour
             sceneObject.GetComponent<ItemAgent>().SetInfo(item, amountOverride);
         else
             sceneObject.AddComponent<ItemAgent>().SetInfo(item, amountOverride);
-    }
-
-    public void TestAdd()
-    {
-        DropItem("Test2");
-    }
-
-    public void TestEquip(string n)
-    {
-        //EquipItem("Test3", ItemStatus.RightHand);
-        RemoveItem("Test2");
     }
 }
