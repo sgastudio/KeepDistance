@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class MissionTrigger : MonoBehaviour
 {
+    public string missionName;
+    MissionManager missionManager;
     // Start is called before the first frame update
     void Start()
     {
-        
+        missionManager = GameObject.FindGameObjectWithTag(EnumTag.GameController.ToString()).GetComponent<MissionManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SwitchMission(bool state)
     {
-        
+        if (missionManager)
+            missionManager.SwitchMission(missionName, state);
+    }
+
+    public bool GetMission()
+    {
+        if (missionManager)
+            return missionManager.FindMission(missionName).isFinished;
+        Debug.LogWarning("Mission - " + missionName + " not found");
+        return false;
     }
 }
