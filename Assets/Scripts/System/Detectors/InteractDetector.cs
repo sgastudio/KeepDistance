@@ -16,10 +16,6 @@ public class InteractDetector : CollisionDetector
     public float interactDelay = 0.5f;
     bool interactCooldown = false;
     float LastInteractTime;
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
