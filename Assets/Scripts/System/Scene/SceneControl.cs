@@ -7,7 +7,7 @@ public class SceneControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SceneManager.LoadSceneAsync(1);
+        //SceneManager.LoadSceneAsync(1);
     }
 
     // Update is called once per frame
@@ -19,5 +19,14 @@ public class SceneControl : MonoBehaviour
     void OnDestroy()
     {
         return;
+    }
+
+    void TriggerFailed()
+    {
+        Debug.Log("Failed!");
+    }
+    void TriggerWin()
+    {
+        Debug.Log("Win!");
     }
 }
