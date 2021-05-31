@@ -14,7 +14,7 @@ public class ItemChecker : MonoBehaviour
         int itemIndex = inventoryManager.FindItemIndex(itemName);
         if (inventoryManager &&  itemIndex != -1)
         {
-            if(itemCount < inventoryManager.items[itemIndex].amount)
+            if(itemCount <= inventoryManager.items[itemIndex].amount)
                 onCheckSuccess.Invoke();
         }
     }
