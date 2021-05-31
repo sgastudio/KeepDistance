@@ -136,6 +136,31 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void EquipItemBack(int itemIndex)
+    {
+        EquipItem(itemIndex, ItemStatus.Back);
+    }
+    public void EquipItemBack(string itemName)
+    {
+        EquipItemBack(FindItemIndex(itemName));
+    }
+    public void EquipItemRHand(int itemIndex)
+    {
+        EquipItem(itemIndex, ItemStatus.RightHand);
+    }
+    public void EquipItemRHand(string itemName)
+    {
+        EquipItemRHand(FindItemIndex(itemName));
+    }
+    public void EquipItemLHand(int itemIndex)
+    {
+        EquipItem(itemIndex, ItemStatus.LeftHand);
+    }
+    public void EquipItemLHand(string itemName)
+    {
+        EquipItemLHand(FindItemIndex(itemName));
+    }
+
     public void EquipItem(string itemName, ItemStatus mountPoint)
     {
         EquipItem(FindItemIndex(itemName), mountPoint);
@@ -181,6 +206,14 @@ public class InventoryManager : MonoBehaviour
         DropItem(itemName, int.MaxValue);
     }
 
+    public void DropItemOnce(string itemName)
+    {
+        DropItemOnce(FindItemIndex(itemName));
+    }
+    public void DropItemOnce(int itemIndex)
+    {
+        DropItem(itemIndex, 1);
+    }
     public void DropItem(string itemName, int count = 1)
     {
         DropItem(FindItemIndex(itemName), count);
@@ -190,7 +223,7 @@ public class InventoryManager : MonoBehaviour
         //check item exist
         if (itemIndex < 0)
             return;
-            
+
         //drop an instance
         if (items[itemIndex].amount > count)
         {// drop some of the item
