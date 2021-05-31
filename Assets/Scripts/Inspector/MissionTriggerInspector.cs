@@ -29,7 +29,7 @@ public class MissionTriggerInspector : Editor
     public SerializedProperty ParamRotSlerp;*/
 
     public SerializedProperty missionName;
-    
+
     public void OnEnable()
     {
         obj = new SerializedObject(target);
@@ -64,7 +64,8 @@ public class MissionTriggerInspector : Editor
         GUILayout.BeginHorizontal();
         GUILayout.Label("Target Mission");
         string[] arr = missionManager.GetMissionArray();
-        this.missionName.stringValue = arr[EditorGUILayout.Popup(missionManager.FindMissionIndex(missionName.stringValue), arr)];
+        int index = EditorGUILayout.Popup(missionManager.FindMissionIndex(missionName.stringValue), arr);
+        this.missionName.stringValue = arr[index >= 0 ? index : 0];
         GUILayout.EndHorizontal();
         obj.ApplyModifiedProperties();
     }
