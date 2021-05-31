@@ -16,14 +16,18 @@ public class GoalDetector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void PlayerReached(Collider player)
     {
-        
+
         Debug.Log("[Player" + player.GetInstanceID().ToString() + "] reaches the goal");
-        bool allMission = missionManager.CheckAllMissionCompleted(missionRequirement.ToArray());
+        bool allMission;
+        if (missionRequirement.Count > 0)
+            allMission = missionManager.CheckAllMissionCompleted(missionRequirement.ToArray());
+        else
+            allMission = missionManager.CheckAllMissionCompleted();
         Debug.Log("All Mission - " + allMission.ToString());
     }
-} 
+}
