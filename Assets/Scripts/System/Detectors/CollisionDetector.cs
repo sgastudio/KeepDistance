@@ -2,18 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+public enum WorkMode
+{
+    Or,
+    And
+}
 public class CollisionDetector : MonoBehaviour
 {
-    public enum FilterMode
-    {
-        Or,
-        And
-    }
     [Header("Filter")]
     public LayerMask layers;
     public List<EnumTag> tags;
-    public FilterMode layerTagBlendMode;
+    public WorkMode layerTagBlendMode;
 
     [Header("Event")]
     public UnityEvent<Collider> targetEnter;
@@ -50,11 +49,11 @@ public class CollisionDetector : MonoBehaviour
     {
         switch (layerTagBlendMode)
         {
-            case FilterMode.And:
+            case WorkMode.And:
                 if (GetTagTest(other.gameObject) && GetLayerTest(other.gameObject.layer))
                     return true;
                 break;
-            case FilterMode.Or:
+            case WorkMode.Or:
                 if (GetTagTest(other.gameObject) || GetLayerTest(other.gameObject.layer))
                     return true;
                 break;
