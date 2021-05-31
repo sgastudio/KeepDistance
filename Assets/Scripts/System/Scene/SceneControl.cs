@@ -21,11 +21,11 @@ public class SceneControl : MonoBehaviour
         return;
     }
 
-    void TriggerFailed()
+    public void TriggerFailed()
     {
         Debug.Log("Failed!");
     }
-    void TriggerWin()
+    public void TriggerWin()
     {
         Debug.Log("Win!");
     }

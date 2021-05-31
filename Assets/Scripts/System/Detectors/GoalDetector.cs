@@ -29,5 +29,8 @@ public class GoalDetector : MonoBehaviour
         else
             allMission = missionManager.CheckAllMissionCompleted();
         Debug.Log("All Mission - " + allMission.ToString());
+
+        if(allMission)
+            GameObject.FindGameObjectWithTag(EnumTag.GameController.ToString()).GetComponent<SceneControl>().TriggerWin();
     }
 }
