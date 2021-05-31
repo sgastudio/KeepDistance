@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -71,6 +71,20 @@ public class MissionManager : MonoBehaviour
         }
         return result;
     }
+
+    public bool CheckAllMissionCompleted(string[] list)
+    {
+        bool result = true;
+        foreach(MissionContent m in missionList)
+        {
+            if(Array.FindIndex(list, listResult=>{
+                return listResult == m.name;
+            }) != -1)
+                result &= m.isFinished;
+        }
+        return result;
+    }
+
     public void FinishMission(int missionIndex)
     {
         SwitchMission(missionIndex);
@@ -140,5 +154,13 @@ public class MissionManager : MonoBehaviour
     public void AddMissionAppliedEvent(int index, UnityAction action)
     {
         missionList[index].eventApplied.AddListener(action);
+    }
+
+    public string[] GetMissionArray()
+    {
+        string[] arr = missionList.ConvertAll<string>(result =>{
+            return result.name;
+        }).ToArray();
+        return arr;
     }
 }
