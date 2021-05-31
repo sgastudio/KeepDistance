@@ -1364,19 +1364,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7faa4d4169b603246a28540e79f717a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layers:
-    serializedVersion: 2
-    m_Bits: 0
-  tags: 
-  layerTagBlendMode: 0
-  targetEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  targetExit:
-    m_PersistentCalls:
-      m_Calls: []
-  activeList: []
-  Namea: 
 --- !u!1 &1622191542
 GameObject:
   m_ObjectHideFlags: 0
@@ -1775,11 +1762,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8277eade6aa3f84cb023104aff5cbb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linePrefab: {fileID: 1913513231532759294, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
-  targetTag: Player
-  targetLayer:
+  layers:
     serializedVersion: 2
     m_Bits: 0
+  tags: 05000000
+  layerTagBlendMode: 0
+  targetEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1840801526}
+        m_TargetAssemblyTypeName: LineDetector, Assembly-CSharp
+        m_MethodName: TriggerEnter
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  targetExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1840801526}
+        m_TargetAssemblyTypeName: LineDetector, Assembly-CSharp
+        m_MethodName: TriggerExit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  activeList: []
+  linePrefab: {fileID: 1913513231532759294, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
   playerList: []
 --- !u!135 &1840801527
 SphereCollider:
