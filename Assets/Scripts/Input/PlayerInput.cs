@@ -44,7 +44,7 @@ public class PlayerInput : MonoBehaviour
     public float AdjustWeight = 0.8f;
     [ROA]
     public float AdjustValue;
-
+    Vector3 previousDirection;
 
     void OnEnable()
     {
@@ -62,7 +62,9 @@ public class PlayerInput : MonoBehaviour
         {
             Vector3 direction = (this.transform.rotation * desiredVelocity).normalized;
             if (direction.magnitude == 0)
-                direction = this.transform.forward;
+                direction = previousDirection;
+            else
+                previousDirection = direction;
             AdjustValue = 1.0f;
             foreach (GameObject o in AdjustObjects.activeList)
             {
