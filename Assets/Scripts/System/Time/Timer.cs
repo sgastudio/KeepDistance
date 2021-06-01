@@ -20,7 +20,7 @@ public class Timer : MonoBehaviour
     public UnityEvent onResume;
 
     [Header("UI")]
-    public Text uiTimer;
+    public Text timerText;
 
     public enum TimerState
     {
@@ -52,18 +52,18 @@ public class Timer : MonoBehaviour
         if (passedTime >= duration)
             StopTimer();
 
-        if (uiTimer)
+        if (timerText)
         {
             switch (state)
             {
                 case TimerState.Paused:
-                    uiTimer.text = "Paused";
+                    timerText.text = "Paused";
                     break;
                 case TimerState.Running:
-                    uiTimer.text = "Time Remain: " + ((int)(duration - passedTime) / 60).ToString() + ":" + ((int)(duration - passedTime) % 60).ToString();
+                    timerText.text = "Time Remain: " + ((int)(duration - passedTime) / 60).ToString() + ":" + ((int)(duration - passedTime) % 60).ToString();
                     break;
                 default:
-                    uiTimer.text = "Waiting";
+                    timerText.text = "Waiting";
                     break;
             }
         }
