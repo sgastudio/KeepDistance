@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
     [Header("Time Options")]
     public float duration = 10f;
-    float passedTime;
+    [ROA]
+    public float passedTime;
     public bool activeOnStart = false;
     public bool unscaled = true;
     [Header("Events")]
@@ -17,7 +19,11 @@ public class Timer : MonoBehaviour
     public UnityEvent onPaused;
     public UnityEvent onResume;
 
-    public enum TimerState{
+    [Header("UI")]
+    public Text uiTimer;
+
+    public enum TimerState
+    {
         Initial,
         Stopped,
         Finished,
@@ -25,32 +31,49 @@ public class Timer : MonoBehaviour
         Running,
     }
     TimerState state = TimerState.Initial;
-    
+
     // Start is called before the first frame update
     void Start()
     {
-        if(activeOnStart)
+        passedTime = 0;
+        if (activeOnStart)
             StartTimer();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(state == TimerState.Running)
-            if(unscaled)
-                passedTime +=  Time.unscaledDeltaTime;
+        if (state == TimerState.Running)
+            if (unscaled)
+                passedTime += Time.unscaledDeltaTime;
             else
                 passedTime += Time.deltaTime;
 
-        if(passedTime >= duration)
+        if (passedTime >= duration)
             StopTimer();
+
+        if (uiTimer)
+        {
+            switch (state)
+            {
+                case TimerState.Paused:
+                    uiTimer.text = "Paused";
+                    break;
+                case TimerState.Running:
+                    uiTimer.text = "Time Remain: " + ((int)(duration - passedTime) / 60).ToString() + ":" + ((int)(duration - passedTime) % 60).ToString();
+                    break;
+                default:
+                    uiTimer.text = "Waiting";
+                    break;
+            }
+        }
     }
 
     public void StartTimer()
     {
-        if(state != TimerState.Running)
+        if (state != TimerState.Running)
         {
-            if(state == TimerState.Paused)
+            if (state == TimerState.Paused)
                 onResume.Invoke();
             else
                 onStart.Invoke();
@@ -60,7 +83,7 @@ public class Timer : MonoBehaviour
 
     public void PauseTimer()
     {
-        if(state == TimerState.Running)
+        if (state == TimerState.Running)
         {
             onPaused.Invoke();
             state = TimerState.Paused;
@@ -69,10 +92,10 @@ public class Timer : MonoBehaviour
 
     public void StopTimer()
     {
-        if(state < TimerState.Paused)
+        if (state < TimerState.Paused)
             return;
-        
-        if(passedTime < duration)
+
+        if (passedTime < duration)
             state = TimerState.Stopped;
         else
             state = TimerState.Finished;
