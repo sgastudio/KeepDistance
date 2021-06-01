@@ -26,12 +26,19 @@ public class LinePair
     public GameObject Object;
     public GameObject LineObject;
 }
+
+[RequireComponent(typeof(SphereCollider))]
 public class LineDetector : CollisionDetector
 {
-     [Header("Components")]
+    [Header("Components")]
     public GameObject linePrefab;
     [ROA]
     public List<LinePair> playerList;
+    public float distance{
+        get{
+            return this.GetComponent<SphereCollider>().radius;
+        }
+    }
 
     void OnEnable()
     {

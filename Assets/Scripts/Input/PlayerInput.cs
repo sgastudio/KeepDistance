@@ -17,13 +17,13 @@ public class PlayerInput : MonoBehaviour
     public string rotationYAxisName = "Mouse Y";
     [Space]
     public Vector2 positionAxisWeight = Vector2.one;
-    public Vector2 rotationAxisWeight =new Vector2(1,0);
+    public Vector2 rotationAxisWeight = new Vector2(1, 0);
     [Space]
     public string jumpAxisName = "Jump";
     public string fire1AxisName = "Fire1";
     public string fire2AxisName = "Fire2";
     public string interactAxisName = "Fire3";
-    [ROA,Header("Monitor")]
+    [ROA, Header("Monitor")]
     public Vector2 positionAxis;
     [ROA]
     public Vector2 rotationAxis;
@@ -38,6 +38,12 @@ public class PlayerInput : MonoBehaviour
     [Header("Movement")]
     public float positionVelocity = 2.5f;
     public float rotationVelocity = 10.0f;
+    [Header("Adjustment")]
+    public LineDetector AdjustObjects;
+    [Range(0, 1)]
+    public float AdjustWeight = 0.8f;
+    [ROA]
+    public float AdjustValue;
 
 
     void OnEnable()
@@ -51,7 +57,22 @@ public class PlayerInput : MonoBehaviour
 
         Vector3 desiredVelocity = new Vector3(positionAxis.x * positionAxisWeight.x, 0, positionAxis.y * positionAxisWeight.y);
 
-        Vector3 caculatedVelocity = this.transform.rotation * desiredVelocity * positionVelocity;
+
+        if (AdjustObjects)
+        {
+            Vector3 direction = (this.transform.rotation * desiredVelocity).normalized;
+            if (direction.magnitude == 0)
+                direction = this.transform.forward;
+            AdjustValue = 1.0f;
+            foreach (GameObject o in AdjustObjects.activeList)
+            {
+                float projection = Vector3.Dot(o.transform.position - this.transform.position, direction);
+                float percentage = (projection > 0 ? projection / AdjustObjects.distance : 0) * AdjustWeight;
+                AdjustValue *= (1f - percentage);
+            }
+        }
+
+        Vector3 caculatedVelocity = this.transform.rotation * desiredVelocity * positionVelocity * AdjustValue;
         this.transform.Translate(caculatedVelocity * Time.deltaTime, Space.World);
 
         /*
@@ -59,8 +80,7 @@ public class PlayerInput : MonoBehaviour
         this.transform.Translate(caculatedVelocity * Time.deltaTime, Space.Self);
         */
 
-        
-        Vector3 desiredAngularVelocity = new Vector3(rotationAxis.y * rotationAxisWeight.y , rotationAxis.x * rotationAxisWeight.x / aspectRate, 0);
+        Vector3 desiredAngularVelocity = new Vector3(rotationAxis.y * rotationAxisWeight.y, rotationAxis.x * rotationAxisWeight.x / aspectRate, 0);
         Vector3 caculatedAngularVelocity = desiredAngularVelocity * rotationVelocity * Mathf.Rad2Deg;
         this.transform.rotation *= Quaternion.Euler(caculatedAngularVelocity * Time.deltaTime);
 
