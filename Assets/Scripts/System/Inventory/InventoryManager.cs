@@ -122,6 +122,10 @@ public class InventoryManager : MonoBehaviour
                 prefab.SetActive(false);
                 prefab.transform.SetParent(this.transform);
                 prefab.transform.SetPositionAndRotation(this.transform.position, this.transform.rotation);
+                if(prefab.GetComponent<Rigidbody>())
+                {
+                    prefab.GetComponent<Rigidbody>().isKinematic = true;
+                }
             }
             items.Add(new Item(itemName, type, addCount, prefab));
         }
@@ -230,6 +234,10 @@ public class InventoryManager : MonoBehaviour
                 sceneObject.SetActive(true);
                 //if the prefab/sceneobject have Item Agent Component
                 SetAgentInfo(sceneObject, items[itemIndex], count);
+                if(sceneObject.GetComponent<Rigidbody>())
+                {
+                    sceneObject.GetComponent<Rigidbody>().isKinematic = false;
+                }
             }
             else
             {//when there is no prefab or scene object of the item
@@ -238,7 +246,7 @@ public class InventoryManager : MonoBehaviour
             
             if(items[itemIndex].status!=ItemStatus.Backpack)
             {
-                ItemAgent childAgent = mountPoints[(int)items[itemIndex].status].anchorTransform.GetChild(0).GetComponent<ItemAgent>();
+                ItemAgent childAgent = mountPoints[FindMountPointIndex(items[itemIndex].status)].anchorTransform.GetChild(0).GetComponent<ItemAgent>();
                 childAgent.amount = items[itemIndex].amount;
             }
 
@@ -262,6 +270,11 @@ public class InventoryManager : MonoBehaviour
                 }
 
                 SetAgentInfo(sceneObject, items[itemIndex], items[itemIndex].amount);
+
+                if(sceneObject.GetComponent<Rigidbody>())
+                {
+                    sceneObject.GetComponent<Rigidbody>().isKinematic = false;
+                }
             }
             else
             {//when there is no prefab or scene object of the item
