@@ -31,7 +31,7 @@ public class MissionManager : MonoBehaviour
 
     void Start()
     {
-        PrintText();
+        
     }
 
     public void RegMission(string missionName, string description = "", bool isFinished = false)
@@ -62,8 +62,6 @@ public class MissionManager : MonoBehaviour
 
         missionList[missionIndex].isFinished = state;
 
-        PrintText();
-
         if (state)
         {
             //missionList[missionIndex].eventFinished.Invoke();
@@ -73,17 +71,7 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    void PrintText()
-    {
-        if (missionText)
-        {
-            missionText.text = "Missions\n";
-            foreach (MissionContent m in missionList)
-            {
-                missionText.text += (m.isFinished?"√":"×")+ m.name + (string.IsNullOrWhiteSpace(m.description) ? "" : "\n" + m.description) + "\n\n";
-            }
-        }
-    }
+    
 
     public bool CheckAllMissionCompleted()
     {

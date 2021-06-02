@@ -19,9 +19,6 @@ public class Timer : MonoBehaviour
     public UnityEvent onPaused;
     public UnityEvent onResume;
 
-    [Header("UI")]
-    public Text timerText;
-
     public enum TimerState
     {
         Initial,
@@ -30,7 +27,8 @@ public class Timer : MonoBehaviour
         Paused,
         Running,
     }
-    TimerState state = TimerState.Initial;
+    [ROA]
+    public TimerState state = TimerState.Initial;
 
     // Start is called before the first frame update
     void Start()
@@ -51,22 +49,6 @@ public class Timer : MonoBehaviour
 
         if (passedTime >= duration)
             StopTimer();
-
-        if (timerText)
-        {
-            switch (state)
-            {
-                case TimerState.Paused:
-                    timerText.text = "Paused";
-                    break;
-                case TimerState.Running:
-                    timerText.text = "Time Remain: " + ((int)(duration - passedTime) / 60).ToString() + ":" + ((int)(duration - passedTime) % 60).ToString();
-                    break;
-                default:
-                    timerText.text = "Waiting";
-                    break;
-            }
-        }
     }
 
     public void StartTimer()
