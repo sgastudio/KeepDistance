@@ -10,7 +10,7 @@ public class ItemCheckerPair
     public string name;
     public int count;
 }
-public class ItemChecker : MonoBehaviour
+public class InventoryChecker : MonoBehaviour
 {
     public InventoryManager inventoryManager;
     public List<ItemCheckerPair> requireItems;
