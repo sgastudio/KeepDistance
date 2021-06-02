@@ -12,13 +12,15 @@ public class ItemCheckerPair
 }
 public class ItemChecker : MonoBehaviour
 {
+    public InventoryManager inventoryManager;
     public List<ItemCheckerPair> requireItems;
     public WorkMode workMode;
-
-    public UnityEvent onCheckSuccess;
-    public void CheckInventory(Collider player)
+    public UnityEvent onCheckSucceeded;
+    public UnityEvent onCheckFailed;
+    public void CheckInventory(string ItemName)
     {
-        InventoryManager inventoryManager = player.GetComponent<InventoryManager>();
+        if(!inventoryManager)
+            return;
         List<int> itemIndex = new List<int>();
         foreach (ItemCheckerPair i in requireItems)
         {
@@ -44,6 +46,8 @@ public class ItemChecker : MonoBehaviour
         }
 
         if (result)
-            onCheckSuccess.Invoke();
+            onCheckSucceeded.Invoke();
+        else
+            onCheckFailed.Invoke();
     }
 }
