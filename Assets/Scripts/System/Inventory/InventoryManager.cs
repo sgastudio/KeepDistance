@@ -2,6 +2,7 @@ using System.Runtime.InteropServices;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum ItemType
 {
@@ -50,18 +51,10 @@ public class InventoryManager : MonoBehaviour
     public List<Item> items;
     public List<MountPoint> mountPoints;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    [Header("Events")]
+    public UnityEvent<string> onItemAdded;
+    public UnityEvent<string> onItemDropped;
+    public UnityEvent<string> onItemEquipped;
 
     public MountPoint FindMountPoint(string pointName)
     {
@@ -132,6 +125,7 @@ public class InventoryManager : MonoBehaviour
             }
             items.Add(new Item(itemName, type, addCount, prefab));
         }
+        onItemAdded.Invoke(itemName);
     }
 
     public void EquipItemBack(int itemIndex)
@@ -171,6 +165,7 @@ public class InventoryManager : MonoBehaviour
             if (items[itemIndex].prefab)
                 GameObject.Instantiate(items[itemIndex].prefab, FindMountPoint(mountPoint).anchorTransform).SetActive(true);
             items[itemIndex].status = mountPoint;
+            onItemEquipped.Invoke(items[itemIndex].name);
         }
     }
 
@@ -238,6 +233,8 @@ public class InventoryManager : MonoBehaviour
             {//when there is no prefab or scene object of the item
                 CreateEmptyItemObject(items[itemIndex]);
             }
+
+            onItemDropped.Invoke(items[itemIndex].name);
         }
         else
         {//all of the item will be droped
@@ -266,8 +263,10 @@ public class InventoryManager : MonoBehaviour
             //optional operations if items are mounted on any points
             if (items[itemIndex].status > 0)
                 UnequipItem(itemIndex);
+            onItemDropped.Invoke(items[itemIndex].name);
             items.RemoveAt(itemIndex);
         }
+
     }
 
     public GameObject CreateEmptyItemObject(Item item)
