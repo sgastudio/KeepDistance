@@ -6,43 +6,44 @@ using UnityEngine.Events;
 
 [System.Serializable]
 public class MissionContent{   
-    public MissionContent(string name)
+    public MissionContent(string name, string description="",bool isFinished = false)
     {
         this.name = name;
+        this.description = description;
+        this.isFinished = false;
     }
     public string name;
+    [TextArea]
+    public string description;
     public bool isFinished = false;
-    public UnityEvent eventFinished;
-    public UnityEvent eventApplied;
+    //public UnityEvent eventFinished;
+    //public UnityEvent eventApplied;
 }
 public class MissionManager : MonoBehaviour
 {
     public List<MissionContent> missionList;
     [Header("Manager Events")]
-    public UnityEvent newMissionAdded; 
-    public UnityEvent anyMissionFinished; 
+    public UnityEvent<string> newMissionAdded; 
+    public UnityEvent<string> anyMissionFinished; 
     public UnityEvent allMissionCompleted;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public void RegMission(string missionName, string description="",bool isFinished = false)
     {
-        
-    }
-
-    public void RegMission(string missionName, UnityEvent onFinish=null,UnityEvent onReg=null)
-    {
-        MissionContent mission = new MissionContent(missionName);
+        MissionContent mission = new MissionContent(missionName,description,isFinished);
         missionList.Add(mission);
-        if(mission.eventApplied != null)
-            mission.eventApplied.Invoke();
-        newMissionAdded.Invoke();
+        /*if(mission.eventApplied != null)
+            mission.eventApplied.Invoke();*/
+        newMissionAdded.Invoke(missionName);
     }
+
+    public void RegMission(MissionContent mission)
+    {
+        missionList.Add(mission);
+        /*if(mission.eventApplied != null)
+            mission.eventApplied.Invoke();*/
+        newMissionAdded.Invoke(mission.name);
+    }
+
     public void SwitchMission(string missionName, bool state = true)
     {
         SwitchMission(FindMissionIndex(missionName),state);
@@ -55,8 +56,8 @@ public class MissionManager : MonoBehaviour
         missionList[missionIndex].isFinished = state;
         if(state)
         {
-            missionList[missionIndex].eventFinished.Invoke();
-            anyMissionFinished.Invoke();
+            //missionList[missionIndex].eventFinished.Invoke();
+            anyMissionFinished.Invoke(missionList[missionIndex].name);
             if(CheckAllMissionCompleted())
                 allMissionCompleted.Invoke();
         }
@@ -148,12 +149,12 @@ public class MissionManager : MonoBehaviour
 
     public void AddMissionFinishedEvent(int index, UnityAction action)
     {
-        missionList[index].eventFinished.AddListener(action);
+        //missionList[index].eventFinished.AddListener(action);
     }   
 
     public void AddMissionAppliedEvent(int index, UnityAction action)
     {
-        missionList[index].eventApplied.AddListener(action);
+        //missionList[index].eventApplied.AddListener(action);
     }
 
     public string[] GetMissionArray()
