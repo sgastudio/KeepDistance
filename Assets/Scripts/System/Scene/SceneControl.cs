@@ -4,10 +4,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SceneControl : MonoBehaviour
 {
-    public DataManager dataManager;
+    DataManager dataManager;
+    [Scene,ROA]
     public string nextScene;
-    public string winScene;
-    public string failScene;
+    [Scene]
+    public string[] levels;
+    [Scene]
+    public string resultScene;
+    [Scene]
+    public string menuScene;
+    [Scene]
+    public string loadScene;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,28 +25,38 @@ public class SceneControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
 
-    void OnDestroy()
-    {
-        return;
     }
 
     public void TriggerFailed()
     {
         Debug.Log("Failed!");
-        if(dataManager)
-            dataManager.SetData("level result",0,"fail",true);
-        if(!string.IsNullOrWhiteSpace(failScene))
-            SceneManager.LoadScene(failScene);
+        if (dataManager)
+            dataManager.SetData("level result", 0, "fail", true);
+        if (!string.IsNullOrWhiteSpace(resultScene))
+        {
+            nextScene = resultScene;
+            SceneManager.LoadScene(loadScene);
+        }
+
     }
     public void TriggerWin()
     {
         Debug.Log("Win!");
-        if(dataManager)
-            dataManager.SetData("level result",1,"win",true);
-         if(!string.IsNullOrWhiteSpace(winScene))
-            SceneManager.LoadScene(winScene);
+        if (dataManager)
+            dataManager.SetData("level result", 1, "win", true);
+        if (!string.IsNullOrWhiteSpace(resultScene))
+        {
+            nextScene = resultScene;
+            SceneManager.LoadScene(loadScene);
+        }
+
+    }
+
+    public void TriggerNextLevel()
+    {
+        Debug.Log("Next Level!");
+        if (!string.IsNullOrWhiteSpace(nextScene))
+            SceneManager.LoadScene(loadScene);
     }
 }
