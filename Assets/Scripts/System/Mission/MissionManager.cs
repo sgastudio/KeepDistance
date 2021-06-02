@@ -5,8 +5,9 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
-public class MissionContent{   
-    public MissionContent(string name, string description="",bool isFinished = false)
+public class MissionContent
+{
+    public MissionContent(string name, string description = "", bool isFinished = false)
     {
         this.name = name;
         this.description = description;
@@ -22,14 +23,20 @@ public class MissionContent{
 public class MissionManager : MonoBehaviour
 {
     public List<MissionContent> missionList;
+    public UnityEngine.UI.Text missionText;
     [Header("Manager Events")]
-    public UnityEvent<string> newMissionAdded; 
-    public UnityEvent<string> anyMissionFinished; 
+    public UnityEvent<string> newMissionAdded;
+    public UnityEvent<string> anyMissionFinished;
     public UnityEvent allMissionCompleted;
 
-    public void RegMission(string missionName, string description="",bool isFinished = false)
+    void Start()
     {
-        MissionContent mission = new MissionContent(missionName,description,isFinished);
+        PrintText();
+    }
+
+    public void RegMission(string missionName, string description = "", bool isFinished = false)
+    {
+        MissionContent mission = new MissionContent(missionName, description, isFinished);
         missionList.Add(mission);
         /*if(mission.eventApplied != null)
             mission.eventApplied.Invoke();*/
@@ -46,27 +53,42 @@ public class MissionManager : MonoBehaviour
 
     public void SwitchMission(string missionName, bool state = true)
     {
-        SwitchMission(FindMissionIndex(missionName),state);
+        SwitchMission(FindMissionIndex(missionName), state);
     }
     public void SwitchMission(int missionIndex, bool state = true)
     {
-        if(missionList[missionIndex].isFinished == state)
+        if (missionList[missionIndex].isFinished == state)
             return;
-            
+
         missionList[missionIndex].isFinished = state;
-        if(state)
+
+        PrintText();
+
+        if (state)
         {
             //missionList[missionIndex].eventFinished.Invoke();
             anyMissionFinished.Invoke(missionList[missionIndex].name);
-            if(CheckAllMissionCompleted())
+            if (CheckAllMissionCompleted())
                 allMissionCompleted.Invoke();
+        }
+    }
+
+    void PrintText()
+    {
+        if (missionText)
+        {
+            missionText.text = "Missions\n";
+            foreach (MissionContent m in missionList)
+            {
+                missionText.text += (m.isFinished?"√":"×")+ m.name + (string.IsNullOrWhiteSpace(m.description) ? "" : "\n" + m.description) + "\n\n";
+            }
         }
     }
 
     public bool CheckAllMissionCompleted()
     {
         bool result = true;
-        foreach(MissionContent m in missionList)
+        foreach (MissionContent m in missionList)
         {
             result &= m.isFinished;
         }
@@ -76,9 +98,10 @@ public class MissionManager : MonoBehaviour
     public bool CheckAllMissionCompleted(string[] list)
     {
         bool result = true;
-        foreach(MissionContent m in missionList)
+        foreach (MissionContent m in missionList)
         {
-            if(Array.FindIndex(list, listResult=>{
+            if (Array.FindIndex(list, listResult =>
+            {
                 return listResult == m.name;
             }) != -1)
                 result &= m.isFinished;
@@ -115,7 +138,8 @@ public class MissionManager : MonoBehaviour
 
     public MissionContent FindMission(string missionName)
     {
-        return missionList.Find(result=>{
+        return missionList.Find(result =>
+        {
             return missionName == result.name;
         });
     }
@@ -127,7 +151,8 @@ public class MissionManager : MonoBehaviour
 
     public int FindMissionIndex(string missionName)
     {
-        return missionList.FindIndex(result=>{
+        return missionList.FindIndex(result =>
+        {
             return missionName == result.name;
         });
     }
@@ -139,18 +164,18 @@ public class MissionManager : MonoBehaviour
 
     public void AddMissionFinishedEvent(string missionName, UnityAction action)
     {
-        AddMissionFinishedEvent(FindMissionIndex(missionName),action);
-    }   
+        AddMissionFinishedEvent(FindMissionIndex(missionName), action);
+    }
 
     public void AddMissionAppliedEvent(string missionName, UnityAction action)
     {
-        AddMissionAppliedEvent(FindMissionIndex(missionName),action);
+        AddMissionAppliedEvent(FindMissionIndex(missionName), action);
     }
 
     public void AddMissionFinishedEvent(int index, UnityAction action)
     {
         //missionList[index].eventFinished.AddListener(action);
-    }   
+    }
 
     public void AddMissionAppliedEvent(int index, UnityAction action)
     {
@@ -159,7 +184,8 @@ public class MissionManager : MonoBehaviour
 
     public string[] GetMissionArray()
     {
-        string[] arr = missionList.ConvertAll<string>(result =>{
+        string[] arr = missionList.ConvertAll<string>(result =>
+        {
             return result.name;
         }).ToArray();
         return arr;
