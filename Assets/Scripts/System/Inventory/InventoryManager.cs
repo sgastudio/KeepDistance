@@ -161,6 +161,8 @@ public class InventoryManager : MonoBehaviour
     {
         if (itemIndex >= 0)
         {
+            if(items[itemIndex].status == mountPoint)
+                return;
             UnequipAnyItem(mountPoint);
             if (items[itemIndex].prefab)
                 GameObject.Instantiate(items[itemIndex].prefab, FindMountPoint(mountPoint).anchorTransform).SetActive(true);
@@ -232,6 +234,12 @@ public class InventoryManager : MonoBehaviour
             else
             {//when there is no prefab or scene object of the item
                 CreateEmptyItemObject(items[itemIndex]);
+            }
+            
+            if(items[itemIndex].status!=ItemStatus.Backpack)
+            {
+                ItemAgent childAgent = mountPoints[(int)items[itemIndex].status].anchorTransform.GetChild(0).GetComponent<ItemAgent>();
+                childAgent.amount = items[itemIndex].amount;
             }
 
             onItemDropped.Invoke(items[itemIndex].name);
