@@ -2,28 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Photon.Pun;
+using UnityEngine.UI;
 
-public class UI_Network : MonoBehaviour
+public class UI_Network : StackPanel
 {
-    public UnityEvent onBack;
-    public UnityEvent onConnect;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public InputField userNameField;
     public void triggerBack()
     {
-        onBack.Invoke();
+        TriggerLastPanel();
     }
+
     public void triggerConnect()
     {
-        onConnect.Invoke();
+        if(userNameField)
+            networkManager.SetNickName(string.IsNullOrEmpty(userNameField.text)?"Guest"+GetInstanceID():userNameField.text);
+        if(networkManager)
+            networkManager.Connect();
+
     }
+
+    public override void OnConnectedToMaster()
+    {
+        TriggerNextPanel();
+    }
+    
 }

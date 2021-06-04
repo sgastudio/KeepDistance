@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+//using UnityEngine.Events;
 
-public class UI_Main : MonoBehaviour
+public class UI_Main : StackPanel
 {
-    public UnityEvent onPlay;
-    public UnityEvent onOption;
+    //public UnityEvent onPlay;
+    //public UnityEvent onOption;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,11 +21,12 @@ public class UI_Main : MonoBehaviour
 
     public void triggerPlay()
     {
-        onPlay.Invoke();
+        //onPlay.Invoke();
+        TriggerNextPanel();
     }
     public void triggerOption()
     {
-        onOption.Invoke();
+        //onOption.Invoke();
     }
 
     public void triggerExit()

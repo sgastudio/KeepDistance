@@ -2,42 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-public class UI_FindLobby : MonoBehaviour
+
+using Photon.Pun;
+using Photon.Realtime;
+
+public class UI_FindLobby : StackPanel
 {
-    public UnityEvent onBack;
-    public UnityEvent onJoin;
-    public UnityEvent onCreate;
-    public UnityEvent onRefresh;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void triggerBack()
     {
-        onBack.Invoke();
+        networkManager.Disconnect();
     }
 
     public void triggerJoin()
     {
-        onJoin.Invoke();
+        //onJoin.Invoke();
     }
 
     public void triggerRefresh()
     {
-        onRefresh.Invoke();
+        //onRefresh.Invoke();
     }
 
     public void triggerCreate()
     {
-        onCreate.Invoke();
+        networkManager.CreateRoom();
     }
 
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        TriggerLastPanel();
+    }
 }
