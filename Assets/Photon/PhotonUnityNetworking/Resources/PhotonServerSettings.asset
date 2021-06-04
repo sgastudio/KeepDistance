@@ -16,8 +16,8 @@ MonoBehaviour:
     AppIdRealtime: a4745a83-5e8a-4594-9123-ae67f97cc50a
     AppIdChat: 
     AppIdVoice: 
-    AppVersion: 
-    UseNameServer: 1
+    AppVersion: 1.0
+    UseNameServer: 0
     FixedRegion: 
     Server: 47.100.32.196
     Port: 5055
@@ -26,8 +26,8 @@ MonoBehaviour:
     EnableProtocolFallback: 1
     AuthMode: 0
     EnableLobbyStatistics: 0
-    NetworkLogging: 1
-  DevRegion: 
+    NetworkLogging: 5
+  DevRegion: asia
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
@@ -40,4 +40,4 @@ MonoBehaviour:
   - RespawnSpaceship
   DisableAutoOpenWizard: 1
   ShowSettings: 1
-  DevRegionSetOnce: 0
+  DevRegionSetOnce: 1
