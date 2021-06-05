@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class StackPanel : MonoBehaviourPunCallbacks
 {
     public NetworkManager networkManager;
     public GameObject lastPanel;
-    public GameObject nextPanel;
+    public GameObject[] nextPanel;
 
     public UnityEvent<GameObject> onNextPanel;
     public UnityEvent<GameObject> onLastPanel;
@@ -18,24 +19,36 @@ public class StackPanel : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        if(!networkManager)
+        if (!networkManager)
             networkManager = GameObject.FindGameObjectWithTag(EnumTag.GameController.ToString()).GetComponent<NetworkManager>();
-        if(lastPanel)
+    }
+
+    void Awake()
+    {
+        if (lastPanel)
             this.gameObject.SetActive(false);
     }
 
-    public void TriggerNextPanel()
+    public void TriggerNextPanel(string panelObjectName)
     {
-        if(!nextPanel)
+        int index = Array.FindIndex(nextPanel,result=>{
+            return result.name == panelObjectName;
+        });
+        if(index>=0)
+        TriggerNextPanel(index);
+    }
+    public void TriggerNextPanel(int index = 0)
+    {
+        if (!nextPanel[index])
             return;
-        this.nextPanel.SetActive(true);
+        this.nextPanel[index].SetActive(true);
         this.gameObject.SetActive(false);
-        onNextPanel.Invoke(nextPanel);
+        onNextPanel.Invoke(nextPanel[index]);
     }
 
-     public void TriggerLastPanel()
+    public void TriggerLastPanel()
     {
-        if(!lastPanel)
+        if (!lastPanel)
             return;
         this.lastPanel.SetActive(true);
         this.gameObject.SetActive(false);
