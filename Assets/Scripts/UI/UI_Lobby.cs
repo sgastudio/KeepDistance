@@ -17,16 +17,17 @@ public class UI_Lobby : StackPanel
     public void triggerJoin()
     {
         //onJoin.Invoke();
+        TriggerNextPanel("Panel_Join");
     }
 
-    public void triggerRefresh()
+    public void triggerRandomJoin()
     {
         //onRefresh.Invoke();
     }
 
     public void triggerCreate()
     {
-        networkManager.CreateRoom();
+        TriggerNextPanel("Panel_Create");
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -36,9 +37,12 @@ public class UI_Lobby : StackPanel
 
     public override void OnRoomListUpdate(List<RoomInfo> rooms)
     {
+        Debug.Log("PUN called OnRoomListUpdate()");
+        if(!roomSelector)
+            return;
         roomSelector.ClearOptions();
         roomSelector.options = rooms.ConvertAll<Dropdown.OptionData>(result=>{
-            return new Dropdown.OptionData(result.Name + result.PlayerCount.ToString() +"/"+ result.MaxPlayers.ToString());
+            return new Dropdown.OptionData(result.Name +" - "+ result.PlayerCount.ToString() +"/"+ result.MaxPlayers.ToString());
         });
     }
 }
