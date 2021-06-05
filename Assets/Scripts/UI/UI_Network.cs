@@ -16,7 +16,16 @@ public class UI_Network : StackPanel
     public void triggerConnect()
     {
         if(userNameField)
-            networkManager.SetNickName(string.IsNullOrEmpty(userNameField.text)?"Guest"+GetInstanceID():userNameField.text);
+            if(string.IsNullOrEmpty(userNameField.text))
+            {
+                string tempName = "Guest"+GetInstanceID();
+                networkManager.SetNickName(tempName);
+                userNameField.text = tempName; 
+            }
+            else
+            {
+                networkManager.SetNickName(userNameField.text);
+            }
         if(networkManager)
             networkManager.Connect();
 
@@ -27,4 +36,10 @@ public class UI_Network : StackPanel
         TriggerNextPanel();
     }
     
+
+    public void TriggerChangeNickName(string name)
+    {
+        if(networkManager)
+            networkManager.SetNickName(userNameField.text);
+    }
 }
