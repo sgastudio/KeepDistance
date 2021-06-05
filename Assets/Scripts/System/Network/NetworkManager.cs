@@ -44,6 +44,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void CreateRoom() 
     {
         PhotonNetwork.CreateRoom(null, new RoomOptions{MaxPlayers = maxPlayersPerRoom});
+        //PhotonNetwork.JoinLobby();
+        //PhotonNetwork.GetCustomRoomList(TypedLobby.Default,"Select *");
+    }
+
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
     }
 
     public void Disconnect()
@@ -59,6 +66,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("PUN Connected and calling OnConnectedTOMaster()");
+        PhotonNetwork.JoinLobby();
         //PhotonNetwork.JoinRandomRoom();
     }
 
