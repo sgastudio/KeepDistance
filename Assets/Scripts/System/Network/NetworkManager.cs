@@ -12,6 +12,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public string gameVersion = "0.1";
     public string clientNickName;
+    public List<RoomInfo> roomList;
 
     /// <summary>
     /// The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created.
@@ -53,6 +54,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
+    public void JoinRoom(string room,string[] expectedUsers = null)
+    {
+        PhotonNetwork.JoinRoom(room, expectedUsers);
+    }
+
     public void Disconnect()
     {
         PhotonNetwork.Disconnect();
@@ -89,5 +95,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void SetNickName(string name)
     {
         clientNickName = name;
+    }
+
+    public override void OnRoomListUpdate(List<RoomInfo> rooms)
+    {
+        roomList = rooms;
     }
 }
