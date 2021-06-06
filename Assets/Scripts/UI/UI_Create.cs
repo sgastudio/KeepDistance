@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_Create : MonoBehaviour
+public class UI_Create : StackPanel
 {
-    // Start is called before the first frame update
-    void Start()
+    public void triggerBack()
     {
-        
+        TriggerLastPanel();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void triggerCreate()
     {
-        
+        if (networkManager)
+            networkManager.CreateRoom();
+    }
+
+    public override void OnJoinedRoom()
+    {
+        TriggerNextPanel();
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,6 +9,11 @@ using Photon.Realtime;
 
 public class UI_Lobby : StackPanel
 {
+    private void Update()
+    {
+        if (networkManager && roomSelector && networkManager.roomList.Count != roomSelector.options.Count)
+            UpdateRoomDropdown();
+    }
     public Dropdown roomSelector;
     public void triggerBack()
     {
@@ -37,12 +43,17 @@ public class UI_Lobby : StackPanel
 
     public override void OnRoomListUpdate(List<RoomInfo> rooms)
     {
-        Debug.Log("PUN called OnRoomListUpdate()");
-        if(!roomSelector)
+        UpdateRoomDropdown();
+    }
+
+    public void UpdateRoomDropdown()
+    {
+        if (!roomSelector || !networkManager)
             return;
         roomSelector.ClearOptions();
-        roomSelector.options = rooms.ConvertAll<Dropdown.OptionData>(result=>{
-            return new Dropdown.OptionData(result.Name +" - "+ result.PlayerCount.ToString() +"/"+ result.MaxPlayers.ToString());
+        roomSelector.options = networkManager.roomList.ConvertAll<Dropdown.OptionData>(result =>
+        {
+            return new Dropdown.OptionData(result.Name + " - " + result.PlayerCount.ToString() + "/" + result.MaxPlayers.ToString());
         });
     }
 }

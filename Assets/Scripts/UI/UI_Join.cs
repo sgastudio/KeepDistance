@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class UI_Join : MonoBehaviour
+public class UI_Join : StackPanel
 {
-    // Start is called before the first frame update
-    void Start()
+    public string selectedRoom;
+    public void triggerBack()
     {
-        
+        TriggerLastPanel();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void triggerJoin()
     {
-        
+        if(networkManager)
+            networkManager.JoinRoom(selectedRoom);
+    }
+
+    public override void OnJoinedRoom()
+    {
+        TriggerNextPanel();
     }
 }
