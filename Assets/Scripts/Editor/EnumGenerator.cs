@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-public class EnumTagGenerator : MonoBehaviour
+public class EnumGenerator : MonoBehaviour
 {
     [MenuItem("Tools/Generate Tag Enum")]
     public static void GenTagEnum()
