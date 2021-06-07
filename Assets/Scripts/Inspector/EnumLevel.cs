@@ -1,8 +1,8 @@
 ﻿public enum EnumLevel
 {
 	MainMenu,
-	Result,
 	Loading,
+	Result,
 	TestScene,
 	Level_Mail,
 	Level_Test,
