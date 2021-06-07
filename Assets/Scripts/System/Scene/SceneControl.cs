@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class SceneControl : MonoBehaviour
 {
     DataManager dataManager;
     [Scene,ROA]
     public string nextScene;
+    [Scene,ROA]
+    public string nextNetworkScene;
     [Scene]
     public string[] levels;
     [Scene]
@@ -48,7 +51,7 @@ public class SceneControl : MonoBehaviour
         if (!string.IsNullOrWhiteSpace(resultScene))
         {
             nextScene = resultScene;
-            SceneManager.LoadScene(loadScene);
+            SceneManager.LoadScene(EnumLevel.Loading.ToString());
         }
 
     }
