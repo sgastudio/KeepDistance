@@ -14,7 +14,8 @@ public class UI_Room : StackPanel
 
         public void triggerStart()
         {
-            
+            if(networkManager)
+                networkManager.StartArena();
         }
     #endregion
 

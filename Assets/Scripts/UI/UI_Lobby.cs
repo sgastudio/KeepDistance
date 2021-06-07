@@ -9,12 +9,15 @@ using Photon.Realtime;
 
 public class UI_Lobby : StackPanel
 {
+    public Dropdown roomSelector;
+
     private void Update()
     {
-        if (networkManager && roomSelector && networkManager.roomList.Count != roomSelector.options.Count)
-            UpdateRoomDropdown();
+        /*if (networkManager && roomSelector)
+            if(networkManager.roomList.Count != roomSelector.options.Count)
+                UpdateRoomDropdown();*/
     }
-    public Dropdown roomSelector;
+
     public void triggerBack()
     {
         networkManager.Disconnect();
@@ -23,7 +26,11 @@ public class UI_Lobby : StackPanel
     public void triggerJoin()
     {
         //onJoin.Invoke();
-        TriggerNextPanel("Panel_Join");
+        if (networkManager && roomSelector)
+            if (roomSelector.options.Count > 0)
+                networkManager.JoinRoom(roomSelector.options[roomSelector.value].text);
+        //TODO: else if password required
+
     }
 
     public void triggerRandomJoin()
@@ -43,17 +50,24 @@ public class UI_Lobby : StackPanel
 
     public override void OnRoomListUpdate(List<RoomInfo> rooms)
     {
-        UpdateRoomDropdown();
+        //UpdateRoomDropdown(networkManager.roomList);
+        UpdateRoomDropdown(rooms);
     }
 
-    public void UpdateRoomDropdown()
+    public void UpdateRoomDropdown(List<RoomInfo> rooms)
     {
         if (!roomSelector || !networkManager)
             return;
         roomSelector.ClearOptions();
         roomSelector.options = networkManager.roomList.ConvertAll<Dropdown.OptionData>(result =>
         {
-            return new Dropdown.OptionData(result.Name + " - " + result.PlayerCount.ToString() + "/" + result.MaxPlayers.ToString());
+            //return new Dropdown.OptionData(result.Name + " - " + result.PlayerCount.ToString() + "/" + result.MaxPlayers.ToString());
+            return new Dropdown.OptionData(result.Name);
         });
+    }
+
+    public override void OnJoinedRoom()
+    {
+        TriggerNextPanel("Panel_Room");
     }
 }
