@@ -17,6 +17,18 @@ public class InventoryChecker : MonoBehaviour
     public WorkMode workMode;
     public UnityEvent onCheckSucceeded;
     public UnityEvent onCheckFailed;
+    void Start()
+    {
+        if(!inventoryManager)
+            inventoryManager = this.GetComponent<InventoryManager>();
+        if(inventoryManager)
+        {
+            inventoryManager.onItemAdded.AddListener(CheckInventory);
+            inventoryManager.onItemDropped.AddListener(CheckInventory);
+        }
+        else
+            Debug.LogError("Missing InventoryManager Component in InventoryChecker");
+    }
     public void CheckInventory(string ItemName)
     {
         if(!inventoryManager)
