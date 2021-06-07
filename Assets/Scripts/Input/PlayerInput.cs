@@ -38,6 +38,8 @@ public class PlayerInput : MonoBehaviour
     [Header("Movement")]
     public float positionVelocity = 2.5f;
     public float rotationVelocity = 10.0f;
+    [ROA]
+    public Vector3 adjustedVelocity;
     [Header("Adjustment")]
     public LineDetector AdjustObjects;
     [Range(0, 1)]
@@ -45,6 +47,7 @@ public class PlayerInput : MonoBehaviour
     [ROA]
     public float AdjustValue;
     Vector3 previousDirection;
+    
 
     void OnEnable()
     {
@@ -73,8 +76,8 @@ public class PlayerInput : MonoBehaviour
                 AdjustValue *= (1f - percentage);
             }
         }
-
-        Vector3 caculatedVelocity = this.transform.rotation * desiredVelocity * positionVelocity * AdjustValue;
+        adjustedVelocity = desiredVelocity * AdjustValue;
+        Vector3 caculatedVelocity = this.transform.rotation * adjustedVelocity * positionVelocity;
         this.transform.Translate(caculatedVelocity * Time.deltaTime, Space.World);
 
         /*
