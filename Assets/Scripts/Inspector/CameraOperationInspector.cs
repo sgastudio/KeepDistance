@@ -60,6 +60,7 @@ public class CameraOperationInspector : Editor
 
         CameraOperation cameraOperation = target as CameraOperation;
         cameraOperation.mode = (CameraOperation.cameraMode)EditorGUILayout.EnumPopup("Camera Mode", cameraOperation.mode);
+        cameraOperation.followingOnStart = EditorGUILayout.Toggle("Tracking On Start",cameraOperation.followingOnStart);
         if (cameraOperation.mode == CameraOperation.cameraMode.firstPerson)
         {
 

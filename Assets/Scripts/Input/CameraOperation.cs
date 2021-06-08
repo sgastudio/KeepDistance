@@ -15,6 +15,7 @@ public class CameraOperation : MonoBehaviour
         //fixedFocusedThirdPerson = 4,
     };
     [Header("Camera Mode")]
+    public bool followingOnStart = false;
     public cameraMode mode;
 
     [Header("Targeting")]
@@ -47,6 +48,9 @@ public class CameraOperation : MonoBehaviour
 
     [Header("Development Settings")]
     public float gizmosSize = 0.1f;
+
+    bool isFollowing = false;
+    
     /* 
 	[Header("")]
 	public bool isThirdPersonMode = true;
@@ -70,13 +74,15 @@ public class CameraOperation : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if(followingOnStart)
+            isFollowing = true;
         //this.GetComponent<Camera> ().clearFlags = CameraClearFlags.Skybox;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!targetObject)
+        if (!targetObject || !isFollowing)
             return;
         switch (mode)
         {
@@ -205,6 +211,21 @@ public class CameraOperation : MonoBehaviour
 				this.transform.LookAt (targetObject.transform.position + Vector3.forward + targetPositionOffset + cameraPositionOffset);
 			}
 		}*/
+    }
+
+    public void TrackingObject(GameObject other, bool startTracking = true)
+    {
+        if(other)
+        {
+            targetObject = other;
+            isFollowing = startTracking;
+        }
+    }
+
+    public void StopTracking()
+    {
+        targetObject = null;
+        isFollowing = false;
     }
     private void OnDrawGizmos()
     {
