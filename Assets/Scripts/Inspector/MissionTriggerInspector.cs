@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,4 +32,4 @@ public class MissionTriggerInspector : Editor
         obj.ApplyModifiedProperties();
     }
 }
-#endif
+#endif*/
