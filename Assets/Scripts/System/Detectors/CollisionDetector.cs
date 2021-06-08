@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Photon.Pun;
 public enum WorkMode
 {
     Or,
@@ -13,6 +14,7 @@ public class CollisionDetector : MonoBehaviour
     public LayerMask layers;
     public List<EnumTag> tags;
     public WorkMode layerTagBlendMode;
+    public bool LocalPlayerOnly = true;
 
     [Header("Event")]
     public UnityEvent<Collider> targetEnter;
@@ -21,28 +23,33 @@ public class CollisionDetector : MonoBehaviour
     [ROA, Space]
     public List<GameObject> activeList;
 
+    PhotonView photonView;
+
     // Start is called before the first frame update
     void Start()
     {
         activeList.Clear();
+        photonView = this.GetComponentInParent<PhotonView>();
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (blendTest(other))
-        {
-            activeList.Remove(other.gameObject);
-            targetExit.Invoke(other);
-        }
+        if (GetNetworkingTest())
+            if (blendTest(other))
+            {
+                activeList.Remove(other.gameObject);
+                targetExit.Invoke(other);
+            }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (blendTest(other))
-        {
-            activeList.Add(other.gameObject);
-            targetEnter.Invoke(other);
-        }
+        if (GetNetworkingTest())
+            if (blendTest(other))
+            {
+                activeList.Add(other.gameObject);
+                targetEnter.Invoke(other);
+            }
     }
 
     bool blendTest(Collider other)
@@ -76,5 +83,16 @@ public class CollisionDetector : MonoBehaviour
             Result |= obj.CompareTag(tag.ToString());
         }
         return Result;
+    }
+
+    public bool GetNetworkingTest()
+    {
+        if (LocalPlayerOnly)
+            if (photonView)
+                return photonView.IsMine;
+            else
+                return true;
+        else
+            return true;
     }
 }
