@@ -7,12 +7,13 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
+
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
-
     public string gameVersion = "0.1";
     public string clientNickName;
     public List<RoomInfo> roomList;
+    public SceneControl sceneControl;
 
     /// <summary>
     /// The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created.
@@ -24,9 +25,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        if(!sceneControl)
+            sceneControl = GetComponent<SceneControl>();
+        if(!sceneControl)
+            Debug.LogError("NetworkManager missing component SceneControl");
         ClientState state = PhotonNetwork.NetworkClientState;
         //make compatibility for self-hold sever
         PhotonNetwork.NetworkingClient.LoadBalancingPeer.SerializationProtocolType = ExitGames.Client.Photon.SerializationProtocol.GpBinaryV16;
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     // Update is called once per frame
@@ -39,12 +45,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.GameVersion = gameVersion;
-        PhotonNetwork.NickName  = clientNickName;
+        PhotonNetwork.NickName = clientNickName;
     }
 
-    public void CreateRoom() 
+    public void CreateRoom(string roomName)
     {
-        PhotonNetwork.CreateRoom(null, new RoomOptions{MaxPlayers = maxPlayersPerRoom});
+        Debug.Log("PUN Creating room with name - " + roomName);
+        PhotonNetwork.CreateRoom(roomName, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
         //PhotonNetwork.JoinLobby();
         //PhotonNetwork.GetCustomRoomList(TypedLobby.Default,"Select *");
     }
@@ -54,9 +61,25 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
-    public void JoinRoom(string room,string[] expectedUsers = null)
+    public void JoinRoom(string room, string[] expectedUsers = null)
     {
         PhotonNetwork.JoinRoom(room, expectedUsers);
+    }
+
+    public void StartArena()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            Debug.LogError("PUN Try to load level but not the master client");
+            return;
+        }
+
+        
+        PhotonNetwork.LoadLevel(EnumLevel.Loading.ToString());
+
+        //Level selection here
+        if (sceneControl)
+            sceneControl.nextNetworkScene = EnumLevel.TestScene.ToString();
     }
 
     public void Disconnect()
@@ -66,14 +89,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public void GetLobby()
     {
-        PhotonNetwork.GetCustomRoomList(TypedLobby.Default,"Select *");
+        PhotonNetwork.GetCustomRoomList(TypedLobby.Default, "Select *");
     }
 
     public override void OnConnectedToMaster()
     {
         Debug.Log("PUN Connected and calling OnConnectedTOMaster()");
         PhotonNetwork.JoinLobby();
-        //PhotonNetwork.JoinRandomRoom();
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -84,7 +106,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log("PUN called OnJoinRandomFailed(), but no room avaliable");
-       
+
     }
 
     public override void OnJoinedRoom()
@@ -100,5 +122,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnRoomListUpdate(List<RoomInfo> rooms)
     {
         roomList = rooms;
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        base.OnPlayerEnteredRoom(newPlayer);
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
     }
 }
