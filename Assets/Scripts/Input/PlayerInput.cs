@@ -2,7 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon;
+using Photon.Pun;
 public class PlayerInput : MonoBehaviour
 {
     [Header("Mouse")]
@@ -46,18 +47,40 @@ public class PlayerInput : MonoBehaviour
     public float AdjustWeight = 0.8f;
     [ROA]
     public float AdjustValue;
-    Vector3 previousDirection;
-    
 
-    void OnEnable()
+    #region private variables
+    Vector3 previousDirection;
+    PhotonView photonView;
+    #endregion
+
+    void Start()
     {
         Cursor.lockState = cursorLock;
         Cursor.visible = cursorVisible;
+
+        photonView = this.GetComponent<PhotonView>();
+        BindCamera();
+    }
+
+    void BindCamera()
+    {
+        CameraOperation camera = Camera.main.GetComponent<CameraOperation>();
+
+        if (camera)
+        {
+            if(photonView.IsMine)
+                camera.TrackingObject(this.gameObject);
+        }
+        else
+        {
+            Debug.LogError("PlayerInput Trying to bind camera, but missing CameraOperation script on main camera");
+        }
     }
 
     void FixedUpdate()
     {
-
+        if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
+            return;
         Vector3 desiredVelocity = new Vector3(positionAxis.x * positionAxisWeight.x, 0, positionAxis.y * positionAxisWeight.y);
 
 
@@ -88,12 +111,12 @@ public class PlayerInput : MonoBehaviour
         Vector3 desiredAngularVelocity = new Vector3(rotationAxis.y * rotationAxisWeight.y, rotationAxis.x * rotationAxisWeight.x / aspectRate, 0);
         Vector3 caculatedAngularVelocity = desiredAngularVelocity * rotationVelocity * Mathf.Rad2Deg;
         this.transform.rotation *= Quaternion.Euler(caculatedAngularVelocity * Time.deltaTime);
-
-
     }
 
     void Update()
     {
+        if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
+            return;
         positionAxis = new Vector2(Input.GetAxis(positionXAxisName), Input.GetAxis(positionYAxisName));
         rotationAxis = new Vector2(Input.GetAxis(rotationXAxisName), Input.GetAxis(rotationYAxisName));
         jumpAxis = Input.GetAxis(jumpAxisName);
