@@ -10,6 +10,8 @@ public class MissionTrigger : MonoBehaviour
     void Start()
     {
         missionManager = GameObject.FindGameObjectWithTag(EnumTag.GameController.ToString()).GetComponent<MissionManager>();
+        if(!missionManager)
+            Debug.LogError("MissionTrigger missing component MissionManager");
     }
 
     public void SwitchMission(bool state)
