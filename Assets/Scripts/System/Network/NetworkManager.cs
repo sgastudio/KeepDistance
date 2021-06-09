@@ -96,22 +96,25 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("PUN Connected and calling OnConnectedTOMaster()");
         PhotonNetwork.JoinLobby();
+        base.OnConnectedToMaster();
     }
 
     public override void OnDisconnected(DisconnectCause cause)
     {
         Debug.LogWarningFormat("PUN Basics Tutorial/Launcher: OnDisconnected() was called by PUN with reason {0}", cause);
+        base.OnDisconnected(cause);
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log("PUN called OnJoinRandomFailed(), but no room avaliable");
-
+        base.OnJoinRoomFailed(returnCode,message);
     }
 
     public override void OnJoinedRoom()
     {
         Debug.Log("PUN called OnJoinedRoom(), Room joined");
+        base.OnJoinedRoom();
     }
 
     public void SetNickName(string name)
@@ -122,6 +125,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnRoomListUpdate(List<RoomInfo> rooms)
     {
         roomList = rooms;
+        base.OnRoomListUpdate(rooms);
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
