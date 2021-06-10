@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 3569400974636163424}
   - component: {fileID: 3569400974636163439}
   - component: {fileID: 3569400974636163438}
+  - component: {fileID: 1676715103551023371}
   m_Layer: 0
   m_Name: BasicMotionPlayer
   m_TagString: Player
@@ -306,12 +307,14 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 1
+  Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 1
   ObservedComponents:
   - {fileID: 3569400974636163424}
+  - {fileID: 1676715103551023371}
   - {fileID: 3569400973661744787}
+  - {fileID: 745068505939942567}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -382,6 +385,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: 
   playerGroup: 0
+--- !u!114 &1676715103551023371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3569400974636163437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &3569400974793890990
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,16 +447,16 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 1
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Blend
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Moving
   - Type: 9
     SynchronizeType: 0
     Name: Jump
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 1
     LayerIndex: 0
 --- !u!114 &3569400974689635627
 MonoBehaviour:
