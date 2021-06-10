@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon;
+using Photon.Pun;
 
-public class GoalDetector : MonoBehaviour
+public class GoalDetector : MonoBehaviourPunCallbacks,IPunObservable
 //public class GoalDetector : CollisionDetector
 {
     MissionManager missionManager;
@@ -10,18 +12,18 @@ public class GoalDetector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        missionManager = GameObject.FindGameObjectWithTag(EnumTag.GameController.ToString()).GetComponent<MissionManager>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        GameObject controller = GameObject.FindGameObjectWithTag(EnumTag.GameController.ToString());
+        if(missionManager == null && controller)
+            missionManager = controller.GetComponent<MissionManager>();
+        
+        if(missionManager == null)
+            Debug.LogError(gameObject+" missing component MissionManager");
     }
 
     public void PlayerReached(Collider player)
     {
-
+        if(missionManager == null)
+            return;
         Debug.Log("[Player" + player.GetInstanceID().ToString() + "] reaches the goal");
         bool allMission;
         if (missionRequirement.Count > 0)
@@ -33,4 +35,13 @@ public class GoalDetector : MonoBehaviour
         if(allMission)
             GameObject.FindGameObjectWithTag(EnumTag.GameController.ToString()).GetComponent<SceneControl>().TriggerWin();
     }
+
+    #region IPunObservable implementation
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+
+    }
+
+    #endregion
 }
