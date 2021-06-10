@@ -46,13 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7988d87e74cb58843990246248a328b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missionList:
-  - name: Switch On
-    description: Switch the cube ON
-    isFinished: 0
-  - name: Carry Lost Key
-    description: take the Lost Key in the inventory
-    isFinished: 0
+  missionList: []
   missionText: {fileID: 0}
   newMissionAdded:
     m_PersistentCalls:
@@ -76,6 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextScene: 
+  nextNetworkScene: 
   levels:
   - TestScene
   - Level_Mail
@@ -112,3 +107,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameVersion: 0.1
+  clientNickName: 
+  sceneControl: {fileID: 0}
+  maxPlayersPerRoom: 20
