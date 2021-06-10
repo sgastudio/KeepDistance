@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class AnimatorManager : MonoBehaviour
 {
-    Animator animator;
+    public Animator animator;
     public PlayerInput playerInput;
     // Start is called before the first frame update
     void Start()
     {
-        animator = this.GetComponent<Animator>();
+        if(!animator)
+            animator = this.GetComponent<Animator>();
         if(!animator)
             Debug.LogError("Missing Animator Component!");
         if(!playerInput)
