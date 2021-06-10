@@ -29,11 +29,6 @@ public class MissionManager : MonoBehaviour
     public UnityEvent<string> anyMissionFinished;
     public UnityEvent allMissionCompleted;
 
-    void Start()
-    {
-        
-    }
-
     public void RegMission(string missionName, string description = "", bool isFinished = false)
     {
         MissionContent mission = new MissionContent(missionName, description, isFinished);
@@ -53,7 +48,9 @@ public class MissionManager : MonoBehaviour
 
     public void SwitchMission(string missionName, bool state = true)
     {
-        SwitchMission(FindMissionIndex(missionName), state);
+        int index = FindMissionIndex(missionName);
+        if (index >= 0)
+            SwitchMission(index, state);
     }
     public void SwitchMission(int missionIndex, bool state = true)
     {
@@ -71,7 +68,7 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    
+
 
     public bool CheckAllMissionCompleted()
     {
