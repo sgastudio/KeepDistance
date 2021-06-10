@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 public class SceneControl : MonoBehaviour
 {
     DataManager dataManager;
-    [Scene,ROA]
+    [Scene, ROA]
     public string nextScene;
-    [Scene,ROA]
+    [Scene, ROA]
     public string nextNetworkScene;
     [Scene]
     public string[] levels;
@@ -18,11 +18,16 @@ public class SceneControl : MonoBehaviour
     public string menuScene;
     [Scene]
     public string loadScene;
+
+    public static GameObject LocalPlayerInstance;
+    public static SceneControl Instance;
     // Start is called before the first frame update
     void Start()
     {
-        dataManager = GameObject.FindWithTag(EnumTag.GameController.ToString()).GetComponent<DataManager>();
-        //SceneManager.LoadSceneAsync(1);
+        Instance = this;
+        GameObject controller = GameObject.FindGameObjectWithTag(EnumTag.GameController.ToString());
+        if (!dataManager && controller)
+            dataManager = controller.GetComponent<DataManager>();
     }
 
     // Update is called once per frame
