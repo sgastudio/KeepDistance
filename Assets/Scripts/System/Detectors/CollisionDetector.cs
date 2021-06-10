@@ -14,7 +14,7 @@ public class CollisionDetector : MonoBehaviour
     public LayerMask layers;
     public List<EnumTag> tags;
     public WorkMode layerTagBlendMode;
-    public bool LocalPlayerOnly = true;
+    public bool LocalPlayerOnly = false;
 
     [Header("Event")]
     public UnityEvent<Collider> targetEnter;
@@ -23,36 +23,48 @@ public class CollisionDetector : MonoBehaviour
     [ROA, Space]
     public List<GameObject> activeList;
 
-    PhotonView photonView;
+    public PhotonView photonView;
+
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         activeList.Clear();
-        photonView = this.GetComponentInParent<PhotonView>();
+
+        if (this.GetComponentInParent<PhotonView>() && !photonView)
+            photonView = this.GetComponentInParent<PhotonView>();
+        else if (this.GetComponent<PhotonView>() && !photonView)
+            photonView = this.GetComponent<PhotonView>();
+
+        if (!photonView && LocalPlayerOnly)
+            Debug.LogError(this.gameObject.ToString() + ": CollisionDetector missing component PhotonView during LocalPlayerOnly mode");
+        else if (LocalPlayerOnly)
+            Debug.Log(this.gameObject.ToString() + " Bind with component " + photonView + " in LocalPlayerOnly mode");
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (GetNetworkingTest())
-            if (blendTest(other))
-            {
-                activeList.Remove(other.gameObject);
-                targetExit.Invoke(other);
-            }
+        if (!GetNetworkingTest() && LocalPlayerOnly)
+            return;
+        if (GetBlendTest(other))
+        {
+            activeList.Remove(other.gameObject);
+            targetExit.Invoke(other);
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (GetNetworkingTest())
-            if (blendTest(other))
-            {
-                activeList.Add(other.gameObject);
-                targetEnter.Invoke(other);
-            }
+        if (!GetNetworkingTest() && LocalPlayerOnly)
+            return;
+        if (GetBlendTest(other))
+        {
+            activeList.Add(other.gameObject);
+            targetEnter.Invoke(other);
+        }
     }
 
-    bool blendTest(Collider other)
+    public bool GetBlendTest(Collider other)
     {
         switch (layerTagBlendMode)
         {
@@ -87,12 +99,20 @@ public class CollisionDetector : MonoBehaviour
 
     public bool GetNetworkingTest()
     {
-        if (LocalPlayerOnly)
-            if (photonView)
-                return photonView.IsMine;
-            else
-                return true;
-        else
+        //Debug.Log(photonView);
+        //if (LocalPlayerOnly)
+        if (photonView)
+            return photonView.IsMine;
+        else if (LocalPlayerOnly)
+        {
+            Debug.LogError(this.gameObject.ToString() + ": CollisionDetector missing component PhotonView during LocalPlayer Only mode");
             return true;
+        }
+        else
+        {
+            return true;
+        }
+        //else
+        //    return true;
     }
 }
