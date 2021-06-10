@@ -34,29 +34,37 @@ public class LineDetector : CollisionDetector
     public GameObject linePrefab;
     [ROA]
     public List<LinePair> playerList;
-    public float distance{
-        get{
+    public float distance
+    {
+        get
+        {
             return this.GetComponent<SphereCollider>().radius;
         }
     }
 
-    void OnEnable()
+    public override void Start()
     {
         base.targetEnter.AddListener(TriggerEnter);
         base.targetExit.AddListener(TriggerExit);
+        base.Start();
     }
 
     public void TriggerEnter(Collider other)
     {
+        if (!GetNetworkingTest())
+            return;
         playerList.Add(new LinePair(other.gameObject, linePrefab, this.transform));
     }
     public void TriggerExit(Collider other)
     {
-         LinePair pair = playerList.Find(result=>{
-                return (result.Object == other.gameObject);
-            });
-            
-            playerList.Remove(pair);
-            GameObject.Destroy(pair.LineObject);
+        if (!GetNetworkingTest())
+            return;
+        LinePair pair = playerList.Find(result =>
+        {
+            return (result.Object == other.gameObject);
+        });
+
+        playerList.Remove(pair);
+        GameObject.Destroy(pair.LineObject);
     }
 }
