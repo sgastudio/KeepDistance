@@ -2,64 +2,87 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class InteractDetector : CollisionDetector
+public class InteractDetector : CollisionDetector, IPunObservable
 {
     // Start is called before the first frame update
     [Header("Components")]
     public InventoryManager inventory;
     public PlayerInput input;
-    public EnumTag itemTag;
-    public EnumTag switchTag;
 
     [Header("Input")]
     public float interactDelay = 0.5f;
+    bool isFiring;
     bool interactCooldown = false;
     float LastInteractTime;
 
     GameObject lastOutlinedObject;
 
-    void Start()
+    public override void Start()
     {
+        base.Start();
         this.targetExit.AddListener(CleanOutline);
     }
 
     // Update is called once per frame
-    void Update()
+    void UpdateList()
     {
         if (activeList.Count > 1)
             activeList.Sort(compareDistance);
+    }
+
+    void OutlinedList()
+    {
+        if (!GetNetworkingTest())
+            return;
         if (activeList.Count > 0 && activeList[0] != lastOutlinedObject)
         {
             UnOutlinedObject(lastOutlinedObject);
             OutlinedObject(activeList[0]);
             lastOutlinedObject = activeList[0];
         }
+    }
+    void activateFiring()
+    {
+        interactCooldown = true;
+        LastInteractTime = Time.time;
+    }
 
-        if (input.interactAxis > 0 && interactCooldown == false && activeList.Count > 0)
+    void interactObject()
+    {
+        GameObject sceneObj = activeList[0];
+        SwitchAgent switchAgent = sceneObj.GetComponent<SwitchAgent>();
+        ItemAgent itemAgent = sceneObj.GetComponent<ItemAgent>();
+        //Add to Inventory
+        if (itemAgent)
         {
-            interactCooldown = true;
-            GameObject sceneObj = activeList[0];
-            LastInteractTime = Time.time;
+            if (itemAgent)
+                inventory.AddItem(itemAgent.itemName, itemAgent.type, itemAgent.amount, sceneObj);
+            else
+                inventory.AddItem("Item " + sceneObj.GetInstanceID().ToString(), ItemType.Unknown, 1, sceneObj);
+            UnOutlinedObject(sceneObj);
+            activeList.Remove(sceneObj);
+        }
+        //Switch
+        else if (switchAgent)
+        {
+            if (switchAgent)
+                switchAgent.SwitchOnce();
+        }
+    }
 
-            //Add to Inventory
-            if (sceneObj.tag == itemTag.ToString())
-            {
-                ItemAgent agent = sceneObj.GetComponent<ItemAgent>();
-                if (agent)
-                    inventory.AddItem(agent.itemName, agent.type, agent.amount, sceneObj);
-                else
-                    inventory.AddItem("Item " + sceneObj.GetInstanceID().ToString(), ItemType.Unknown, 1, sceneObj);
-                UnOutlinedObject(sceneObj);
-                activeList.Remove(sceneObj);
-            }
-            //Switch
-            else if (sceneObj.tag == switchTag.ToString())
-            {
-                SwitchAgent agent = sceneObj.GetComponent<SwitchAgent>();
-                if (agent)
-                    agent.SwitchOnce();
-            }
+    void Update()
+    {
+        UpdateList();
+        OutlinedList();
+
+        isFiring = input.interactAxis > 0 && interactCooldown == false;
+
+        if (isFiring && activeList.Count > 0 && GetNetworkingTest())
+        {
+            activateFiring();
+            interactObject();
 
         }
 
@@ -89,7 +112,7 @@ public class InteractDetector : CollisionDetector
 
     public void OutlinedObject(GameObject obj)
     {
-        if (!obj)
+        if (!obj || !GetNetworkingTest())
             return;
         var outline = obj.AddComponent<Outline>();
         outline.OutlineMode = Outline.Mode.OutlineAll;
@@ -99,7 +122,7 @@ public class InteractDetector : CollisionDetector
 
     public void UnOutlinedObject(GameObject obj)
     {
-        if (!obj)
+        if (!obj || !GetNetworkingTest())
             return;
         if (lastOutlinedObject == obj)
             lastOutlinedObject = null;
@@ -112,4 +135,28 @@ public class InteractDetector : CollisionDetector
     {
         UnOutlinedObject(other.gameObject);
     }
+
+    #region IPunObservable implementation
+
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        //TODO: might be slow to control in this way
+        if (stream.IsWriting)
+        {
+            stream.SendNext(isFiring);
+        }
+        else
+        {
+            this.isFiring = (bool)stream.ReceiveNext();
+            if (isFiring && activeList.Count > 0)
+            {
+                activateFiring();
+                interactObject();
+            }
+        }
+    }
+
+
+    #endregion
 }
