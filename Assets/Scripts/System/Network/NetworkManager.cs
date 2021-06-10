@@ -25,9 +25,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        if(!sceneControl)
+        if (!sceneControl)
             sceneControl = GetComponent<SceneControl>();
-        if(!sceneControl)
+        if (!sceneControl)
             Debug.LogError("NetworkManager missing component SceneControl");
         ClientState state = PhotonNetwork.NetworkClientState;
         //make compatibility for self-hold sever
@@ -40,11 +40,23 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
 
     }
-
+    public void TestCreate()
+    {
+        Connect();
+        CreateRoom(null);
+        //StartArena();
+    }
+    public void TestJoin()
+    {
+        Connect();
+        PhotonNetwork.JoinRandomRoom();
+    }
     public void Connect()
     {
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.GameVersion = gameVersion;
+        if (string.IsNullOrEmpty(clientNickName))
+            clientNickName = "Guest" + GetInstanceID().ToString();
         PhotonNetwork.NickName = clientNickName;
     }
 
@@ -74,7 +86,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             return;
         }
 
-        
+
         PhotonNetwork.LoadLevel(EnumLevel.Loading.ToString());
 
         //Level selection here
@@ -108,7 +120,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log("PUN called OnJoinRandomFailed(), but no room avaliable");
-        base.OnJoinRoomFailed(returnCode,message);
+        base.OnJoinRoomFailed(returnCode, message);
     }
 
     public override void OnJoinedRoom()
