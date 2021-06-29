@@ -9,6 +9,7 @@ public class SimpleInventoryManager : MonoBehaviour
 {
     public ItemAgent item;
     public Transform mountPoint;
+    public Transform dropPoint;
     bool kinematicState = false;
     Rigidbody itemRigidbody = null;
 
@@ -37,13 +38,18 @@ public class SimpleInventoryManager : MonoBehaviour
             return;
         if (itemRigidbody && !kinematicState)
             itemRigidbody.isKinematic = false;
+        item.GetComponent<Collider>().enabled = true;
+        if (dropPoint)
+            item.gameObject.transform.SetPositionAndRotation(dropPoint.position, dropPoint.rotation);
         item.transform.SetParent(null);
         onItemDropped.Invoke(item.name);
         item = null;
+        itemRigidbody = null;
     }
 
     void processItem(ItemAgent other)
     {
+        other.GetComponent<Collider>().enabled = false;
         itemRigidbody = other.GetComponent<Rigidbody>();
         if (itemRigidbody)
         {
@@ -59,6 +65,7 @@ public class SimpleInventoryManager : MonoBehaviour
         {
             other.transform.SetParent(this.transform);
         }
+        item = other;
     }
 
 }
