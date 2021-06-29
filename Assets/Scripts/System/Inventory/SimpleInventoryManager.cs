@@ -5,19 +5,16 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-public class SimpleInventoryManager : MonoBehaviour
+public class SimpleInventoryManager : Inventory
 {
+    [Header("Item")]
     public ItemAgent item;
     public Transform mountPoint;
     public Transform dropPoint;
-    bool kinematicState = false;
-    Rigidbody itemRigidbody = null;
+    //bool kinematicState = false;
+    //Rigidbody itemRigidbody = null;
 
-    [Header("Events")]
-    public UnityEvent<string> onItemAdded;
-    public UnityEvent<string> onItemDropped;
-
-    public void AddItem(ItemAgent other)
+    public override void AddItem(ItemAgent other)
     {
         if (item == null)
         {
@@ -29,33 +26,41 @@ public class SimpleInventoryManager : MonoBehaviour
             processItem(other);
         }
 
-        onItemAdded.Invoke(other.name);
+        base.AddItem(other);
     }
 
-    public void DropItem()
+    public override void DropItem(ItemAgent other=null)
     {
         if (item == null)
             return;
-        if (itemRigidbody && !kinematicState)
+        /*if (itemRigidbody && !kinematicState)
             itemRigidbody.isKinematic = false;
-        item.GetComponent<Collider>().enabled = true;
+*/
         if (dropPoint)
             item.gameObject.transform.SetPositionAndRotation(dropPoint.position, dropPoint.rotation);
         item.transform.SetParent(null);
         onItemDropped.Invoke(item.name);
+        base.DropItem(item);
         item = null;
-        itemRigidbody = null;
+        //itemRigidbody = null;
+    }
+
+    public override int FindItem(string name)
+    {
+        if(item.name == name)
+            return 0;
+        else
+            return -1;
     }
 
     void processItem(ItemAgent other)
     {
-        other.GetComponent<Collider>().enabled = false;
-        itemRigidbody = other.GetComponent<Rigidbody>();
-        if (itemRigidbody)
+        //itemRigidbody = other.GetComponent<Rigidbody>();
+        /*if (itemRigidbody)
         {
             kinematicState = itemRigidbody.isKinematic;
             itemRigidbody.isKinematic = true;
-        }
+        }*/
         if (mountPoint)
         {
             other.transform.SetPositionAndRotation(mountPoint.position, mountPoint.rotation);

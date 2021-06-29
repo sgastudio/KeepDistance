@@ -8,12 +8,13 @@ public class InteractDetector : CollisionDetector, IPunObservable
 {
     // Start is called before the first frame update
     [Header("Components")]
-    public InventoryManager inventory;
+    public Inventory inventory;
     public PlayerInput input;
 
     [Header("Input")]
-    public float interactDelay = 0.5f;
+    public float interactDelay = 0.2f;
     bool isFiring;
+    bool isDropping;
     bool interactCooldown = false;
     float LastInteractTime;
 
@@ -23,6 +24,11 @@ public class InteractDetector : CollisionDetector, IPunObservable
     {
         base.Start();
         this.targetExit.AddListener(CleanOutline);
+
+        if(!inventory)
+            inventory = this.GetComponent<Inventory>();
+        if(!inventory)
+            Debug.LogWarning(gameObject.ToString() + " Missing Inventory Component");
     }
 
     // Update is called once per frame
@@ -57,10 +63,10 @@ public class InteractDetector : CollisionDetector, IPunObservable
         //Add to Inventory
         if (itemAgent)
         {
-            if (itemAgent)
-                inventory.AddItem(itemAgent.itemName, itemAgent.type, itemAgent.amount, sceneObj);
-            else
-                inventory.AddItem("Item " + sceneObj.GetInstanceID().ToString(), ItemType.Unknown, 1, sceneObj);
+            if (inventory)
+                inventory.AddItem(itemAgent);
+            /*else
+                inventory.AddItem("Item " + sceneObj.GetInstanceID().ToString(), ItemType.Unknown, 1, sceneObj);*/
             UnOutlinedObject(sceneObj);
             activeList.Remove(sceneObj);
         }
@@ -77,13 +83,19 @@ public class InteractDetector : CollisionDetector, IPunObservable
         UpdateList();
         OutlinedList();
 
-        isFiring = input.interactAxis > 0 && interactCooldown == false;
+        isFiring = input.fire1Axis > 0 && interactCooldown == false;
+        isDropping = input.fire2Axis > 0 && interactCooldown == false;
 
         if (isFiring && activeList.Count > 0 && GetNetworkingTest())
         {
             activateFiring();
             interactObject();
+        }
 
+        if (isDropping && GetNetworkingTest())
+        {
+            if (inventory)
+                inventory.DropItem(null);
         }
 
         if (Time.time > LastInteractTime + interactDelay)

@@ -7,15 +7,13 @@ using UnityEngine.Events;
 
 
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : Inventory
 {
+    public UnityEvent<string> onItemEquipped;
+
+    [Header("Items")]
     public List<Item> items;
     public List<MountPoint> mountPoints;
-
-    [Header("Events")]
-    public UnityEvent<string> onItemAdded;
-    public UnityEvent<string> onItemDropped;
-    public UnityEvent<string> onItemEquipped;
 
     public MountPoint FindMountPoint(string pointName)
     {
@@ -68,6 +66,12 @@ public class InventoryManager : MonoBehaviour
         });
     }
 
+    public override void AddItem(ItemAgent other)
+    {
+        AddItem(other.name,other.type,other.amount,other.gameObject);
+        base.AddItem(other);
+    }
+
     public void AddItem(string itemName, ItemType type = ItemType.Unknown, int addCount = 1, GameObject prefab = null)
     {
         if (FindItemIndex(itemName) >= 0)
@@ -90,7 +94,6 @@ public class InventoryManager : MonoBehaviour
             }
             items.Add(new Item(itemName, type, addCount, prefab));
         }
-        onItemAdded.Invoke(itemName);
     }
 
     public void EquipItemBack(int itemIndex)
@@ -178,6 +181,13 @@ public class InventoryManager : MonoBehaviour
     {
         DropItem(FindItemIndex(itemName), count);
     }
+
+    public override void DropItem(ItemAgent other)
+    {
+        DropItem(other.name,other.amount);
+        base.DropItem(other);
+    }
+
     public void DropItem(int itemIndex, int count = 1)
     {
         //check item exist
