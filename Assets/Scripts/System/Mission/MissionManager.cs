@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+using Photon;
+using Photon.Pun;
 [System.Serializable]
 public class MissionContent
 {
@@ -13,17 +14,33 @@ public class MissionContent
         this.description = description;
         this.isFinished = false;
     }
+
     public string name;
     [TextArea]
     public string description;
-    public bool isFinished = false;
+    public bool isFinished;
+    /*{
+        get
+        {
+            return finishCount >= finishRequire;
+        }
+        set
+        {
+            if(value)
+                finishCount = finishRequire;
+            else
+                finishCount = 0;
+        }
+    }
+    private int finishRequire;
+    private int finishCount = 0;*/
     //public UnityEvent eventFinished;
     //public UnityEvent eventApplied;
 }
 public class MissionManager : MonoBehaviour
 {
     public List<MissionContent> missionList;
-    public UnityEngine.UI.Text missionText;
+
     [Header("Manager Events")]
     public UnityEvent<string> newMissionAdded;
     public UnityEvent<string> anyMissionFinished;
@@ -58,7 +75,7 @@ public class MissionManager : MonoBehaviour
             return;
 
         missionList[missionIndex].isFinished = state;
-
+        
         if (state)
         {
             //missionList[missionIndex].eventFinished.Invoke();
