@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3295565144354694565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8200758907470018314}
+  m_Layer: 0
+  m_Name: FrontDropPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8200758907470018314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3295565144354694565}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0, y: -0, z: 0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3569400974831792510}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &3569400973163619143
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3569400973163619195}
-  - component: {fileID: 3569400973163619192}
+  - component: {fileID: 3653187903575843326}
   - component: {fileID: 3569400973163619194}
   - component: {fileID: 3569400973163619193}
   m_Layer: 0
@@ -33,7 +63,7 @@ Transform:
   m_Father: {fileID: 3569400974636163426}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3569400973163619192
+--- !u!114 &3653187903575843326
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,21 +72,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3569400973163619143}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 269c489f6232f994c97cbb222d77f938, type: 3}
+  m_Script: {fileID: 11500000, guid: 20d71bcafd94cd84283bdfb47cab8bf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: []
-  mountPoints:
-  - name: Back
-    type: 3
-    anchorTransform: {fileID: 3569400974793890991}
+  item: {fileID: 0}
+  mountPoint: {fileID: 3569400974793890991}
+  dropPoint: {fileID: 8200758907470018314}
   onItemAdded:
     m_PersistentCalls:
       m_Calls: []
   onItemDropped:
-    m_PersistentCalls:
-      m_Calls: []
-  onItemEquipped:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &3569400973163619194
@@ -71,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21d83f6f1bf7744d96d648187c4c32b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryManager: {fileID: 3569400973163619192}
+  inventoryManager: {fileID: 0}
   requireItems:
   - name: Lost Key
     count: 5
@@ -219,7 +244,8 @@ MonoBehaviour:
       m_Calls: []
   activeList: []
   photonView: {fileID: 0}
-  inventory: {fileID: 3569400973163619192}
+  inventory: {fileID: 0}
+  simpleInventory: {fileID: 3653187903575843326}
   input: {fileID: 3569400974636163439}
   interactDelay: 0.5
 --- !u!1 &3569400974636163437
