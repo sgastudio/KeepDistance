@@ -4,19 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class InteractDetector : CollisionDetector, IPunObservable
+public class InteractDetector : InputDetector
 {
     // Start is called before the first frame update
     [Header("Components")]
     public Inventory inventory;
-    public PlayerInput input;
-
-    [Header("Input")]
-    public float interactDelay = 0.2f;
-    bool isFiring;
-    bool isDropping;
-    bool interactCooldown = false;
-    float LastInteractTime;
 
     GameObject lastOutlinedObject;
 
@@ -29,14 +21,16 @@ public class InteractDetector : CollisionDetector, IPunObservable
             inventory = this.GetComponent<Inventory>();
         if(!inventory)
             Debug.LogWarning(gameObject.ToString() + " Missing Inventory Component");
+
+        inputingEvent.AddListener(interactObject);
     }
 
     // Update is called once per frame
-    void UpdateList()
+    /*void UpdateList()
     {
         if (activeList.Count > 1)
             activeList.Sort(compareDistance);
-    }
+    }*/
 
     void OutlinedList()
     {
@@ -49,11 +43,11 @@ public class InteractDetector : CollisionDetector, IPunObservable
             lastOutlinedObject = activeList[0];
         }
     }
-    void activateFiring()
+    /*void activateFiring()
     {
         interactCooldown = true;
         LastInteractTime = Time.time;
-    }
+    }*/
 
     void interactObject()
     {
@@ -78,12 +72,12 @@ public class InteractDetector : CollisionDetector, IPunObservable
         }
     }
 
-    void Update()
+    public override void Update()
     {
-        UpdateList();
+        //UpdateList();
+        base.Update();
         OutlinedList();
-
-        isFiring = input.fire1Axis > 0 && interactCooldown == false;
+        /*isFiring = input.fire1Axis > 0 && interactCooldown == false;
         isDropping = input.fire2Axis > 0 && interactCooldown == false;
 
         if (isFiring && activeList.Count > 0 && GetNetworkingTest())
@@ -101,13 +95,13 @@ public class InteractDetector : CollisionDetector, IPunObservable
         if (Time.time > LastInteractTime + interactDelay)
         {
             interactCooldown = false;
-        }
+        }*/
 
         /*if (input.interactAxis == 0 && triggerInteract == true)
             triggerInteract = false;*/
     }
 
-    int compareDistance(GameObject x, GameObject y)
+    /*int compareDistance(GameObject x, GameObject y)
     {
         float dstx = Vector3.Distance(this.transform.position, x.transform.position);
         float dsty = Vector3.Distance(this.transform.position, y.transform.position);
@@ -120,7 +114,7 @@ public class InteractDetector : CollisionDetector, IPunObservable
             return -1;
 
         //return (int)(dstx - dsty); //inaccuray
-    }
+    }*/
 
     public void OutlinedObject(GameObject obj)
     {
@@ -147,7 +141,7 @@ public class InteractDetector : CollisionDetector, IPunObservable
     {
         UnOutlinedObject(other.gameObject);
     }
-
+/*
     #region IPunObservable implementation
 
 
@@ -170,5 +164,5 @@ public class InteractDetector : CollisionDetector, IPunObservable
     }
 
 
-    #endregion
+    #endregion*/
 }
