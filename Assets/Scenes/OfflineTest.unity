@@ -1762,12 +1762,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3569400973661744787, guid: 5d447ee07b73f1f4880238531d70ddd3, type: 3}
+      propertyPath: axisName
+      value: Fire1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569400973661744787, guid: 5d447ee07b73f1f4880238531d70ddd3, type: 3}
       propertyPath: inventory
       value: 
       objectReference: {fileID: 1943348204}
     - target: {fileID: 3569400973661744787, guid: 5d447ee07b73f1f4880238531d70ddd3, type: 3}
       propertyPath: interactDelay
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569400973661744787, guid: 5d447ee07b73f1f4880238531d70ddd3, type: 3}
+      propertyPath: LocalPlayerOnly
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3569400974636163425, guid: 5d447ee07b73f1f4880238531d70ddd3, type: 3}
       propertyPath: sceneViewId
