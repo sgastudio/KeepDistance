@@ -41,10 +41,16 @@ public class InventoryManager : Inventory
         });
     }
 
-    public Item FindItem(string itemName)
+    public Item FindItemAgent(string itemName)
     {
         return items[FindItemIndex(itemName)];
     }
+
+    public override int FindItem(string itemName)
+    {
+        return FindItemIndex(itemName);
+    }
+
     public int FindItemIndex(string itemName)
     {
         return items.FindIndex(result =>
@@ -76,7 +82,7 @@ public class InventoryManager : Inventory
     {
         if (FindItemIndex(itemName) >= 0)
         {
-            FindItem(itemName).amount += addCount;
+            FindItemAgent(itemName).amount += addCount;
             if (prefab)
                 GameObject.Destroy(prefab);
         }
