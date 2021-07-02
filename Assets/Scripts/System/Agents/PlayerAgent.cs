@@ -4,18 +4,16 @@ using UnityEngine;
 using Photon;
 using Photon.Pun;
 
-public class PlayerAgent : MonoBehaviour
+public class PlayerAgent : MonoBehaviourPun
 {
     public string playerName;
     public int playerGroup;
-    PhotonView photonView;
 
     // Start is called before the first frame update
     void Start()
     {
         if (string.IsNullOrEmpty(playerName))
-            playerName = this.gameObject.name + this.gameObject.GetHashCode().ToString();
-        photonView = this.GetComponent<PhotonView>();
+            playerName = PhotonNetwork.LocalPlayer.NickName;
         BindCamera();
     }
 
@@ -33,5 +31,4 @@ public class PlayerAgent : MonoBehaviour
             Debug.LogError("PlayerInput Trying to bind camera, but missing CameraOperation script on main camera");
         }
     }
-
 }
