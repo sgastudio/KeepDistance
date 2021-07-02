@@ -3,18 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Photon.Pun;
 
-public class SwitchAgent : MonoBehaviour
+public class SwitchAgent : MonoBehaviourPun
 {
     public string switchName;
     public bool state;
     public UnityEvent onStateChanged;
     public UnityEvent onStateClose;
     public UnityEvent onStateOpen;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -23,7 +25,8 @@ public class SwitchAgent : MonoBehaviour
         
     }
 
-    public void Switch(bool nState)
+    [PunRPC]
+    public void SwitchState(bool nState)
     {
         if(this.state == nState)
             return;
@@ -37,6 +40,7 @@ public class SwitchAgent : MonoBehaviour
 
     public void SwitchOnce()
     {
-        Switch(!this.state);
+        //SwitchState(!this.state);
+        photonView.RPC("SwitchState",RpcTarget.All, !this.state);
     }
 }

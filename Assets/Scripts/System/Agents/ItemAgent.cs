@@ -1,14 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class ItemAgent : MonoBehaviour
+[RequireComponent(typeof(PhotonView))]
+public class ItemAgent : MonoBehaviourPun
 {
+    
     public string itemName;
     [Min(1)]
     public int amount = 1;
     public ItemType type;
 
+    void  Update()
+    {
+        Debug.Log(this.gameObject.ToString() + " - id="+this.gameObject.GetInstanceID());
+    }
+    
     public void SetInfo(string name,int amount,ItemType type)
     {
         this.itemName = name;
@@ -35,9 +43,43 @@ public class ItemAgent : MonoBehaviour
         this.amount = AmountOverride;
     }
 
+    [PunRPC]
+    void ItemAttach(int playerViewID)
+    {
+        PhotonView playerView = PhotonView.Find(playerViewID);
+        Inventory inventory = playerView.GetComponentInChildren<Inventory>();
+        if(playerView && inventory)
+        {
+            inventory.AddItem(this);
+        }
+    }
+
+    [PunRPC]
+    void ItemDetach(int playerViewID)
+    {
+        PhotonView playerView = PhotonView.Find(playerViewID);
+        Inventory inventory = playerView.GetComponentInChildren<Inventory>();
+        if(playerView && inventory)
+        {
+            inventory.DropItem(this, this.amount);
+        }
+    }
+
+    public void Attach(int playerViewID)
+    {
+        photonView.RPC("ItemAttach", RpcTarget.All, playerViewID);
+    }
+
+    public void Detach(int playerViewID)
+    {
+        photonView.RPC("ItemDetach", RpcTarget.All, playerViewID);
+    }
+
     void Start()
     {
         if(itemName == "")
             itemName = "Item " + this.gameObject.GetInstanceID().ToString();
+        
+        this.gameObject.name = gameObject.GetInstanceID().ToString();
     }
 }

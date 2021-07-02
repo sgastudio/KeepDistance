@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class FixedInteractDetector : CollisionDetector, IPunObservable
+public class FixedInteractDetector : CollisionDetector//, IPunObservable
 {
     // Start is called before the first frame update
     [Header("Components")]
     public Inventory inventory;
-    public PlayerInput input;
+    //public PlayerInput input;
 
     [Header("Input")]
     public float interactDelay = 0.2f;
@@ -25,9 +25,9 @@ public class FixedInteractDetector : CollisionDetector, IPunObservable
         base.Start();
         this.targetExit.AddListener(CleanOutline);
 
-        if(!inventory)
+        if (!inventory)
             inventory = this.GetComponent<Inventory>();
-        if(!inventory)
+        if (!inventory)
             Debug.LogWarning(gameObject.ToString() + " Missing Inventory Component");
     }
 
@@ -44,9 +44,16 @@ public class FixedInteractDetector : CollisionDetector, IPunObservable
             return;
         if (activeList.Count > 0 && activeList[0] != lastOutlinedObject)
         {
-            UnOutlinedObject(lastOutlinedObject);
-            OutlinedObject(activeList[0]);
-            lastOutlinedObject = activeList[0];
+            for (int i = 0; i < activeList.Count; i++)
+            {
+                if (activeList[i].transform.parent == null)
+                {
+                    UnOutlinedObject(lastOutlinedObject);
+                    OutlinedObject(activeList[i]);
+                    lastOutlinedObject = activeList[i];
+                    return;
+                }
+            }
         }
     }
     void activateFiring()
@@ -63,8 +70,14 @@ public class FixedInteractDetector : CollisionDetector, IPunObservable
         //Add to Inventory
         if (itemAgent)
         {
+            Debug.Log("View ID:"+photonView.ViewID.ToString());
+            itemAgent.Attach(photonView.ViewID);
+            /*
             if (inventory)
+            {
                 inventory.AddItem(itemAgent);
+                Debug.Log("Item ID:" + itemAgent.GetInstanceID().ToString());
+            }*/
             /*else
                 inventory.AddItem("Item " + sceneObj.GetInstanceID().ToString(), ItemType.Unknown, 1, sceneObj);*/
             UnOutlinedObject(sceneObj);
@@ -78,15 +91,38 @@ public class FixedInteractDetector : CollisionDetector, IPunObservable
         }
     }
 
+    void processInput()
+    {
+        if (!GetNetworkingTest())
+            return;
+
+        isFiring = Input.GetButtonDown("Fire1") && interactCooldown == false;
+        isDropping = Input.GetButtonDown("Fire2") && interactCooldown == false;
+
+
+        // if (Input.GetButtonDown("Fire1") && !isFiring && interactCooldown == false)
+        // {
+        //     isFiring = true;
+        // }
+        // if (Input.GetButtonUp("Fire1") && isFiring)
+        //     isFiring = false;
+
+        // if (Input.GetButtonDown("Fire2") && !isDropping && interactCooldown == false)
+        // {
+        //     isDropping = true;
+        // }
+        // if (Input.GetButtonUp("Fire2") && isDropping)
+        //     isDropping = false;
+    }
+
     void Update()
     {
         UpdateList();
         OutlinedList();
 
-        isFiring = input.fire1Axis > 0 && interactCooldown == false;
-        isDropping = input.fire2Axis > 0 && interactCooldown == false;
+        processInput();
 
-        if (isFiring && activeList.Count > 0 && GetNetworkingTest())
+        if (isFiring && activeList.Count > 0)// && GetNetworkingTest())
         {
             activateFiring();
             interactObject();
@@ -95,7 +131,7 @@ public class FixedInteractDetector : CollisionDetector, IPunObservable
         if (isDropping && GetNetworkingTest())
         {
             if (inventory)
-                inventory.DropItem(null);
+                inventory.GetItem().Detach(photonView.ViewID);
         }
 
         if (Time.time > LastInteractTime + interactDelay)
@@ -150,25 +186,24 @@ public class FixedInteractDetector : CollisionDetector, IPunObservable
 
     #region IPunObservable implementation
 
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        //TODO: might be slow to control in this way
-        if (stream.IsWriting)
-        {
-            stream.SendNext(isFiring || interactCooldown);
-        }
-        else
-        {
-            this.isFiring = (bool)stream.ReceiveNext();
-            if (isFiring && activeList.Count > 0)
-            {
-                activateFiring();
-                interactObject();
-            }
-        }
-    }
-
+    
+    // public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    // {
+    //     //TODO: might be slow to control in this way
+    //     if (stream.IsWriting)
+    //     {
+    //         stream.SendNext(isFiring);
+    //     }
+    //     else
+    //     {
+    //         this.isFiring = (bool)stream.ReceiveNext();
+    //         if (isFiring && activeList.Count > 0)
+    //         {
+    //             activateFiring();
+    //             interactObject();
+    //         }
+    //     }
+    // }
 
     #endregion
 }
