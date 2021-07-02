@@ -188,10 +188,10 @@ public class InventoryManager : Inventory
         DropItem(FindItemIndex(itemName), count);
     }
 
-    public override void DropItem(ItemAgent other)
+    public override void DropItem(ItemAgent other, int amount)
     {
-        DropItem(other.name,other.amount);
-        base.DropItem(other);
+        DropItem(other.name, other.amount);
+        base.DropItem(other, amount);
     }
 
     public void DropItem(int itemIndex, int count = 1)

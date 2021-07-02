@@ -23,7 +23,13 @@ public class Inventory : MonoBehaviour
         onItemDropped.Invoke(other.name);
     }
 
-    public virtual void DropItem(ItemAgent other)
+    public virtual void DropItem(ItemAgent other, int amount)
+    {
+        SetPhysicsState(other, true);
+        onItemDropped.Invoke(other.name);
+    }
+
+    public virtual void DropItemAll(ItemAgent other)
     {
         SetPhysicsState(other, true);
         onItemDropped.Invoke(other.name);
@@ -32,6 +38,20 @@ public class Inventory : MonoBehaviour
     public virtual int FindItem(string name)
     {
         return -1;
+    }
+
+    public virtual ItemAgent GetItem(int index = 0)
+    {
+        return null;
+    }
+
+    public virtual Transform GetMountTransform(int index) 
+    {
+        return null;
+    }
+    public virtual Transform GetDropTransform() 
+    {
+        return this.transform;
     }
 
     void SetPhysicsState(ItemAgent other, bool state)
