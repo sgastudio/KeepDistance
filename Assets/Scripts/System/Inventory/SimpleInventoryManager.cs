@@ -5,20 +5,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using Photon.Pun;
 
-public class SimpleInventoryManager : Inventory//,IPunObservable
+public class SimpleInventoryManager : Inventory
 {
     [Header("Item")]
     public ItemAgent item;
     public Transform mountPoint;
     public Transform dropPoint;
-    //PhotonView view;
-    //bool kinematicState = false;
-    //Rigidbody itemRigidbody = null;
-
-    void Start()
-    {
-        //view = this.GetComponentInParent<PhotonView>();
-    }
 
     public override void AddItem(ItemAgent other)
     {
@@ -42,9 +34,8 @@ public class SimpleInventoryManager : Inventory//,IPunObservable
             return;
         /*if (itemRigidbody && !kinematicState)
             itemRigidbody.isKinematic = false;
-*/          
+        */          
 
-        
         ItemAgent targetItem;
         if(amount < other.amount)
         {
@@ -107,35 +98,4 @@ public class SimpleInventoryManager : Inventory//,IPunObservable
             other.Attach(this.transform);*/
         item = other;
     }
-
-    #region IPunObservable implementation
-    // public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    // {
-    //     //TODO: might be slow to control in this way
-    //     if (stream.IsWriting)
-    //     {
-    //         if(item)
-    //             stream.SendNext(item.GetInstanceID());
-    //         else
-    //             stream.SendNext(0);
-    //     }
-    //     else
-    //     {
-    //         int itemID = (int)stream.ReceiveNext();
-    //         Debug.Log("Received ID=" + itemID.ToString());
-    //         if(item == null)
-    //         {
-    //             if(itemID != 0)
-    //                 AddItem(GameObject.Find(itemID.ToString()).GetComponent<ItemAgent>());
-    //         }
-    //         else if (item.GetInstanceID() != itemID)
-    //         {
-    //             DropItem(this.item, this.item.amount);
-    //             if(itemID != 0)
-    //                 AddItem(GameObject.Find(itemID.ToString()).GetComponent<ItemAgent>());
-    //         }
-    //     }
-    // }
-
-    #endregion
 }
