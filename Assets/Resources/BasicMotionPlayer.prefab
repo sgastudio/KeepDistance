@@ -75,15 +75,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d71bcafd94cd84283bdfb47cab8bf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
-  mountPoint: {fileID: 3569400974793890991}
-  dropPoint: {fileID: 8200758907470018314}
   onItemAdded:
     m_PersistentCalls:
       m_Calls: []
   onItemDropped:
     m_PersistentCalls:
       m_Calls: []
+  item: {fileID: 0}
+  mountPoint: {fileID: 3569400974793890991}
+  dropPoint: {fileID: 8200758907470018314}
 --- !u!114 &3569400973163619194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 3569400973661744789}
   - component: {fileID: 3569400973661744788}
   - component: {fileID: 3569400973661744786}
-  - component: {fileID: 3569400973661744787}
+  - component: {fileID: 519399582}
   m_Layer: 0
   m_Name: TriggerDetector
   m_TagString: Untagged
@@ -218,7 +218,7 @@ MonoBehaviour:
   photonView: {fileID: 0}
   linePrefab: {fileID: 1913513231532759294, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
   playerList: []
---- !u!114 &3569400973661744787
+--- !u!114 &519399582
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3569400973661744785}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 945d493c70f36184daeb15ea088aac3d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c9476e3122c0774d9b8fd306704c693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   layers:
@@ -243,10 +243,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   activeList: []
-  photonView: {fileID: 0}
-  inventory: {fileID: 0}
-  simpleInventory: {fileID: 3653187903575843326}
-  input: {fileID: 3569400974636163439}
+  photonView: {fileID: 3569400974636163425}
+  inventory: {fileID: 3653187903575843326}
   interactDelay: 0.5
 --- !u!1 &3569400974636163437
 GameObject:
@@ -334,13 +332,12 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 1
   OwnershipTransfer: 0
-  observableSearch: 0
+  observableSearch: 1
   ObservedComponents:
   - {fileID: 3569400974636163424}
   - {fileID: 1676715103551023371}
-  - {fileID: 3569400973661744787}
   - {fileID: 745068505939942567}
   sceneViewId: 0
   InstantiationId: 0
