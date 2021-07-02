@@ -12,16 +12,16 @@ public class ItemCheckerPair
 }
 public class InventoryChecker : MonoBehaviour
 {
-    public InventoryManager inventoryManager;
+    public Inventory inventoryManager;
     public List<ItemCheckerPair> requireItems;
     public WorkMode workMode;
     public UnityEvent onCheckSucceeded;
     public UnityEvent onCheckFailed;
     void Start()
     {
-        if(!inventoryManager)
+        if (!inventoryManager)
             inventoryManager = this.GetComponent<InventoryManager>();
-        if(inventoryManager)
+        if (inventoryManager)
         {
             inventoryManager.onItemAdded.AddListener(CheckInventory);
             inventoryManager.onItemDropped.AddListener(CheckInventory);
@@ -31,17 +31,34 @@ public class InventoryChecker : MonoBehaviour
     }
     public void CheckInventory(string ItemName)
     {
-        if(!inventoryManager)
+        if (!inventoryManager)
             return;
-        List<int> itemIndex = new List<int>();
+
+        /*List<int> itemIndex = new List<int>();
         foreach (ItemCheckerPair i in requireItems)
         {
             itemIndex.Add(inventoryManager.FindItemIndex(i.name));
-        }
+        }*/
 
         bool result = false;
 
         if (workMode == WorkMode.Or)
+        {
+            foreach (ItemCheckerPair i in requireItems)
+            {
+                result |= inventoryManager.FindItem(i.name) >= i.count;
+            }
+        }
+        else
+        {
+            result = true;
+            foreach (ItemCheckerPair i in requireItems)
+            {
+                result &= inventoryManager.FindItem(i.name) >= i.count;
+            }
+        }
+
+        /*if (workMode == WorkMode.Or)
         {
             for (int i = 0; i < itemIndex.Count; i++)
             {
@@ -55,7 +72,7 @@ public class InventoryChecker : MonoBehaviour
             {
                 result &= itemIndex[i] >= 0 ? requireItems[i].count <= inventoryManager.items[itemIndex[i]].amount : false;
             }
-        }
+        }*/
 
         if (result)
             onCheckSucceeded.Invoke();
