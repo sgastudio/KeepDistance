@@ -23,6 +23,8 @@ public class CameraOperationInspector : Editor
     public SerializedProperty switchRaycast;
     public SerializedProperty switchPosSlerp;
     public SerializedProperty switchRotSlerp;
+
+    public SerializedProperty ParamRayLayer;
     public SerializedProperty ParamPosSlerp;
     public SerializedProperty ParamRotSlerp;
     public void OnEnable()
@@ -42,12 +44,14 @@ public class CameraOperationInspector : Editor
 
         snapWeight = obj.FindProperty("snapWeight");
 
-        switchRaycast = obj.FindProperty("enableRaycastDetection");
-        switchPosSlerp = obj.FindProperty("enablePositionSlerp");
-        switchRotSlerp = obj.FindProperty("enableRotationSlerp");
+        switchRaycast = obj.FindProperty("enableRayDetection");
+        ParamRayLayer = obj.FindProperty("rayLayer");
 
-        ParamPosSlerp = obj.FindProperty("positionSlerpParam");
-        ParamRotSlerp = obj.FindProperty("rotationSlerpParam");
+        switchPosSlerp = obj.FindProperty("enablePositionSlerp");
+        ParamPosSlerp = obj.FindProperty("positionSlerpWeight");
+
+        switchRotSlerp = obj.FindProperty("enableRotationSlerp");
+        ParamRotSlerp = obj.FindProperty("rotationSlerpWeight");
 
         gizmosSize = obj.FindProperty("gizmosSize");
     }
@@ -60,7 +64,7 @@ public class CameraOperationInspector : Editor
 
         CameraOperation cameraOperation = target as CameraOperation;
         cameraOperation.mode = (CameraOperation.cameraMode)EditorGUILayout.EnumPopup("Camera Mode", cameraOperation.mode);
-        cameraOperation.followingOnStart = EditorGUILayout.Toggle("Tracking On Start",cameraOperation.followingOnStart);
+        cameraOperation.followingOnStart = EditorGUILayout.Toggle("Tracking On Start", cameraOperation.followingOnStart);
         if (cameraOperation.mode == CameraOperation.cameraMode.firstPerson)
         {
 
@@ -77,7 +81,7 @@ public class CameraOperationInspector : Editor
             else
                 EditorGUILayout.PropertyField(targetOffset);
 
-            
+
             //Debug.Log("FPS");
         }
         else if (cameraOperation.mode == CameraOperation.cameraMode.thirdPerson)
@@ -104,15 +108,19 @@ public class CameraOperationInspector : Editor
             EditorGUILayout.PropertyField(targetObj);
             EditorGUILayout.PropertyField(targetOffset);
             EditorGUILayout.PropertyField(followRotation);
-            
+
             EditorGUILayout.PropertyField(switchRaycast);
+            EditorGUILayout.PropertyField(switchRotSlerp);
             EditorGUILayout.PropertyField(switchPosSlerp);
 
-            if(cameraOperation.enablePositionSlerp)
+            if (cameraOperation.enablePositionSlerp)
                 EditorGUILayout.PropertyField(ParamPosSlerp);
-                EditorGUILayout.PropertyField(switchRotSlerp);
-            if(cameraOperation.enableRotationSlerp)
+
+            if (cameraOperation.enableRotationSlerp)
                 EditorGUILayout.PropertyField(ParamRotSlerp);
+
+            if (cameraOperation.enableRayDetection)
+                EditorGUILayout.PropertyField(ParamRayLayer);
             //Debug.Log("TPS");
         }
 

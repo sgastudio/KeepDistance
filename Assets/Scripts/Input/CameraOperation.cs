@@ -38,13 +38,14 @@ public class CameraOperation : MonoBehaviour
     public Vector2 cameraAngle;
 
     [Header("Misc")]
-    public bool enableRaycastDetection = false;
+    public bool enableRayDetection = false;
+    public LayerMask rayLayer;
     public bool enablePositionSlerp = false;
     [Range(0f, 1f)]
-    public float positionSlerpParam = 0.5f;
+    public float positionSlerpWeight = 0.5f;
     public bool enableRotationSlerp = false;
     [Range(0f, 1f)]
-    public float rotationSlerpParam = 0.5f;
+    public float rotationSlerpWeight = 0.5f;
 
     [Header("Development Settings")]
     public float gizmosSize = 0.1f;
@@ -132,12 +133,23 @@ public class CameraOperation : MonoBehaviour
                     basePos = snapObject.transform.position * snapWeight + (targetObject.transform.position + targetPositionOffset) * (1f - snapWeight);
                     posOffset = snapPositionOffset * snapWeight + cameraPosOffset * (1f - snapWeight);
                 }
-                desiredPos = basePos + posOffset;
+
+                RaycastHit hitInfo;
+                Vector3 rayDir = posOffset;
+                if(Physics.Raycast(basePos, rayDir.normalized, out hitInfo, rayDir.magnitude, rayLayer) && enableRayDetection)
+                {
+                    desiredPos = hitInfo.point;
+                }
+                else
+                {
+                    desiredPos = basePos + posOffset;
+                }
+                
 
 
                 if (enablePositionSlerp)
                 {
-                    this.transform.position = Vector3.Slerp(this.transform.position, desiredPos, positionSlerpParam);
+                    this.transform.position = Vector3.Slerp(this.transform.position, desiredPos, positionSlerpWeight);
                 }
                 else
                 {
@@ -161,7 +173,7 @@ public class CameraOperation : MonoBehaviour
                 else
                 {*/
                     if(enableRotationSlerp)
-                        this.transform.rotation = Quaternion.Slerp(this.transform.rotation,Quaternion.LookRotation(targetObject.transform.position + targetPositionOffset -this.transform.position),rotationSlerpParam);
+                        this.transform.rotation = Quaternion.Slerp(this.transform.rotation,Quaternion.LookRotation(targetObject.transform.position + targetPositionOffset -this.transform.position),rotationSlerpWeight);
                     else
                         this.transform.LookAt(targetObject.transform.position + targetPositionOffset);
                 //}
