@@ -20,7 +20,7 @@ public class InventoryChecker : MonoBehaviour
     void Start()
     {
         if (!inventoryManager)
-            inventoryManager = this.GetComponent<InventoryManager>();
+            inventoryManager = this.GetComponent<Inventory>();
         if (inventoryManager)
         {
             inventoryManager.onItemAdded.AddListener(CheckInventory);
