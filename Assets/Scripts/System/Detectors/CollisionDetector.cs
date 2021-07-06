@@ -1,8 +1,11 @@
+using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Photon.Pun;
+using Sirenix.OdinInspector;
+
 public enum WorkMode
 {
     Or,
@@ -10,25 +13,65 @@ public enum WorkMode
 }
 public class CollisionDetector : MonoBehaviour
 {
-    [Header("Filter")]
+    [FoldoutGroup("Filter")]
+    //[Header("Filter")]
     public LayerMask layers;
+    [FoldoutGroup("Filter")]
     public List<EnumTag> tags;
+    [FoldoutGroup("Filter")]
     public WorkMode layerTagBlendMode;
+
+    [FoldoutGroup("Networking")]
     public bool LocalPlayerOnly = false;
-
-    [Header("Event")]
-    public UnityEvent<Collider> targetEnter;
-    public UnityEvent<Collider> targetExit;
-
-    [ROA, Space]
-    public List<GameObject> activeList;
-
+    [FoldoutGroup("Networking")]
     public PhotonView photonView;
 
+    [FoldoutGroup("Events")]
+    public UnityEvent<Collider> targetEnter;
+    [FoldoutGroup("Events")]
+    public UnityEvent<Collider> targetExit;
+    [FoldoutGroup("Events")]
+    public UnityEvent<Collider> targetStay;
+    [FoldoutGroup("Events")]
+    public UnityEvent<Collider> targetClean;
+
+
+    [FoldoutGroup("Clean")]
+    public float cleanInterval = 1f;
+    [FoldoutGroup("Clean")]
+    public float maxStayTimeLimit = 1f;
+
+    [ReadOnly, Space]
+    public List<GameObject> activeList;
+    [ReadOnly]
+    public Dictionary<GameObject, float> timeTable;
+
+    IEnumerator ListWatcher()
+    {
+        yield return new WaitForSecondsRealtime(cleanInterval);
+        UpdateList();
+        StartCoroutine(ListWatcher());
+    }
+
+    void UpdateList()
+    {
+        float now = Time.unscaledTime;
+        for(int i=0;i<activeList.Count;i++)
+        {
+            GameObject targetObj = activeList[i];
+            if(timeTable[targetObj] + maxStayTimeLimit < now)
+            {
+                timeTable.Remove(targetObj);
+                activeList.RemoveAt(i);
+                targetClean.Invoke(targetObj.GetComponent<Collider>());
+            }
+        }
+    }
 
     public virtual void Start()
     {
-        
+        timeTable = new Dictionary<GameObject, float>();
+        StartCoroutine(ListWatcher());
     }
 
     public virtual void Awake()
@@ -46,6 +89,25 @@ public class CollisionDetector : MonoBehaviour
             Debug.Log(this.gameObject.ToString() + " Bind with component " + photonView + " in LocalPlayerOnly mode");
     }
 
+    void Update()
+    {
+        
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (!GetNetworkingTest() && LocalPlayerOnly)
+            return;
+        if (GetBlendTest(other))
+        {
+            targetStay.Invoke(other);
+            if(timeTable.ContainsKey(other.gameObject))
+                timeTable[other.gameObject] = Time.unscaledTime;
+            else
+                OnTriggerEnter(other);
+        }
+    }
+
     void OnTriggerExit(Collider other)
     {
         if (!GetNetworkingTest() && LocalPlayerOnly)
@@ -53,6 +115,7 @@ public class CollisionDetector : MonoBehaviour
         if (GetBlendTest(other))
         {
             activeList.Remove(other.gameObject);
+            timeTable.Remove(other.gameObject);
             targetExit.Invoke(other);
         }
     }
@@ -61,9 +124,13 @@ public class CollisionDetector : MonoBehaviour
     {
         if (!GetNetworkingTest() && LocalPlayerOnly)
             return;
-        if (GetBlendTest(other))
+        if (GetBlendTest(other) && !activeList.Find(match=>{return match == other.gameObject;}))
         {
             activeList.Add(other.gameObject);
+            if(timeTable.ContainsKey(other.gameObject))
+                timeTable[other.gameObject] = Time.unscaledTime;
+            else
+                timeTable.Add(other.gameObject, Time.unscaledTime);
             targetEnter.Invoke(other);
         }
     }

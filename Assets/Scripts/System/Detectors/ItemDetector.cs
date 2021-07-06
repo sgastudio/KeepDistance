@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,33 +12,45 @@ public class ItemDetector : MonoBehaviour
     public UnityEvent onCheckSucceeded;
     public UnityEvent onCheckFailed;
 
+    void Start()
+    {
+        this.detector.targetEnter.AddListener(CheckArea);
+        this.detector.targetExit.AddListener(CheckArea);
+        this.detector.targetClean.AddListener(CheckArea);
+    }
 
     public void CheckArea(Collider other)
     {
-        int[] itemCount = new int[requireItems.Count];
+        Dictionary<string,int> itemCount = new Dictionary<string, int>();
+        itemCount.Clear();
         foreach (GameObject item in detector.activeList)
         {
             ItemAgent itemAgent = item.GetComponent<ItemAgent>();
-            int requireIndex = requireItems.FindIndex(matcher =>
+            if (!itemAgent)
+                break;
+            // int requireIndex = requireItems.FindIndex(matcher =>
+            // {
+            //     if (itemAgent)
+            //         return matcher.name == itemAgent.itemName;
+            //     else
+            //         //return matcher.name == item.name;
+            //         return false;
+            // });
+
+            //if (requireIndex >= 0)
+                //if (itemAgent)
+                //{
+                if(itemCount.ContainsKey(itemAgent.itemName))
+                    itemCount[itemAgent.itemName] += itemAgent.amount;
+                else
+                    itemCount.Add(itemAgent.itemName, itemAgent.amount);
+            //}
+            /*else
             {
-                if (itemAgent)
-                    return matcher.name == itemAgent.itemName;
-                else
-                    return matcher.name == item.name;
-            });
-            Debug.Log(requireIndex.ToString()+" / ");
+                itemCount[requireIndex] += 1;
+            }*/
 
-            if (requireIndex >= 0)
-                if (itemAgent)
-                {
-                    itemCount[requireIndex] += itemAgent.amount;
-                }
-                else
-                {
-                    itemCount[requireIndex] += 1;
-                }
-
-            Debug.Log(requireIndex.ToString()+" / "+ itemCount[requireIndex].ToString());
+            Debug.Log(itemAgent.itemName.ToString() + " contains " + itemCount[itemAgent.itemName].ToString());
 
         }
 
@@ -47,7 +60,10 @@ public class ItemDetector : MonoBehaviour
         {
             for (int i = 0; i < requireItems.Count; i++)
             {
-                result |= requireItems[i].count <= itemCount[i];
+                if(itemCount.ContainsKey(requireItems[i].name))
+                    result |= requireItems[i].count <= itemCount[requireItems[i].name];
+                else
+                    result |= false;
             }
         }
         else
@@ -55,7 +71,10 @@ public class ItemDetector : MonoBehaviour
             result = true;
             for (int i = 0; i < requireItems.Count; i++)
             {
-                result &= requireItems[i].count <= itemCount[i];
+                 if(itemCount.ContainsKey(requireItems[i].name))
+                    result &= requireItems[i].count <= itemCount[requireItems[i].name];
+                else
+                    result &= false;
             }
         }
 
