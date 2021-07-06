@@ -135,7 +135,7 @@ public class FixedInteractDetector : CollisionDetector//, IPunObservable
 
         if (isDropping && GetNetworkingTest())
         {
-            if (inventory)
+            if (inventory && inventory.GetItem())
                 inventory.GetItem().Detach(photonView.ViewID);
         }
 
