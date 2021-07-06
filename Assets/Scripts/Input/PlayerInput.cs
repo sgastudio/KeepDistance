@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon;
 using Photon.Pun;
+using PixelCrushers.DialogueSystem;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -65,7 +66,7 @@ public class PlayerInput : MonoBehaviour
     
     void FixedUpdate()
     {
-        if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
+        if ((photonView.IsMine == false && PhotonNetwork.IsConnected == true) || (DialogueManager.isConversationActive))// && !(bool)DialogueManager.instance.masterDatabase.GetVariable("MoveState").InitialBoolValue))
             return;
         Vector3 desiredVelocity = new Vector3(positionAxis.x * positionAxisWeight.x, 0, positionAxis.y * positionAxisWeight.y);
 
@@ -101,7 +102,7 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
+        if ((photonView.IsMine == false && PhotonNetwork.IsConnected == true) || (DialogueManager.isConversationActive))// && !(bool)DialogueManager.instance.masterDatabase.GetVariable("CameraState").InitialBoolValue))
             return;
         positionAxis = new Vector2(Input.GetAxis(positionXAxisName), Input.GetAxis(positionYAxisName));
         rotationAxis = new Vector2(Input.GetAxis(rotationXAxisName), Input.GetAxis(rotationYAxisName));

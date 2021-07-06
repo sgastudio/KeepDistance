@@ -59,7 +59,29 @@ MonoBehaviour:
   - id: 2
     fields:
     - title: Name
-      value: Deliver Center Manager
+      value: Manager
+      type: 0
+      typeString: 
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+    - title: IsPlayer
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    portrait: {fileID: 0}
+    spritePortrait: {fileID: 0}
+    alternatePortraits: []
+    spritePortraits: []
+  - id: 4
+    fields:
+    - title: Name
+      value: D-101
       type: 0
       typeString: 
     - title: Pictures
@@ -96,7 +118,7 @@ MonoBehaviour:
       type: 0
       typeString: 
   conversations:
-  - id: 1
+  - id: 5
     fields:
     - title: Title
       value: Welcome
@@ -170,7 +192,7 @@ MonoBehaviour:
         value: None()
         type: 0
         typeString: 
-      conversationID: 1
+      conversationID: 5
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -178,9 +200,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 1
+      - originConversationID: 5
         originDialogueID: 0
-        destinationConversationID: 1
+        destinationConversationID: 5
         destinationDialogueID: 1
         isConnector: 0
         priority: 2
@@ -214,18 +236,18 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
-        value: 
+        value: Welcome
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: 
+        value: Hello newbie, welcome to the mass deliver
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: SetContinueMode(true)
         type: 0
         typeString: 
-      conversationID: 1
+      conversationID: 5
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -233,9 +255,9 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
-      - originConversationID: 1
+      - originConversationID: 5
         originDialogueID: 1
-        destinationConversationID: 1
+        destinationConversationID: 5
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
@@ -246,8 +268,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 165
-        y: 123
+        x: 39
+        y: 119
         width: 160
         height: 30
     - id: 2
@@ -261,11 +283,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 1
+        value: 2
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 2
+        value: -1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -273,14 +295,14 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: 
+        value: Goodbye
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      conversationID: 1
+      conversationID: 5
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -295,8 +317,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 32
-        y: 227
+        x: 31
+        y: 228
         width: 160
         height: 30
     entryGroups: []
@@ -311,7 +333,7 @@ MonoBehaviour:
     syncItemsDatabase: {fileID: 0}
     syncLocationsDatabase: {fileID: 0}
     syncVariablesDatabase: {fileID: 0}
-  templateJson: '{"treatItemsAsQuests":true,"actorFields":[{"title":"Name","value":"","type":0,"typeString":""},{"title":"Pictures","value":"[]","type":3,"typeString":"CustomFieldType_Files"},{"title":"Description","value":"","type":0,"typeString":""},{"title":"IsPlayer","value":"False","type":2,"typeString":"CustomFieldType_Boolean"}],"itemFields":[{"title":"Name","value":"","type":0,"typeString":""},{"title":"Pictures","value":"[]","type":3,"typeString":"CustomFieldType_Files"},{"title":"Description","value":"","type":0,"typeString":""},{"title":"Is
+  templateJson: '{"treatItemsAsQuests":true,"actorFields":[{"title":"Name","value":"","type":0,"typeString":"CustomFieldType_Text"},{"title":"Pictures","value":"[]","type":3,"typeString":"CustomFieldType_Files"},{"title":"Description","value":"","type":0,"typeString":"CustomFieldType_Text"},{"title":"IsPlayer","value":"False","type":2,"typeString":"CustomFieldType_Boolean"}],"itemFields":[{"title":"Name","value":"","type":0,"typeString":""},{"title":"Pictures","value":"[]","type":3,"typeString":"CustomFieldType_Files"},{"title":"Description","value":"","type":0,"typeString":""},{"title":"Is
     Item","value":"True","type":2,"typeString":"CustomFieldType_Boolean"}],"questFields":[{"title":"Name","value":"","type":0,"typeString":""},{"title":"Pictures","value":"[]","type":3,"typeString":"CustomFieldType_Files"},{"title":"Description","value":"","type":0,"typeString":""},{"title":"Success
     Description","value":"","type":0,"typeString":""},{"title":"Failure Description","value":"","type":0,"typeString":""},{"title":"State","value":"unassigned","type":0,"typeString":""},{"title":"Is
     Item","value":"False","type":2,"typeString":"CustomFieldType_Boolean"}],"locationFields":[{"title":"Name","value":"","type":0,"typeString":""},{"title":"Description","value":"","type":0,"typeString":""}],"variableFields":[{"title":"Name","value":"","type":0,"typeString":""},{"title":"Initial

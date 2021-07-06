@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Item
   - Switch
+  - NPC
+  - DialogueSystem
   layers:
   - Default
   - TransparentFX

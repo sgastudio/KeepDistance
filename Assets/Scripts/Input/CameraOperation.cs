@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using PixelCrushers.DialogueSystem;
 [ExecuteInEditMode]
 //[ExecuteAlways]
 public class CameraOperation : MonoBehaviour
@@ -83,7 +83,7 @@ public class CameraOperation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!targetObject || !isFollowing)
+        if (!targetObject || !isFollowing || (DialogueManager.isConversationActive))// && !(bool)DialogueManager.instance.masterDatabase.GetVariable("CameraState").InitialBoolValue))
             return;
         switch (mode)
         {
