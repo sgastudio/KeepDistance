@@ -9,4 +9,6 @@
 	GameController,
 	Item,
 	Switch,
+	NPC,
+	DialogueSystem,
 }

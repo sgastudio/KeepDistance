@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-
+using PixelCrushers.DialogueSystem;
 public class FixedInteractDetector : CollisionDetector//, IPunObservable
 {
     // Start is called before the first frame update
@@ -67,6 +67,7 @@ public class FixedInteractDetector : CollisionDetector//, IPunObservable
         GameObject sceneObj = activeList[0];
         SwitchAgent switchAgent = sceneObj.GetComponent<SwitchAgent>();
         ItemAgent itemAgent = sceneObj.GetComponent<ItemAgent>();
+        DialogueSystemTrigger dialogueTrigger = sceneObj.GetComponent<DialogueSystemTrigger>();
         //Add to Inventory
         if (itemAgent)
         {
@@ -86,8 +87,12 @@ public class FixedInteractDetector : CollisionDetector//, IPunObservable
         //Switch
         else if (switchAgent)
         {
-            if (switchAgent)
-                switchAgent.SwitchOnce();
+            //if (switchAgent)
+            switchAgent.SwitchOnce();
+        }
+        else if(dialogueTrigger)
+        {
+            dialogueTrigger.Fire(this.transform.parent);
         }
     }
 
