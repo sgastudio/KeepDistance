@@ -6,18 +6,18 @@ using Photon.Pun;
 [RequireComponent(typeof(PhotonView))]
 public class ItemAgent : MonoBehaviourPun
 {
-    
+
     public string itemName;
     [Min(1)]
     public int amount = 1;
     public ItemType type;
 
-    void  Update()
+    void Update()
     {
-        Debug.Log(this.gameObject.ToString() + " - id="+this.gameObject.GetInstanceID());
+//        Debug.Log(this.gameObject.ToString() + " - id=" + this.gameObject.GetInstanceID());
     }
-    
-    public void SetInfo(string name,int amount,ItemType type)
+
+    public void SetInfo(string name, int amount, ItemType type)
     {
         this.itemName = name;
         this.amount = amount;
@@ -48,7 +48,7 @@ public class ItemAgent : MonoBehaviourPun
     {
         PhotonView playerView = PhotonView.Find(playerViewID);
         Inventory inventory = playerView.GetComponentInChildren<Inventory>();
-        if(playerView && inventory)
+        if (playerView && inventory)
         {
             inventory.AddItem(this);
         }
@@ -59,7 +59,7 @@ public class ItemAgent : MonoBehaviourPun
     {
         PhotonView playerView = PhotonView.Find(playerViewID);
         Inventory inventory = playerView.GetComponentInChildren<Inventory>();
-        if(playerView && inventory)
+        if (playerView && inventory)
         {
             inventory.DropItem(this, this.amount);
         }
@@ -67,19 +67,25 @@ public class ItemAgent : MonoBehaviourPun
 
     public void Attach(int playerViewID)
     {
-        photonView.RPC("ItemAttach", RpcTarget.All, playerViewID);
+        if (PhotonNetwork.OfflineMode)
+            ItemAttach(playerViewID);
+        else
+            photonView.RPC("ItemAttach", RpcTarget.All, playerViewID);
     }
 
     public void Detach(int playerViewID)
     {
-        photonView.RPC("ItemDetach", RpcTarget.All, playerViewID);
+        if (PhotonNetwork.OfflineMode)
+            ItemDetach(playerViewID);
+        else
+            photonView.RPC("ItemDetach", RpcTarget.All, playerViewID);
     }
 
     void Start()
     {
-        if(itemName == "")
+        if (itemName == "")
             itemName = "Item " + this.gameObject.GetInstanceID().ToString();
-        
+
         this.gameObject.name = gameObject.GetInstanceID().ToString();
     }
 }

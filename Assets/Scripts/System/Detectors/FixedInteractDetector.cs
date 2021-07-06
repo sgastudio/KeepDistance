@@ -71,7 +71,7 @@ public class FixedInteractDetector : CollisionDetector//, IPunObservable
         //Add to Inventory
         if (itemAgent)
         {
-            Debug.Log("View ID:"+photonView.ViewID.ToString());
+            //Debug.Log("View ID:"+photonView.ViewID.ToString());
             itemAgent.Attach(photonView.ViewID);
             /*
             if (inventory)
