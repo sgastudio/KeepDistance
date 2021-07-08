@@ -11,10 +11,21 @@ public class ItemAgent : MonoBehaviourPun
     [Min(1)]
     public int amount = 1;
     public ItemType type;
+    //public int lastOwnerID;
+
+    void Start()
+    {
+         if (itemName == "")
+            itemName = "Item " + this.gameObject.GetInstanceID().ToString();
+
+        this.gameObject.name = gameObject.GetInstanceID().ToString();
+
+        photonView.OwnershipTransfer = OwnershipOption.Takeover;
+    }
 
     void Update()
     {
-//        Debug.Log(this.gameObject.ToString() + " - id=" + this.gameObject.GetInstanceID());
+        
     }
 
     public void SetInfo(string name, int amount, ItemType type)
@@ -51,6 +62,7 @@ public class ItemAgent : MonoBehaviourPun
         if (playerView && inventory)
         {
             inventory.AddItem(this);
+            this.photonView.TransferOwnership(playerViewID);
         }
     }
 
@@ -79,13 +91,5 @@ public class ItemAgent : MonoBehaviourPun
             ItemDetach(playerViewID);
         else
             photonView.RPC("ItemDetach", RpcTarget.All, playerViewID);
-    }
-
-    void Start()
-    {
-        if (itemName == "")
-            itemName = "Item " + this.gameObject.GetInstanceID().ToString();
-
-        this.gameObject.name = gameObject.GetInstanceID().ToString();
     }
 }
