@@ -8,8 +8,12 @@ public class MissionTrigger : MonoBehaviour
     MissionManager missionManager;
     // Start is called before the first frame update
     void Start()
-    {
-        missionManager = GameObject.FindGameObjectWithTag(EnumTag.GameController.ToString()).GetComponent<MissionManager>();
+    {   
+        GameObject systemObject = GameObject.FindGameObjectWithTag(EnumTag.GameController.ToString());
+        if(systemObject)
+            missionManager = systemObject.GetComponent<MissionManager>();
+        else
+            Debug.LogError("MissionTrigger Can not find Mission manager");
         if(!missionManager)
             Debug.LogError("MissionTrigger missing component MissionManager");
     }
