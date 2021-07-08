@@ -92,18 +92,18 @@ public class FixedInteractDetector : CollisionDetector//, IPunObservable
         }
         else if(dialogueTrigger)
         {
-            dialogueTrigger.Fire(this.transform.parent);
+            dialogueTrigger.OnUse(this.transform.parent);
+            //dialogueTrigger.Fire(this.transform.parent);
         }
     }
 
     void processInput()
     {
-        if (!GetNetworkingTest())
+        if (!GetNetworkingTest() || PixelCrushers.DialogueSystem.DialogueManager.isConversationActive)
             return;
 
         isFiring = Input.GetButtonDown("Fire1") && interactCooldown == false;
         isDropping = Input.GetButtonDown("Fire2") && interactCooldown == false;
-
 
         // if (Input.GetButtonDown("Fire1") && !isFiring && interactCooldown == false)
         // {
