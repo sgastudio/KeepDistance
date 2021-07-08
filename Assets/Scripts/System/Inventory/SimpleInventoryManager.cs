@@ -63,7 +63,7 @@ public class SimpleInventoryManager : Inventory
 
     public override int FindItem(string name)
     {
-        if(item.name == name)
+        if(item.itemName == name)
             return item.amount;
         else
             return -1;
