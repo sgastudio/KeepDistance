@@ -1628,7 +1628,12 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: 'SetQuestState("TurnCamera", "success");
+
+        SetQuestState("MoveLR",
+        "success");
+
+        SetQuestState("MoveFB", "success")'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2073,7 +2078,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: None()
+        value: 
         type: 0
         typeString: 
       conversationID: 2
@@ -2122,7 +2127,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: None()
+        value: 
         type: 0
         typeString: 
       conversationID: 2
@@ -2171,7 +2176,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: None()
+        value: 
         type: 0
         typeString: 
       conversationID: 2
@@ -2194,7 +2199,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 104.06118, y: 83.27672}
+    canvasScrollPosition: {x: 117.6976, y: 54.86763}
     canvasZoom: 0.87999994
   - id: 3
     fields:
@@ -2367,7 +2372,8 @@ MonoBehaviour:
         destinationDialogueID: 5
         isConnector: 0
         priority: 2
-      conditionsString: 
+      conditionsString: (CurrentQuestState("MoveFB") == "success") and (CurrentQuestState("MoveLR")
+        == "success") and (CurrentQuestState("TurnCamera") == "success")
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -2862,15 +2868,15 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
         value: 3
         type: 5
         typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
       - title: Menu Text
-        value: OK
+        value: 
         type: 0
         typeString: 
       - title: Dialogue Text
@@ -2911,15 +2917,15 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
         value: 3
         type: 5
         typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
       - title: Menu Text
-        value: Easy
+        value: 
         type: 0
         typeString: 
       - title: Dialogue Text
@@ -2950,7 +2956,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 17.293741, y: 43.48345}
+    canvasScrollPosition: {x: 1.336298, y: 0}
     canvasZoom: 0.94
   syncInfo:
     syncActors: 0
