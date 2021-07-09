@@ -20,7 +20,7 @@ public class Inventory : MonoBehaviour
     public virtual void AddItem(ItemAgent other)
     {
         SetPhysicsState(other, false);
-        onItemDropped.Invoke(other.name);
+        onItemAdded.Invoke(other.name);
     }
 
     public virtual void DropItem(ItemAgent other, int amount)
