@@ -3,17 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Photon.Pun;
 
 public class ItemDetector : MonoBehaviour
 {
     public CollisionDetector detector;
     public List<ItemCheckerPair> requireItems;
     public WorkMode workMode;
+    public bool LocalPlayerCheckOnly = true;
+
+    [Header("Events")]
     public UnityEvent onCheckSucceeded;
     public UnityEvent onCheckFailed;
+    
 
     void Start()
     {
+        if(!detector)
+            detector = this.GetComponent<CollisionDetector>();
+        if(!detector)
+            Debug.LogWarning("Item Detector missiong Collision component");
+
         this.detector.targetEnter.AddListener(CheckArea);
         this.detector.targetExit.AddListener(CheckArea);
         this.detector.targetClean.AddListener(CheckArea);
@@ -21,12 +31,14 @@ public class ItemDetector : MonoBehaviour
 
     public void CheckArea(Collider other)
     {
+        if(!detector)
+            return;
         Dictionary<string,int> itemCount = new Dictionary<string, int>();
         itemCount.Clear();
         foreach (GameObject item in detector.activeList)
         {
             ItemAgent itemAgent = item.GetComponent<ItemAgent>();
-            if (!itemAgent)
+            if (!itemAgent || (itemAgent.photonView.Owner != PhotonNetwork.LocalPlayer && !LocalPlayerCheckOnly))
                 break;
             // int requireIndex = requireItems.FindIndex(matcher =>
             // {
@@ -40,6 +52,7 @@ public class ItemDetector : MonoBehaviour
             //if (requireIndex >= 0)
                 //if (itemAgent)
                 //{
+                
                 if(itemCount.ContainsKey(itemAgent.itemName))
                     itemCount[itemAgent.itemName] += itemAgent.amount;
                 else
