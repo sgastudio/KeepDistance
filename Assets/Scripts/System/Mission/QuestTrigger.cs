@@ -13,14 +13,14 @@ public class QuestTrigger : MonoBehaviour
     public string quest;
     [DisplayAsString]
     public QuestState currentState;
-    DialogueSystemTrigger trigger;
+    //DialogueSystemTrigger trigger;
     string questName;
     // Start is called before the first frame update
     void Start()
     {
-        trigger = this.GetComponent<DialogueSystemTrigger>();
-        if (!trigger)
-            Debug.LogError("Quest Trigger missing component DialogueSystemTrigger");
+        // trigger = this.GetComponent<DialogueSystemTrigger>();
+        // if (!trigger)
+        //     Debug.LogError("Quest Trigger missing component DialogueSystemTrigger");
         
         if(assignRuntimeQuest)
             questName = questTitle;
