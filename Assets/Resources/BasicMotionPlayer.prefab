@@ -208,14 +208,22 @@ MonoBehaviour:
   tags: 05000000
   layerTagBlendMode: 0
   LocalPlayerOnly: 1
+  photonView: {fileID: 0}
   targetEnter:
     m_PersistentCalls:
       m_Calls: []
   targetExit:
     m_PersistentCalls:
       m_Calls: []
+  targetStay:
+    m_PersistentCalls:
+      m_Calls: []
+  targetClean:
+    m_PersistentCalls:
+      m_Calls: []
+  cleanInterval: 1
+  maxStayTimeLimit: 1
   activeList: []
-  photonView: {fileID: 0}
   linePrefab: {fileID: 1913513231532759294, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
   playerList: []
 --- !u!114 &519399582
@@ -236,14 +244,22 @@ MonoBehaviour:
   tags: 0700000008000000
   layerTagBlendMode: 0
   LocalPlayerOnly: 0
+  photonView: {fileID: 3569400974636163425}
   targetEnter:
     m_PersistentCalls:
       m_Calls: []
   targetExit:
     m_PersistentCalls:
       m_Calls: []
+  targetStay:
+    m_PersistentCalls:
+      m_Calls: []
+  targetClean:
+    m_PersistentCalls:
+      m_Calls: []
+  cleanInterval: 1
+  maxStayTimeLimit: 1
   activeList: []
-  photonView: {fileID: 3569400974636163425}
   inventory: {fileID: 3653187903575843326}
   interactDelay: 0.5
 --- !u!1 &3569400974636163437
@@ -371,7 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursorLock: 2
-  cursorVisible: 1
+  cursorVisible: 0
   aspectRate: 1.778
   positionXAxisName: Horizontal
   positionYAxisName: Vertical

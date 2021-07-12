@@ -1559,15 +1559,16 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: (CurrentQuestState("MoveLR") == "success") and (CurrentQuestState("MoveFB")
-        == "success") and (CurrentQuestState("TurnCamera") == "success")
+        == "success") and (CurrentQuestState("TurnCamera") == "success") and (CurrentQuestState("PickBox")
+        == "unassigned")
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 334.62732
-        y: 67.742874
+        x: 331.21823
+        y: 66.60651
         width: 160
         height: 30
     - id: 10
@@ -2139,7 +2140,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: SetQuestState("MoveFB", "unassigned")
+      userScript: SetQuestState("MoveFB", "active")
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2194,8 +2195,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 179.3847
-        y: 510.6232
+        x: 156.65744
+        y: 510.62317
         width: 160
         height: 30
     entryGroups: []
@@ -2380,8 +2381,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 30
-        y: 110
+        x: 32.127655
+        y: 102.55319
         width: 160
         height: 30
     - id: 2
@@ -2809,7 +2810,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
-        value: Is this the final test? It's too easy! (Next step)
+        value: Is this the final test? It's too easy! (Finish)
         type: 0
         typeString: 
       - title: Dialogue Text
@@ -2956,7 +2957,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 1.336298, y: 0}
+    canvasScrollPosition: {x: 0, y: 27.659576}
     canvasZoom: 0.94
   syncInfo:
     syncActors: 0
