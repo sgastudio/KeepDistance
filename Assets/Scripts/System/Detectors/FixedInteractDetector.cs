@@ -65,6 +65,7 @@ public class FixedInteractDetector : CollisionDetector//, IPunObservable
     void interactObject()
     {
         GameObject sceneObj = activeList[0];
+        IInteractable interactable = sceneObj.GetComponent<IInteractable>();
         SwitchAgent switchAgent = sceneObj.GetComponent<SwitchAgent>();
         ItemAgent itemAgent = sceneObj.GetComponent<ItemAgent>();
         DialogueSystemTrigger dialogueTrigger = sceneObj.GetComponent<DialogueSystemTrigger>();
@@ -85,10 +86,12 @@ public class FixedInteractDetector : CollisionDetector//, IPunObservable
             activeList.Remove(sceneObj);
         }
         //Switch
-        else if (switchAgent)
+        //else if (switchAgent)
+        else if (interactable != null)
         {
             //if (switchAgent)
-            switchAgent.SwitchOnce();
+            interactable.Interact();
+            //switchAgent.SwitchOnce();
         }
         else if(dialogueTrigger)
         {
