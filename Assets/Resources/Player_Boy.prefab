@@ -16,13 +16,14 @@ GameObject:
   - component: {fileID: 6495838847174472178}
   - component: {fileID: 2110336312425376720}
   - component: {fileID: 5609431686473267777}
+  - component: {fileID: 7383227342473885386}
   m_Layer: 0
   m_Name: Player_Boy
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8676971916675199538
 Transform:
   m_ObjectHideFlags: 0
@@ -178,6 +179,20 @@ CapsuleCollider:
   m_Height: 1.6
   m_Direction: 1
   m_Center: {x: 0, y: 0.785, z: 0}
+--- !u!114 &7383227342473885386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5499346436315456983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd74794c9af32942826ffd2dd7e5ee2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 8915883197843863053}
+  playerInput: {fileID: 6495838847174472178}
 --- !u!1 &5556116959731503578
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,8 +216,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5556116959731503578}
-  m_LocalRotation: {x: 0.41915876, y: -0.568767, z: 0.41691083, w: 0.57183516}
-  m_LocalPosition: {x: -0.016294068, y: 0.028798763, z: 0.00008761867}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 0.015, y: 0.019, z: 0.002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8854308478509569751}
@@ -360,7 +375,7 @@ MonoBehaviour:
   tags: 070000000800000009000000
   layerTagBlendMode: 0
   LocalPlayerOnly: 0
-  photonView: {fileID: 0}
+  photonView: {fileID: 4427551795535161635}
   targetEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -517,6 +532,11 @@ GameObject:
 --- !u!4 &8854302363860519547 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4269983556564406, guid: 416af391d44a9f745889399554e08f1e, type: 3}
+  m_PrefabInstance: {fileID: 8858552504633999309}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8915883197843863053 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95826934327429568, guid: 416af391d44a9f745889399554e08f1e, type: 3}
   m_PrefabInstance: {fileID: 8858552504633999309}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8854308478509569751 stripped
