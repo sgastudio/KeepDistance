@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Photon.Pun;
-
-public class SwitchAgent : MonoBehaviourPun
+[RequireComponent(typeof(PhotonView))]
+public class SwitchAgent : MonoBehaviourPun,IInteractable
 {
     public string switchName;
     public bool state;
@@ -22,16 +22,16 @@ public class SwitchAgent : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     [PunRPC]
     public void SwitchState(bool nState)
     {
-        if(this.state == nState)
+        if (this.state == nState)
             return;
         this.state = nState;
-        if(this.state)
+        if (this.state)
             onStateOpen.Invoke();
         else
             onStateClose.Invoke();
@@ -41,6 +41,14 @@ public class SwitchAgent : MonoBehaviourPun
     public void SwitchOnce()
     {
         //SwitchState(!this.state);
-        photonView.RPC("SwitchState",RpcTarget.All, !this.state);
+        if (PhotonNetwork.OfflineMode)
+            SwitchState(!this.state);
+        else
+            photonView.RPC("SwitchState", RpcTarget.All, !this.state);
     }
-}
+
+    public void Interact()
+    {
+        SwitchOnce();
+    }
+}   

@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Photon.Pun;
-
+[RequireComponent(typeof(PhotonView))]
 public class ButtonAgent : MonoBehaviourPun, IInteractable
 {
     public string switchName;
     public bool state;
-    public float resetTime;
+    public float resetTime=2.0f;
     public UnityEvent onStateChanged;
     public UnityEvent onStateClose;
     public UnityEvent onStateOpen;
-    public float lastInteract;
+    float lastInteract;
 
     // Start is called before the first frame update
     void Start()
@@ -24,8 +24,7 @@ public class ButtonAgent : MonoBehaviourPun, IInteractable
     // Update is called once per frame
     void Update()
     {
-        if (state && lastInteract + resetTime < Time.time)
-            state = false;
+        
     }
 
     [PunRPC]
@@ -49,8 +48,11 @@ public class ButtonAgent : MonoBehaviourPun, IInteractable
         else
             photonView.RPC("SwitchState", RpcTarget.All, true);
         lastInteract = Time.time;
-        StopAllCoroutines();
-        StartCoroutine(Reset());
+        if(resetTime>0)
+        {
+            StopAllCoroutines();
+            StartCoroutine(Reset());
+        }
     }
 
     public void Interact()
