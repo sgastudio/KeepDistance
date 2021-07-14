@@ -5605,7 +5605,7 @@ MonoBehaviour:
   target: {fileID: 0}
   targetOffset: {x: 0, y: 1.5, z: 0}
   useSlerp: 1
-  slerpWeight: 0.5
+  slerpWeight: 0.1
 --- !u!114 &1094574539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6391,48 +6391,6 @@ MonoBehaviour:
   useBarkTitlePicker: 1
   useQuestNamePicker: 1
   selectedDatabase: {fileID: 0}
---- !u!1 &1657529056 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 274079308976785604, guid: 23e22d8fe33ba294f8b33198dc2e167f, type: 3}
-  m_PrefabInstance: {fileID: 3719959942364158630}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1657529057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1657529056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b77d5ebef20b0674ea438f64a03bb141, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: Cardboard
-  amount: 1
-  type: 0
---- !u!114 &1657529058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1657529056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 6
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1001 &1733424725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6841,7 +6799,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh86134
+  m_Name: pb_Mesh86140
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7098,9 +7056,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Girl
       objectReference: {fileID: 0}
+    - target: {fileID: 4075135888612891498, guid: df428f243b9ee8e4b88be0886fd38c52, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5309043484803930014, guid: df428f243b9ee8e4b88be0886fd38c52, type: 3}
       propertyPath: sceneViewId
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9056000350512688434, guid: df428f243b9ee8e4b88be0886fd38c52, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0275
+      objectReference: {fileID: 0}
+    - target: {fileID: 9056000350512688434, guid: df428f243b9ee8e4b88be0886fd38c52, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df428f243b9ee8e4b88be0886fd38c52, type: 3}
@@ -7111,13 +7081,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1657529058, guid: 23e22d8fe33ba294f8b33198dc2e167f, type: 3}
+      propertyPath: sceneViewId
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 274079308976785604, guid: 23e22d8fe33ba294f8b33198dc2e167f, type: 3}
       propertyPath: m_Name
       value: Cardboard
-      objectReference: {fileID: 0}
-    - target: {fileID: 274079308976785604, guid: 23e22d8fe33ba294f8b33198dc2e167f, type: 3}
-      propertyPath: m_TagString
-      value: Item
       objectReference: {fileID: 0}
     - target: {fileID: 4595038811435065365, guid: 23e22d8fe33ba294f8b33198dc2e167f, type: 3}
       propertyPath: m_RootOrder
@@ -7163,16 +7133,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5539960165317381418, guid: 23e22d8fe33ba294f8b33198dc2e167f, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5539960165317381418, guid: 23e22d8fe33ba294f8b33198dc2e167f, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 168f9ee5b5ee4504196fd27dfabfc227, type: 2}
-    m_RemovedComponents:
-    - {fileID: 6055235825553139045, guid: 23e22d8fe33ba294f8b33198dc2e167f, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23e22d8fe33ba294f8b33198dc2e167f, type: 3}
 --- !u!1001 &3910424735156250260
 PrefabInstance:
@@ -7323,13 +7284,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Boy
       objectReference: {fileID: 0}
-    - target: {fileID: 5499346436315456983, guid: d82aedb786b8fb04fa16375ef4b0f36e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 5690823719069811334, guid: d82aedb786b8fb04fa16375ef4b0f36e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0085
       objectReference: {fileID: 0}
-    - target: {fileID: 7383227342473885386, guid: d82aedb786b8fb04fa16375ef4b0f36e, type: 3}
-      propertyPath: animator
-      value: 
+    - target: {fileID: 5690823719069811334, guid: d82aedb786b8fb04fa16375ef4b0f36e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0347
+      objectReference: {fileID: 0}
+    - target: {fileID: 5690823719069811334, guid: d82aedb786b8fb04fa16375ef4b0f36e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5690823719069811334, guid: d82aedb786b8fb04fa16375ef4b0f36e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5690823719069811334, guid: d82aedb786b8fb04fa16375ef4b0f36e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5690823719069811334, guid: d82aedb786b8fb04fa16375ef4b0f36e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5690823719069811334, guid: d82aedb786b8fb04fa16375ef4b0f36e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8676971916675199538, guid: d82aedb786b8fb04fa16375ef4b0f36e, type: 3}
       propertyPath: m_RootOrder

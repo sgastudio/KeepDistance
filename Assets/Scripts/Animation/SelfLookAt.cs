@@ -16,13 +16,13 @@ public class SelfLookAt : MonoBehaviour
 
         if (target)
         {
-            
+
             Quaternion tQ = Quaternion.LookRotation((target.position + targetOffset - this.transform.position).normalized);
             RotationCaculation(tQ);
         }
         else
         {
-            Quaternion tQ =  Quaternion.LookRotation(this.transform.parent.forward);
+            Quaternion tQ = Quaternion.LookRotation(this.transform.parent.forward);
             RotationCaculation(tQ);
         }
 
@@ -31,12 +31,16 @@ public class SelfLookAt : MonoBehaviour
     void RotationCaculation(Quaternion tQ)
     {
         if (useSlerp)
-                this.transform.rotation =  Quaternion.Slerp(this.transform.rotation, tQ, slerpWeight);
+        {
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, tQ, slerpWeight);
+        }
+        else
+        {
+            if (target)
+                this.transform.LookAt(target);
             else
-                if(target)
-                    this.transform.LookAt(target);
-                else
-                    this.transform.localRotation = Quaternion.identity;
+                this.transform.localRotation = Quaternion.identity;
+        }
     }
 
     public void SetTarget(Transform trans)
