@@ -21,11 +21,12 @@ public class CameraOperationInspector : Editor
     public SerializedProperty rawAngle;
     public SerializedProperty gizmosSize;
     public SerializedProperty switchRaycast;
-    public SerializedProperty switchPosSlerp;
-    public SerializedProperty switchRotSlerp;
-
     public SerializedProperty ParamRayLayer;
+    public SerializedProperty ParamMinDistance;
+    public SerializedProperty switchPosSlerp;
+
     public SerializedProperty ParamPosSlerp;
+    public SerializedProperty switchRotSlerp;
     public SerializedProperty ParamRotSlerp;
     public void OnEnable()
     {
@@ -46,6 +47,7 @@ public class CameraOperationInspector : Editor
 
         switchRaycast = obj.FindProperty("enableRayDetection");
         ParamRayLayer = obj.FindProperty("rayLayer");
+        ParamMinDistance = obj.FindProperty("minCameraDistance");
 
         switchPosSlerp = obj.FindProperty("enablePositionSlerp");
         ParamPosSlerp = obj.FindProperty("positionSlerpWeight");
@@ -110,17 +112,21 @@ public class CameraOperationInspector : Editor
             EditorGUILayout.PropertyField(followRotation);
 
             EditorGUILayout.PropertyField(switchRaycast);
-            EditorGUILayout.PropertyField(switchRotSlerp);
-            EditorGUILayout.PropertyField(switchPosSlerp);
+            if (cameraOperation.enableRayDetection)
+            {
+                EditorGUILayout.PropertyField(ParamMinDistance);
+                EditorGUILayout.PropertyField(ParamRayLayer);
+            }
 
+            EditorGUILayout.PropertyField(switchPosSlerp);
             if (cameraOperation.enablePositionSlerp)
                 EditorGUILayout.PropertyField(ParamPosSlerp);
 
+            EditorGUILayout.PropertyField(switchRotSlerp);
             if (cameraOperation.enableRotationSlerp)
                 EditorGUILayout.PropertyField(ParamRotSlerp);
 
-            if (cameraOperation.enableRayDetection)
-                EditorGUILayout.PropertyField(ParamRayLayer);
+
             //Debug.Log("TPS");
         }
 

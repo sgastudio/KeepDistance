@@ -40,6 +40,7 @@ public class CameraOperation : MonoBehaviour
     [Header("Misc")]
     public bool enableRayDetection = false;
     public LayerMask rayLayer;
+    public float minCameraDistance =0.3f;
     public bool enablePositionSlerp = false;
     [Range(0f, 1f)]
     public float positionSlerpWeight = 0.5f;
@@ -138,7 +139,11 @@ public class CameraOperation : MonoBehaviour
                 Vector3 rayDir = posOffset;
                 if(Physics.Raycast(basePos, rayDir.normalized, out hitInfo, rayDir.magnitude, rayLayer) && enableRayDetection)
                 {
-                    desiredPos = hitInfo.point;
+                    if(hitInfo.distance >= minCameraDistance)
+                        desiredPos = hitInfo.point;
+                    else
+                        desiredPos = targetObject.transform.position + targetPositionOffset + rayDir * 0.01f;
+
                 }
                 else
                 {
