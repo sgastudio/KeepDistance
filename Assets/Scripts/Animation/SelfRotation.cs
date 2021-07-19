@@ -6,19 +6,20 @@ public class SelfRotation : MonoBehaviour
 {
     public bool useFixedUpdate=true;
     public Space rotateSpace;
-    public Vector3 rotateSpeed = Vector3.zero;
+    public float period = 1;
+    public Vector3 angle = Vector3.zero;
 
 
     // Update is called once per frame
     void Update()
     {
         if (!useFixedUpdate)
-            this.transform.Rotate(rotateSpeed * Time.deltaTime, rotateSpace);
+            this.transform.Rotate(angle * Time.deltaTime / period, rotateSpace);
     }
 
     private void FixedUpdate()
     {
         if (useFixedUpdate)
-            this.transform.Rotate(rotateSpeed * Time.deltaTime, rotateSpace);
+            this.transform.Rotate(angle * Time.deltaTime / period, rotateSpace);
     }
 }

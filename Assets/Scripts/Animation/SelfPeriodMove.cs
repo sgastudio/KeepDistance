@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SelfPeriodMove : MonoBehaviour
 {
-    bool useFixedUpdate=true;
+    public bool useFixedUpdate=true;
     public Space moveSpace;
     public float period = 1;
     float anglePeriod = 0;
