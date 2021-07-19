@@ -32,6 +32,9 @@ public class ChibiAnimatorManager : MonoBehaviour
             //animator.SetFloat("Forward", playerInput.adjustedVelocity.magnitude);
             animator.SetFloat("Right", playerInput.adjustedVelocity.x);
             animator.SetFloat("Forward", playerInput.adjustedVelocity.z);
+            animator.SetBool("Crouch",playerInput.isCrouching);
+
+            animator.SetBool("OnGround",!playerInput.isJumping);
             //animator.SetFloat("Turn", playerInput.adjustedVelocity.x);
             // }
             // else
