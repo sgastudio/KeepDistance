@@ -1,9 +1,11 @@
 ﻿public enum EnumLevel
 {
+	TestScene,
 	MainMenu,
 	Loading,
 	Result,
-	TestScene,
-	Level_Mail,
+	Level_Tutorial,
+	Level_city,
 	Level_Test,
+	OfflineTest,
 }
