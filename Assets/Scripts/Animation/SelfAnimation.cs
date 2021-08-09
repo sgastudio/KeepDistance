@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine.Events;
 
 public class SelfAnimation : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class SelfAnimation : MonoBehaviour
     public bool useFixedUpdate = true;
     public bool playOnStart;
     public bool autoReverse;
+
+    public UnityEvent onAnimationEnd;
 
     bool isReverse;
     bool isPlaying;
@@ -90,7 +93,7 @@ public class SelfAnimation : MonoBehaviour
             if (autoReverse)
                 isReverse = true;
             else
-                isPlaying = false;
+                Stop();
         }
         else if (percentage <= 0.0f)
         {
@@ -98,7 +101,7 @@ public class SelfAnimation : MonoBehaviour
             if (autoReverse)
                 isReverse = false;
             else
-                isPlaying = false;
+                Stop();
         }
 
         if (body)
@@ -137,5 +140,6 @@ public class SelfAnimation : MonoBehaviour
     public void Stop()
     {
         isPlaying = false;
+        onAnimationEnd.Invoke();
     }
 }
