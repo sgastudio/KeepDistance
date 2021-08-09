@@ -150,7 +150,7 @@ MonoBehaviour:
       type: 3
       typeString: CustomFieldType_Files
     - title: Description
-      value: Press [A] and [D] key on the keyboard to move left or right
+      value: Press [A] and [D] ket to move left or right
       type: 0
       typeString: CustomFieldType_Text
     - title: Success Description
@@ -188,7 +188,7 @@ MonoBehaviour:
       type: 3
       typeString: CustomFieldType_Files
     - title: Description
-      value: 'Press [W] and [S] key on the keyboard to move forward and backward '
+      value: 'Press [W] and [S] key to move forward and backward '
       type: 0
       typeString: 
     - title: Success Description
@@ -276,7 +276,45 @@ MonoBehaviour:
       type: 0
       typeString: 
     - title: State
-      value: active
+      value: unassigned
+      type: 0
+      typeString: 
+    - title: Is Item
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Trackable
+      value: True
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Track
+      value: True
+      type: 2
+      typeString: CustomFieldType_Boolean
+  - id: 12
+    fields:
+    - title: Name
+      value: GoUpstairs
+      type: 0
+      typeString: 
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: Go upstairs
+      type: 0
+      typeString: 
+    - title: Success Description
+      value: 
+      type: 0
+      typeString: 
+    - title: Failure Description
+      value: 
+      type: 0
+      typeString: 
+    - title: State
+      value: unassigned
       type: 0
       typeString: 
     - title: Is Item
@@ -302,7 +340,7 @@ MonoBehaviour:
       type: 3
       typeString: CustomFieldType_Files
     - title: Description
-      value: Pickup the cardboard on the ground with [Left Mouse] button
+      value: Get close and pick up a box with [Left Mouse] button
       type: 0
       typeString: 
     - title: Success Description
@@ -340,7 +378,45 @@ MonoBehaviour:
       type: 3
       typeString: CustomFieldType_Files
     - title: Description
-      value: Lay down the bridge with the [Panel] on your right
+      value: Descend the bridge with [Left Mouse] button on panel
+      type: 0
+      typeString: 
+    - title: Success Description
+      value: 
+      type: 0
+      typeString: 
+    - title: Failure Description
+      value: 
+      type: 0
+      typeString: 
+    - title: State
+      value: unassigned
+      type: 0
+      typeString: 
+    - title: Is Item
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Trackable
+      value: True
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Track
+      value: True
+      type: 2
+      typeString: CustomFieldType_Boolean
+  - id: 11
+    fields:
+    - title: Name
+      value: OverBridge
+      type: 0
+      typeString: 
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: Move over the bridge
       type: 0
       typeString: 
     - title: Success Description
@@ -397,6 +473,14 @@ MonoBehaviour:
       value: False
       type: 2
       typeString: CustomFieldType_Boolean
+    - title: Trackable
+      value: True
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Track
+      value: True
+      type: 2
+      typeString: CustomFieldType_Boolean
   - id: 4
     fields:
     - title: Name
@@ -408,7 +492,7 @@ MonoBehaviour:
       type: 3
       typeString: CustomFieldType_Files
     - title: Description
-      value: Open the glass door with the [Panel] on your right
+      value: Open the glass door with the [Panel]
       type: 0
       typeString: 
     - title: Success Description
@@ -656,7 +740,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 31
+        x: 30
         y: 71
         width: 160
         height: 30
@@ -746,7 +830,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Hello, I'm D-101, your new assistant and companion droid.
+        value: Hello, I'm D-101, your assistant and companion droid.
         type: 0
         typeString: 
       - title: Sequence
@@ -880,8 +964,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Your <shake a=0.2>last entry simulation</shake> will be done in this
-          virtual space.
+        value: Your <shake a=0.2>entry simulation</shake> will be done in this virtual
+          space.
         type: 0
         typeString: 
       - title: Sequence
@@ -1202,7 +1286,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Just in case, do you need function explanation of your body?
+        value: Just in case, do you know how to control your body?
         type: 0
         typeString: 
       - title: Sequence
@@ -1249,7 +1333,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 123.82486
-        y: 199.12976
+        y: 197.99341
         width: 160
         height: 30
     - id: 5
@@ -1271,7 +1355,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Actor
       - title: Menu Text
-        value: No, thanks, I've learned it. (skip)
+        value: I'm the expert. (skip)
         type: 0
         typeString: 
       - title: Dialogue Text
@@ -1342,8 +1426,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Well, let move to the next platform with <color="red">red</color>
-          container to continue our simulation.
+        value: Well, let's move to the next platform with <color="red">red</color>
+          container to continue the simulation.
         type: 0
         typeString: 
       - title: Sequence
@@ -1680,7 +1764,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Actor
       - title: Menu Text
-        value: Yes, please. (Movement Tutorial)
+        value: Explain please. (Movement Tutorial)
         type: 0
         typeString: 
       - title: Dialogue Text
@@ -1814,7 +1898,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Actor
       - title: Menu Text
-        value: Yes, I think I am ready! (Next step)
+        value: Yes, of course!  (Next step)
         type: 0
         typeString: 
       - title: Dialogue Text
@@ -2151,8 +2235,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: OK, here's a last tip to you, if you lose your way, try to follow
-          <color="red">red</color> items.
+        value: OK, try to find and follow <color="red">red</color> objects if you
+          get lost.
         type: 0
         typeString: 
       - title: Sequence
@@ -2240,7 +2324,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 110.227264, y: 57.954544}
+    canvasScrollPosition: {x: 98.420204, y: 66.269424}
     canvasZoom: 0.87999994
   - id: 3
     fields:
@@ -2400,12 +2484,6 @@ MonoBehaviour:
       - originConversationID: 3
         originDialogueID: 1
         destinationConversationID: 3
-        destinationDialogueID: 4
-        isConnector: 0
-        priority: 2
-      - originConversationID: 3
-        originDialogueID: 1
-        destinationConversationID: 3
         destinationDialogueID: 3
         isConnector: 0
         priority: 2
@@ -2436,13 +2514,19 @@ MonoBehaviour:
       - originConversationID: 3
         originDialogueID: 1
         destinationConversationID: 3
-        destinationDialogueID: 13
+        destinationDialogueID: 15
         isConnector: 0
         priority: 2
       - originConversationID: 3
         originDialogueID: 1
         destinationConversationID: 3
-        destinationDialogueID: 15
+        destinationDialogueID: 16
+        isConnector: 0
+        priority: 2
+      - originConversationID: 3
+        originDialogueID: 1
+        destinationConversationID: 3
+        destinationDialogueID: 19
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -2536,7 +2620,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: Now, take the box into the target area over the bridge.
+        value: Well done!
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
@@ -2562,77 +2646,22 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 3
+        originDialogueID: 3
+        destinationConversationID: 3
+        destinationDialogueID: 17
+        isConnector: 0
+        priority: 2
       conditionsString: 
-      userScript: SetQuestState("DropItem", "active")
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 433.53363
-        y: 210.23065
-        width: 160
-        height: 30
-    - id: 4
-      fields:
-      - title: Title
-        value: 'D-101 Assistant Droid: "Now, try to pick up the box by clic..."'
-        type: 0
-        typeString: 
-      - title: Description
-        value: 
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 2
-        type: 0
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 0
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: LMB
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: Now, try to pick up the box by clicking LMB.
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: 
-      - title: Articy Id
-        value: 0x010000000000022E
-        type: 0
-        typeString: 
-      - title: InputId
-        value: 0x0100000000000231
-        type: 0
-        typeString: 
-      - title: OutputId
-        value: 0x0100000000000232
-        type: 0
-        typeString: 
-      conversationID: 3
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks: []
-      conditionsString: CurrentQuestState("PickBox") == "unassigned"
-      userScript: SetQuestState("PickBox", "active");
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 36.095695
-        y: 340.1858
+        x: 242.93756
+        y: 186.53946
         width: 160
         height: 30
     - id: 6
@@ -2698,8 +2727,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 215.5799
-        y: 421.51782
+        x: 30.01287
+        y: 326.67245
         width: 160
         height: 30
     - id: 8
@@ -2765,8 +2794,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 215.95517
-        y: 342.41544
+        x: 30.388145
+        y: 243.5339
         width: 160
         height: 30
     - id: 9
@@ -2788,11 +2817,11 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Actor
       - title: Menu Text
-        value: Nice
+        value: Reach PLT1
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Nice to see you here, now I will give you the first mission.
+        value: Nice to see you here, continue your simulation upstairs.
         type: 0
         typeString: 
       - title: Sequence
@@ -2820,8 +2849,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 223.61702
-        y: 20.63829
+        x: 242.02646
+        y: 18.38385
         width: 160
         height: 30
     - id: 10
@@ -2847,7 +2876,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: I will wait you upstairs.
+        value: I will wait you there.
         type: 0
         typeString: 
       - title: Sequence
@@ -2863,14 +2892,14 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: SetQuestState("PickItem", "active")
+      userScript: SetQuestState("GoUpstairs", "active")
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 433.19144
-        y: 20.638283
+        x: 439.51303
+        y: 16.186043
         width: 160
         height: 30
     - id: 11
@@ -2896,8 +2925,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: OK, 2 carboard come out from pipes, move close and pick them up with
-          [Left Mouse] key.
+        value: OK, here come the boxes from pipes, get closer and pick up with [Left
+          Mouse] key.
         type: 0
         typeString: 
       - title: Sequence
@@ -2925,8 +2954,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 432.1277
-        y: 91.91487
+        x: 246.41342
+        y: 74.021454
         width: 160
         height: 30
     - id: 12
@@ -2952,8 +2981,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Now, try to interact with the panel just opposite the pipes with [Left
-          Mouse] key to put down the bridge.
+        value: Good, now try to touch the panel behined with [Left Mouse] key.
         type: 0
         typeString: 
       - title: Sequence
@@ -2975,8 +3003,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 428.0039
-        y: 148.594
+        x: 245.38248
+        y: 130.87564
         width: 160
         height: 30
     - id: 13
@@ -3016,16 +3044,22 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 3
+        originDialogueID: 13
+        destinationConversationID: 3
+        destinationDialogueID: 18
+        isConnector: 0
+        priority: 2
       conditionsString: 
-      userScript: SetQuestState("SwitchDoor", "active")
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 435.3192
-        y: 269.5744
+        x: 248.1853
+        y: 355.58286
         width: 160
         height: 30
     - id: 14
@@ -3053,8 +3087,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: By the way, you can also use or pick up other things with the same
-          key
+        value: By the way, you can also try other <color=#006CC5>blue</color> objects
+          with the same key.
         type: 0
         typeString: 
       - title: Sequence
@@ -3070,14 +3104,14 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 
+      userScript: SetQuestState("PickItem", "active")
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 626.80853
-        y: 94.04253
+        x: 441.09427
+        y: 75.20572
         width: 160
         height: 30
     - id: 15
@@ -3103,8 +3137,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: The last step, you need to put the box on the <color="blue">blue</color>
-          block.
+        value: In the last step, you need to drop the box on the <color="yellow">yellow</color>
+          tile with [Right Mouse] button.
         type: 0
         typeString: 
       - title: Sequence
@@ -3120,19 +3154,334 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
+      userScript: SetQuestState("DropItem", "active")
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 242.30505
+        y: 409.3623
+        width: 160
+        height: 30
+    - id: 16
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 'Clean Kit
+
+'
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: Wooh, you are super clean now.
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 3
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 3
+        originDialogueID: 16
+        destinationConversationID: 3
+        destinationDialogueID: 13
+        isConnector: 0
+        priority: 2
+      conditionsString: 
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 436.383
-        y: 332.34042
+        x: 247.12903
+        y: 294.27332
+        width: 160
+        height: 30
+    - id: 17
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: Now, take the box to the next area.
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 3
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: SetQuestState("OverBridge", "active")
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 440.24475
+        y: 188.48117
+        width: 160
+        height: 30
+    - id: 18
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: You can use it agian, if the door is closing.
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 3
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: SetQuestState("SwitchDoor", "active")
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 444.07465
+        y: 358.60913
+        width: 160
+        height: 30
+    - id: 19
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: You'd better keep your distance from other droids even your mates.
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 3
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 3
+        originDialogueID: 19
+        destinationConversationID: 3
+        destinationDialogueID: 20
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 246.03674
+        y: 246.45044
+        width: 160
+        height: 30
+    - id: 20
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: Unless you want to be infected with virus wich cloud slow you down.
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 3
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 3
+        originDialogueID: 20
+        destinationConversationID: 3
+        destinationDialogueID: 21
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 438.2698
+        y: 246.93582
+        width: 160
+        height: 30
+    - id: 21
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: If you touched them by accident, you should use blue kit on the right
+          to <slide>clean</slide> yourself!
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 3
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: SetQuestState("SelfClean", "active")
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 558.6582
+        y: 293.05228
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 17.054138, y: 10.396989}
-    canvasZoom: 0.96999997
+    canvasScrollPosition: {x: 6.3829346, y: 0}
+    canvasZoom: 0.93999994
   - id: 4
     fields:
     - title: Title
