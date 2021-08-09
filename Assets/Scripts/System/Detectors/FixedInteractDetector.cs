@@ -102,7 +102,7 @@ public class FixedInteractDetector : CollisionDetector//, IPunObservable
 
     void processInput()
     {
-        if (!GetNetworkingTest() || PixelCrushers.DialogueSystem.DialogueManager.isConversationActive)
+        if (!GetNetworkingTest())
             return;
 
         isFiring = Input.GetButtonDown("Fire1") && interactCooldown == false;
@@ -127,6 +127,9 @@ public class FixedInteractDetector : CollisionDetector//, IPunObservable
     {
         UpdateList();
         OutlinedList();
+
+        if(PixelCrushers.DialogueSystem.DialogueManager.isConversationActive)
+            return;
 
         processInput();
 
