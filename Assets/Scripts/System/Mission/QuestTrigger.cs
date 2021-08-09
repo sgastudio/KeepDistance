@@ -12,18 +12,18 @@ public class QuestTrigger : MonoBehaviour
     public string questTitle;
     [HideIf("assignRuntimeQuest"), QuestPopup]
     public string quest;
-    public bool waitForConversation;
-    public bool disableAfterSuccessOrFail;
+    //public bool waitForConversation;
+    //public bool disableAfterSuccessOrFail;
 
     [DisplayAsString]
     public QuestState currentState;
 
-    [FoldoutGroup("Events")]
-    public UnityEvent onQuestSuccess;
-    [FoldoutGroup("Events")]
-    public UnityEvent onQuestFail;
-    [FoldoutGroup("Events")]
-    public UnityEvent onQuestActive;
+    // [FoldoutGroup("Events")]
+    // public UnityEvent onQuestSuccess;
+    // [FoldoutGroup("Events")]
+    // public UnityEvent onQuestFail;
+    // [FoldoutGroup("Events")]
+    // public UnityEvent onQuestActive;
     //DialogueSystemTrigger trigger;
     string questName;
     // Start is called before the first frame update
@@ -33,11 +33,11 @@ public class QuestTrigger : MonoBehaviour
         // if (!trigger)
         //     Debug.LogError("Quest Trigger missing component DialogueSystemTrigger");
 
-        if (disableAfterSuccessOrFail)
-        {
-            onQuestSuccess.AddListener(disableScript);
-            onQuestFail.AddListener(disableScript);
-        }
+        // if (disableAfterSuccessOrFail)
+        // {
+        //     onQuestSuccess.AddListener(disableScript);
+        //     onQuestFail.AddListener(disableScript);
+        // }
 
         if (assignRuntimeQuest)
             questName = questTitle;
@@ -48,29 +48,29 @@ public class QuestTrigger : MonoBehaviour
 
     void Update()
     {
-        if (waitForConversation && DialogueManager.IsConversationActive)
-            return;
+        //if (waitForConversation && DialogueManager.IsConversationActive)
+        //    return;
         // if (GetQuest() == QuestState.Active && currentState != QuestState.Active)
         //     onQuestActive.Invoke();
-        checkEvents();
-        currentState = GetQuest();
+        //checkEvents();
+        //currentState = GetQuest();
     }
 
-    void checkEvents()
-    {
-        if (GetQuest() == QuestState.Active && currentState != QuestState.Active)
-            onQuestActive.Invoke();
+    // void checkEvents()
+    // {
+    //     if (GetQuest() == QuestState.Active && currentState != QuestState.Active)
+    //         onQuestActive.Invoke();
 
-        if (GetQuest() == QuestState.Success && currentState == QuestState.Active)
-            onQuestActive.Invoke();    
-        if (GetQuest() == QuestState.Failure && currentState == QuestState.Active)
-            onQuestActive.Invoke();
-    }
+    //     if (GetQuest() == QuestState.Success && currentState == QuestState.Active)
+    //         onQuestActive.Invoke();    
+    //     if (GetQuest() == QuestState.Failure && currentState == QuestState.Active)
+    //         onQuestActive.Invoke();
+    // }
 
     public void SetQuest(QuestState state)
     {
         QuestLog.SetQuestState(questName, state);
-        checkEvents();
+        //checkEvents();
         currentState = GetQuest();
     }
 
@@ -89,7 +89,7 @@ public class QuestTrigger : MonoBehaviour
         if (GetQuest() == QuestState.Active)
         {
             SetQuest(QuestState.Success);
-            onQuestSuccess.Invoke();
+            //onQuestSuccess.Invoke();
         }
     }
 
@@ -98,13 +98,20 @@ public class QuestTrigger : MonoBehaviour
         if (GetQuest() == QuestState.Active)
         {
             SetQuest(QuestState.Failure);
-            onQuestFail.Invoke();
+            //onQuestFail.Invoke();
         }
     }
 
     public void SetQuestAbandon()
     {
-        SetQuest(QuestState.Abandoned);
+        if (GetQuest() == QuestState.Active)
+            SetQuest(QuestState.Abandoned);
+    }
+
+    public void SetQuestUnsigned()
+    {
+        if (GetQuest() >= QuestState.Active)
+            SetQuest(QuestState.Unassigned);
     }
 
     void disableScript()
