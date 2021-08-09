@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 33092773844979400}
   - component: {fileID: 23905872185105050}
   - component: {fileID: 65718852062597980}
+  - component: {fileID: 353319860}
+  - component: {fileID: 353319861}
   m_Layer: 0
   m_Name: medkit
   m_TagString: Untagged
@@ -60,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 48b31daa83ddb854fadd9402702394e4, type: 2}
+  - {fileID: 2100000, guid: 5f712239e9a5911479907a0e03d72184, type: 2}
   - {fileID: 2100000, guid: 11a8c080607cf47c299aff53087e0334, type: 2}
   - {fileID: 2100000, guid: c48ed0c67054fc24da0ac1cced5a308c, type: 2}
   m_StaticBatchInfo:
@@ -97,3 +99,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.39982367, y: 0.15000002, z: 0.34705678}
   m_Center: {x: 0, y: 0.07499998, z: 0.023349121}
+--- !u!114 &353319860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158975634071650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c32b82ef2fced4eaf2123d127896fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useFixedUpdate: 0
+  rotateSpace: 0
+  period: 1
+  angle: {x: 0, y: 20, z: 0}
+--- !u!114 &353319861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158975634071650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42b5fa37ec8e3ae4a8c761fa5f03e4ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useFixedUpdate: 0
+  moveSpace: 0
+  period: 1
+  moveSpeed: {x: 0, y: 0.25, z: 0}
+  calculateFunction: 0
