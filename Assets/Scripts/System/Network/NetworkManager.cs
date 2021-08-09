@@ -13,7 +13,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public string gameVersion = "0.1";
     public string clientNickName;
     public List<RoomInfo> roomList;
-    public SceneControl sceneControl;
+    SceneControl sceneControl;
 
     /// <summary>
     /// The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created.
@@ -91,7 +91,29 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         //Level selection here
         if (sceneControl)
-            sceneControl.nextNetworkScene = EnumLevel.TestScene.ToString();
+            sceneControl.nextNetworkScene = EnumLevel.Level_Tutorial.ToString();
+    }
+
+    public void StartTutorial()
+    {
+        PhotonNetwork.OfflineMode = true;
+
+        PhotonNetwork.LoadLevel(EnumLevel.Loading.ToString());
+
+        //Level selection here
+        if (sceneControl)
+            sceneControl.nextNetworkScene = EnumLevel.Level_Tutorial.ToString();
+    }
+
+    public void StartMainMenu()
+    {
+        PhotonNetwork.OfflineMode=true;
+
+        PhotonNetwork.LoadLevel(EnumLevel.Loading.ToString());
+
+        //Level selection here
+        if (sceneControl)
+            sceneControl.nextScene = EnumLevel.MainMenu.ToString();
     }
 
     public void Disconnect()
@@ -109,6 +131,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("PUN Connected and calling OnConnectedTOMaster()");
         PhotonNetwork.JoinLobby();
         base.OnConnectedToMaster();
+    }
+
+    public override void OnJoinedLobby()
+    {
+        base.OnJoinedLobby();
+        PhotonNetwork.JoinRandomRoom();
     }
 
     public override void OnDisconnected(DisconnectCause cause)
