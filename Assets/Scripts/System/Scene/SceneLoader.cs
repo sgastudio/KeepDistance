@@ -25,11 +25,13 @@ public class SceneLoader : MonoBehaviour
             }
             PhotonNetwork.LoadLevel(sceneControl.nextNetworkScene);
             sceneControl.nextScene = null;
+            sceneControl.nextNetworkScene = null;
         }
         else if (sceneControl && !string.IsNullOrWhiteSpace(sceneControl.nextScene))
         {
             SceneManager.LoadSceneAsync(sceneControl.nextScene);
             sceneControl.nextScene = null;
+            sceneControl.nextNetworkScene = null;
         }
     }
 }
