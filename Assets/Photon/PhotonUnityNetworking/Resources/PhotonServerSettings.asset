@@ -44,6 +44,8 @@ MonoBehaviour:
   - ItemDetach
   - ItemAdd
   - ItemRemove
+  - SwitchCleanEffect
+  - SwitchVirusEffect
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
