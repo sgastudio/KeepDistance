@@ -45,17 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 269c489f6232f994c97cbb222d77f938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: []
-  mountPoints:
-  - name: Left Hand
-    type: 1
-    anchorTransform: {fileID: 2615546804477542844}
-  - name: Right Hand
-    type: 2
-    anchorTransform: {fileID: 2615546803677968490}
-  - name: Back
-    type: 3
-    anchorTransform: {fileID: 2615546802619038271}
   onItemAdded:
     m_PersistentCalls:
       m_Calls:
@@ -89,6 +78,17 @@ MonoBehaviour:
   onItemEquipped:
     m_PersistentCalls:
       m_Calls: []
+  items: []
+  mountPoints:
+  - name: Left Hand
+    type: 1
+    anchorTransform: {fileID: 2615546804477542844}
+  - name: Right Hand
+    type: 2
+    anchorTransform: {fileID: 2615546803677968490}
+  - name: Back
+    type: 3
+    anchorTransform: {fileID: 2615546802619038271}
 --- !u!114 &2615546802415432331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,12 +242,22 @@ MonoBehaviour:
     m_Bits: 0
   tags: 05000000
   layerTagBlendMode: 0
+  LocalPlayerOnly: 0
+  photonView: {fileID: 0}
   targetEnter:
     m_PersistentCalls:
       m_Calls: []
   targetExit:
     m_PersistentCalls:
       m_Calls: []
+  targetStay:
+    m_PersistentCalls:
+      m_Calls: []
+  targetClean:
+    m_PersistentCalls:
+      m_Calls: []
+  cleanInterval: 1
+  maxStayTimeLimit: 1
   activeList: []
   linePrefab: {fileID: 1913513231532759294, guid: 65b2072d196ff844fa00f50da818fcf0, type: 3}
   playerList: []
@@ -268,18 +278,31 @@ MonoBehaviour:
     m_Bits: 0
   tags: 0700000008000000
   layerTagBlendMode: 0
+  LocalPlayerOnly: 0
+  photonView: {fileID: 0}
   targetEnter:
     m_PersistentCalls:
       m_Calls: []
   targetExit:
     m_PersistentCalls:
       m_Calls: []
+  targetStay:
+    m_PersistentCalls:
+      m_Calls: []
+  targetClean:
+    m_PersistentCalls:
+      m_Calls: []
+  cleanInterval: 1
+  maxStayTimeLimit: 1
   activeList: []
+  delay: 0.2
+  axisName: 
+  inputingEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  isInputing: 0
+  inputCooldown: 0
   inventory: {fileID: 2615546802415432328}
-  input: {fileID: 2615546803405475957}
-  itemTag: 7
-  switchTag: 8
-  interactDelay: 0.5
 --- !u!1 &2615546803405475967
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,21 +446,42 @@ MonoBehaviour:
   rotationYAxisName: Mouse Y
   positionAxisWeight: {x: 1, y: 1}
   rotationAxisWeight: {x: 1, y: 0}
-  jumpAxisName: Jump
-  fire1AxisName: Fire1
-  fire2AxisName: Fire2
-  interactAxisName: Fire3
-  positionAxis: {x: 0, y: 0}
-  rotationAxis: {x: 0, y: 0}
-  jumpAxis: 0
-  fire1Axis: 0
-  fire2Axis: 0
-  interactAxis: 0
+  jumpInputName: Jump
+  fire1InputName: Fire1
+  fire2InputName: Fire2
+  crouchInputName: Fire3
   positionVelocity: 2.5
+  maxMoveAcceleration: 10
+  maxAirAcceleration: 1
   rotationVelocity: 10
+  maxGroundAngle: 30
+  maxStairAngle: 50
+  crouchVelocity: 1
+  jumpHeight: 2
+  maxAirJumpTimes: 0
+  jumpAlignSurfaceNormal: 1
+  maxSnapVelocity: 100
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 503
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 503
+  currentVelocity: {x: 0, y: 0, z: 0}
+  desiredMoveVelocity: {x: 0, y: 0, z: 0}
+  caculatedVelocity: {x: 0, y: 0, z: 0}
+  isCrouching: 0
   AdjustObjects: {fileID: 2615546803221470015}
   AdjustWeight: 0.8
   AdjustValue: 1
+  adjustedVelocity: {x: 0, y: 0, z: 0}
+  positionAxis: {x: 0, y: 0}
+  rotationAxis: {x: 0, y: 0}
+  jumpButton: 0
+  fire1Button: 0
+  fire2Button: 0
+  crouchButton: 0
 --- !u!114 &2615546803405475956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,8 +496,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: 
   playerGroup: 0
-  Position:
-    m_InternalValue: {x: 0, y: 0, z: 0}
 --- !u!1 &2615546803677968491
 GameObject:
   m_ObjectHideFlags: 0
