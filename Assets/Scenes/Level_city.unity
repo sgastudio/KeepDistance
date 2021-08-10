@@ -2898,6 +2898,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Boy
       objectReference: {fileID: 0}
+    - target: {fileID: 5609431688016734631, guid: d82aedb786b8fb04fa16375ef4b0f36e, type: 3}
+      propertyPath: tags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5609431688016734631, guid: d82aedb786b8fb04fa16375ef4b0f36e, type: 3}
+      propertyPath: tags.Array.data[1]
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 6495838847174472178, guid: d82aedb786b8fb04fa16375ef4b0f36e, type: 3}
       propertyPath: positionVelocity
       value: 5
