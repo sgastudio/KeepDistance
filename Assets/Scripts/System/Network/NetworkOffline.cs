@@ -16,4 +16,9 @@ public class NetworkOffline : MonoBehaviour
     {
         
     }
+
+    void OnDestroy()
+    {
+        PhotonNetwork.OfflineMode = false;
+    }
 }
