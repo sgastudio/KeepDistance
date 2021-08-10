@@ -149,7 +149,8 @@ public class PlayerInput : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (checkFalseConditions() || rigidBody.IsSleeping())
+        //if (checkFalseConditions() || rigidBody.IsSleeping())
+        if (rigidBody.IsSleeping())
             return;
 
         stepsSinceLastGrounded += 1;
@@ -173,6 +174,7 @@ public class PlayerInput : MonoBehaviour
         if (checkFalseConditions())
         {
             resetInputVectors();
+            calculateDesiredVelocity();
             return;
         }
 
@@ -243,7 +245,8 @@ public class PlayerInput : MonoBehaviour
     void resetInputVectors()
     {
         jumpButton = fire1Button = fire2Button = crouchButton = false;
-        positionAxis = rotationAxis = Vector2.zero;
+        positionAxis = Vector2.zero;
+        rotationAxis = Vector2.zero;
     }
     bool checkFalseConditions()
     {
