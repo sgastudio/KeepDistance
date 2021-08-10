@@ -130,8 +130,8 @@ public class TargetSequence : MonoBehaviour
         if (body)
         {
             if (isRotating)
-                //this.body.MoveRotation(Quaternion.LerpUnclamped(this.body.rotation, targetRotation, percentage));
-                this.body.rotation = Quaternion.Lerp(this.body.rotation, targetRotation, percentage);
+                this.body.MoveRotation(Quaternion.LerpUnclamped(this.body.rotation, targetRotation, percentage));
+                //this.body.rotation = Quaternion.Lerp(this.body.rotation, targetRotation, percentage);
             else if(isPlaying)
             {
                 if(targetPosition - this.body.position != Vector3.zero)
@@ -142,9 +142,13 @@ public class TargetSequence : MonoBehaviour
         else
         {
             if (isRotating)
-                this.transform.rotation = this.transform.rotation * Quaternion.LerpUnclamped(initialRotation, targetRotation, percentage);
+                //this.transform.rotation = Quaternion.LerpUnclamped(initialRotation, targetRotation, percentage);
+                this.transform.rotation = Quaternion.Lerp(this.transform.rotation, targetRotation, percentage);
             else if(isPlaying)
-                this.transform.Translate(Vector3.LerpUnclamped(initialPosition, targetPosition, percentage));
+            {
+                this.transform.position=(Vector3.LerpUnclamped(initialPosition, targetPosition, percentage));
+                this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(targetPosition - this.transform.position), 0.5f);
+            }
 
         }
     }
@@ -156,9 +160,9 @@ public class TargetSequence : MonoBehaviour
         target = transformList[targetIndex].transfrom;
 
         this.initialPosition = transformList[currentIndex].position;
-        this.initialRotation = transformList[currentIndex].rotation;
+        this.initialRotation = transformList[currentIndex].rotation.normalized;
         this.targetPosition = transformList[targetIndex].position;
-        this.targetRotation = transformList[targetIndex].rotation;
+        this.targetRotation = transformList[targetIndex].rotation.normalized;
         if (current)
         {
             this.initialPosition += current.position;
@@ -189,10 +193,10 @@ public class TargetSequence : MonoBehaviour
         {
             targetIndex += 1;
             currentIndex += 1;
+            percentage = 0f;
             changePositionAndRotation();
             Reverse(false);
             Play();
-            percentage = 0f;
         }
     }
 
@@ -202,10 +206,10 @@ public class TargetSequence : MonoBehaviour
         {
             targetIndex -= 1;
             currentIndex -= 1;
+            percentage = 1f;
             changePositionAndRotation();
             Reverse();
             Play();
-            percentage = 1f;
         }
     }
 
