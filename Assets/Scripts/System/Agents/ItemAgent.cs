@@ -18,7 +18,7 @@ public class ItemAgent : MonoBehaviourPun
          if (itemName == "")
             itemName = "Item " + this.gameObject.GetInstanceID().ToString();
 
-        this.gameObject.name = gameObject.GetInstanceID().ToString();
+        this.gameObject.name = "Item " + gameObject.GetInstanceID().ToString();
 
         photonView.OwnershipTransfer = OwnershipOption.Takeover;
     }
@@ -63,6 +63,7 @@ public class ItemAgent : MonoBehaviourPun
         {
             inventory.AddItem(this);
             this.photonView.TransferOwnership(playerViewID);
+            //lastOwnerID = playerViewID;
         }
     }
 
