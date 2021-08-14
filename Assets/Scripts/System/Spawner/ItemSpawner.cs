@@ -12,6 +12,7 @@ public class ItemSpawner : MonoBehaviour
     Vector3 forceOffset;
     public Transform spawnPointTransform;
     public bool spawnOnStart;
+    public bool usePhotonSpawn;
 
     public float loopInterval = 0.0f;
     public float loopRandomize = 0.0f;
@@ -43,9 +44,15 @@ public class ItemSpawner : MonoBehaviour
         GameObject obj;
         if (prefab)
         {
-            obj = GameObject.Instantiate(prefab, spawnPointTransform.position + positionOffset, spawnPointTransform.rotation);
+            if (usePhotonSpawn)
+                obj = Photon.Pun.PhotonNetwork.InstantiateRoomObject(prefab.name, spawnPointTransform.position + positionOffset, spawnPointTransform.rotation);
+            else
+                obj = GameObject.Instantiate(prefab, spawnPointTransform.position + positionOffset, spawnPointTransform.rotation);
+
+            if(!obj)
+                return;
             Rigidbody rigidbody = obj.GetComponent<Rigidbody>();
-            
+
             if (rigidbody)
             {
                 forceOffset = Random.insideUnitSphere * forceRandomize;
