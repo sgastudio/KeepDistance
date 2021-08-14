@@ -1426,8 +1426,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Well, let move to the next platform with <color="red">red</color>
-          container to continue our simulation.
+        value: Well, let's move to the next platform with <color="orange">orange</color>
+          container to continue the simulation.
         type: 0
         typeString: 
       - title: Sequence
@@ -2235,8 +2235,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: OK, try to find and follow <color="red">red</color> objects if you
-          get lost.
+        value: OK, try to find and follow <color="orange">orange</color> objects
+          if you get lost.
         type: 0
         typeString: 
       - title: Sequence
@@ -2324,8 +2324,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 98.420204, y: 66.269424}
-    canvasZoom: 0.87999994
+    canvasScrollPosition: {x: 111.78821, y: 39.82547}
+    canvasZoom: 0.79
   - id: 3
     fields:
     - title: Title
@@ -3137,8 +3137,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: In the last step, you need to drop the box on the <color="blue">blue</color>
-          receiver with [Right Mouse] button.
+        value: In the last step, you need to drop the box on the <color="yellow">yellow</color>
+          tile with [Right Mouse] button.
         type: 0
         typeString: 
       - title: Sequence
@@ -3315,8 +3315,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 435.564
-        y: 362.86444
+        x: 444.07465
+        y: 358.60913
         width: 160
         height: 30
     - id: 19
@@ -3397,7 +3397,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Unless you want to be infected with virus wich will slow you down.
+        value: Unless you want to be infected with virus wich cloud slow you down.
         type: 0
         typeString: 
       - title: Sequence

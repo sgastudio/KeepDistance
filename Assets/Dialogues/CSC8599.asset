@@ -1426,7 +1426,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Well, let's move to the next platform with <color="red">red</color>
+        value: Well, let's move to the next platform with <color="orange">orange</color>
           container to continue the simulation.
         type: 0
         typeString: 
@@ -2235,8 +2235,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: OK, try to find and follow <color="red">red</color> objects if you
-          get lost.
+        value: OK, try to find and follow <color="orange">orange</color> objects
+          if you get lost.
         type: 0
         typeString: 
       - title: Sequence
@@ -2324,8 +2324,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 98.420204, y: 66.269424}
-    canvasZoom: 0.87999994
+    canvasScrollPosition: {x: 111.78821, y: 39.82547}
+    canvasZoom: 0.79
   - id: 3
     fields:
     - title: Title
@@ -3087,8 +3087,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: By the way, you can also try other <color=#006CC5>blue</color> objects
-          with the same key.
+        value: By the way, you can also try other outlined <color=#006CC5>blue</color>
+          objects with the same key.
         type: 0
         typeString: 
       - title: Sequence
