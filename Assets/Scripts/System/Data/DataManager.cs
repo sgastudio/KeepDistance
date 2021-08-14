@@ -18,22 +18,31 @@ public class Data
 
 public class DataManager : MonoBehaviour
 {
-     public List<Data> datasets;
+    public List<Data> dataStrip;
+    static public List<Data> datasets;
     // Start is called before the first frame update
+    void Awake()
+    {
+        InitDatasets();
+    }
+
     void Start()
     {
+        DataManager.datasets.AddRange(dataStrip);
         DontDestroyOnLoad(this.gameObject);
     }
     
-    public void AddData(string tag, float data,string str)
+    static public void AddData(string tag, float data,string str)
     {
+        InitDatasets();
         if (GetData(tag) == null || datasets.Count == 0)
         {
             datasets.Add(new Data(tag, data,str));
         }
     }
-    public void SetData(string tag, float data, string str, bool createWhenNoItem = false)
+    static public void SetData(string tag, float data, string str, bool createWhenNoItem = false)
     {
+        InitDatasets();
         foreach (Data i in datasets)
         {
             if (i.name == tag)
@@ -49,24 +58,43 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public Data GetData(string tag)
+    static public Data GetData(string tag)
     {
+        InitDatasets();
         return datasets.Find(data =>
         {
            return data.name == tag;
         });
     }
 
-    public void RemoveData(string tag)
+    static public void RemoveData(string tag)
     {
         datasets.RemoveAt(GetDataIndex(tag));
     }
 
-    public int GetDataIndex(string tag)
+    static public int GetDataIndex(string tag)
     {
+        InitDatasets();
         return datasets.FindIndex(data =>
         {
            return data.name == tag;
         });
+    }
+
+    static public bool ContainData(string tag)
+    {
+        InitDatasets();
+        return GetDataIndex(tag) >= 0;
+    }
+
+    void Update()
+    {
+        //Debug.Log(ContainData("result")?GetData("result").str:"Data not Avaliable");
+    }
+
+    static void InitDatasets()
+    {
+        if(datasets == null)
+            datasets = new List<Data>();
     }
 }
