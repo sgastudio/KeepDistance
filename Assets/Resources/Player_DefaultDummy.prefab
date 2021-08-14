@@ -398,22 +398,42 @@ MonoBehaviour:
   rotationYAxisName: Mouse Y
   positionAxisWeight: {x: 1, y: 1}
   rotationAxisWeight: {x: 1, y: 0}
-  jumpAxisName: Jump
-  fire1AxisName: Fire1
-  fire2AxisName: Fire2
-  interactAxisName: Fire3
-  positionAxis: {x: 0, y: 0}
-  rotationAxis: {x: 0, y: 0}
-  jumpAxis: 0
-  fire1Axis: 0
-  fire2Axis: 0
-  interactAxis: 0
+  jumpInputName: Jump
+  fire1InputName: Fire1
+  fire2InputName: Fire2
+  crouchInputName: Fire3
   positionVelocity: 2.5
+  maxMoveAcceleration: 10
+  maxAirAcceleration: 1
   rotationVelocity: 10
-  adjustedVelocity: {x: 0, y: 0, z: 0}
+  maxGroundAngle: 30
+  maxStairAngle: 50
+  crouchVelocity: 1
+  jumpHeight: 2
+  maxAirJumpTimes: 0
+  jumpAlignSurfaceNormal: 1
+  maxSnapVelocity: 100
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 503
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 503
+  currentVelocity: {x: 0, y: 0, z: 0}
+  desiredMoveVelocity: {x: 0, y: 0, z: 0}
+  caculatedVelocity: {x: 0, y: 0, z: 0}
+  isCrouching: 0
   AdjustObjects: {fileID: 526486924}
   AdjustWeight: 0.8
   AdjustValue: 0
+  adjustedVelocity: {x: 0, y: 0, z: 0}
+  positionAxis: {x: 0, y: 0}
+  rotationAxis: {x: 0, y: 0}
+  jumpButton: 0
+  fire1Button: 0
+  fire2Button: 0
+  crouchButton: 0
 --- !u!114 &5805667511749300219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,6 +448,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: 
   playerGroup: 0
+  virusParticle: {fileID: 0}
+  cleanParticle: {fileID: 0}
 --- !u!136 &1935679082
 CapsuleCollider:
   m_ObjectHideFlags: 0

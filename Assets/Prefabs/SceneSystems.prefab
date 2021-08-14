@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6520820170257860013}
   - component: {fileID: 6520820170257860010}
   - component: {fileID: 6520820170257860011}
+  - component: {fileID: 5076829300043510246}
   m_Layer: 0
   m_Name: SceneSystems
   m_TagString: GameController
@@ -47,7 +48,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missionList: []
-  missionText: {fileID: 0}
   newMissionAdded:
     m_PersistentCalls:
       m_Calls: []
@@ -90,10 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9d197dbb7284774b9236e946e873d8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  datasets:
-  - name: 
-    data: 0
-    str: 
+  dataStrip: []
 --- !u!114 &6520820170257860011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,5 +105,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameVersion: 0.1
   clientNickName: 
-  sceneControl: {fileID: 0}
+  gender: 0
+  localPlayerView: 0
   maxPlayersPerRoom: 20
+--- !u!114 &5076829300043510246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6520820170257860014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f748b9d67b48301469c06642b0b2c60c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

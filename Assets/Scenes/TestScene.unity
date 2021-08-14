@@ -628,6 +628,7 @@ MonoBehaviour:
   rayLayer:
     serializedVersion: 2
     m_Bits: 4294967295
+  minCameraDistance: 0.3
   enablePositionSlerp: 1
   positionSlerpWeight: 0.5
   enableRotationSlerp: 0
@@ -716,6 +717,7 @@ MonoBehaviour:
   - name: Lost Key
     count: 3
   workMode: 0
+  LocalPlayerCheckOnly: 1
   onCheckSucceeded:
     m_PersistentCalls:
       m_Calls:
@@ -764,6 +766,7 @@ MonoBehaviour:
   tags: 07000000
   layerTagBlendMode: 0
   LocalPlayerOnly: 0
+  photonView: {fileID: 0}
   targetEnter:
     m_PersistentCalls:
       m_Calls:
@@ -794,8 +797,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  targetStay:
+    m_PersistentCalls:
+      m_Calls: []
+  targetClean:
+    m_PersistentCalls:
+      m_Calls: []
+  cleanInterval: 1
+  maxStayTimeLimit: 1
   activeList: []
-  photonView: {fileID: 0}
 --- !u!65 &375952236
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1633,6 +1643,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 1433355034}
+  m_VersionIndex: 0
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2225,7 +2236,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 503
 --- !u!114 &1318637433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2308,6 +2319,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkManager: {fileID: 0}
   playerPrefab: {fileID: 3569400974636163437, guid: 5d447ee07b73f1f4880238531d70ddd3, type: 3}
+  boyPrefab: {fileID: 0}
+  girlPrefab: {fileID: 0}
 --- !u!1 &1349762949
 GameObject:
   m_ObjectHideFlags: 0
@@ -3330,6 +3343,7 @@ MonoBehaviour:
   tags: 05000000
   layerTagBlendMode: 0
   LocalPlayerOnly: 0
+  photonView: {fileID: 0}
   targetEnter:
     m_PersistentCalls:
       m_Calls:
@@ -3348,8 +3362,15 @@ MonoBehaviour:
   targetExit:
     m_PersistentCalls:
       m_Calls: []
+  targetStay:
+    m_PersistentCalls:
+      m_Calls: []
+  targetClean:
+    m_PersistentCalls:
+      m_Calls: []
+  cleanInterval: 1
+  maxStayTimeLimit: 1
   activeList: []
-  photonView: {fileID: 0}
 --- !u!65 &1951332565
 BoxCollider:
   m_ObjectHideFlags: 0
