@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneControl : MonoBehaviour
 {
-    DataManager dataManager;
     [Scene, ROA]
     public string nextScene;
     [Scene, ROA]
@@ -26,8 +25,8 @@ public class SceneControl : MonoBehaviour
     {
         Instance = this;
         GameObject controller = GameObject.FindGameObjectWithTag(EnumTag.GameController.ToString());
-        if (!dataManager && controller)
-            dataManager = controller.GetComponent<DataManager>();
+        // if (!dataManager && controller)
+        //     dataManager = controller.GetComponent<DataManager>();
     }
 
     // Update is called once per frame
@@ -39,8 +38,7 @@ public class SceneControl : MonoBehaviour
     public void TriggerFailed()
     {
         Debug.Log("Failed!");
-        if (dataManager)
-            dataManager.SetData("level result", 0, "fail", true);
+        DataManager.SetData("level result", 0, "fail", true);
         if (!string.IsNullOrWhiteSpace(resultScene))
         {
             nextScene = resultScene;
@@ -51,8 +49,7 @@ public class SceneControl : MonoBehaviour
     public void TriggerWin()
     {
         Debug.Log("Win!");
-        if (dataManager)
-            dataManager.SetData("level result", 1, "win", true);
+        DataManager.SetData("level result", 1, "win", true);
         if (!string.IsNullOrWhiteSpace(resultScene))
         {
             nextScene = resultScene;
