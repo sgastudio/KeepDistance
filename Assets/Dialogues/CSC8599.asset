@@ -416,7 +416,7 @@ MonoBehaviour:
       type: 3
       typeString: CustomFieldType_Files
     - title: Description
-      value: Move over the bridge
+      value: Cross the bridge
       type: 0
       typeString: 
     - title: Success Description
@@ -454,7 +454,7 @@ MonoBehaviour:
       type: 3
       typeString: CustomFieldType_Files
     - title: Description
-      value: Clean your self with the kit
+      value: Try the medkit to clean yourself
       type: 0
       typeString: 
     - title: Success Description
@@ -897,7 +897,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Welcome you to the <bounce>Mass Logistics</bounce>.
+        value: Welcome you to the <bounce>Mass Delivery</bounce>.
         type: 0
         typeString: 
       - title: Sequence
@@ -1426,8 +1426,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Well, let's move to the next platform with <color="orange">orange</color>
-          container to continue the simulation.
+        value: Well, let's move to the next platform to continue the simulation.
         type: 0
         typeString: 
       - title: Sequence
@@ -2084,7 +2083,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 750.18854
+        x: 748.9227
         y: 486.6297
         width: 160
         height: 30
@@ -2235,8 +2234,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: OK, try to find and follow <color="orange">orange</color> objects
-          if you get lost.
+        value: OK, try to find and follow <color="red">red</color> objects if you
+          get lost.
         type: 0
         typeString: 
       - title: Sequence
@@ -2940,15 +2939,9 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 3
-        originDialogueID: 11
-        destinationConversationID: 3
-        destinationDialogueID: 14
-        isConnector: 0
-        priority: 2
+      outgoingLinks: []
       conditionsString: 
-      userScript: 
+      userScript: SetQuestState("PickItem", "active")
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2995,9 +2988,15 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 3
+        originDialogueID: 12
+        destinationConversationID: 3
+        destinationDialogueID: 14
+        isConnector: 0
+        priority: 2
       conditionsString: 
-      userScript: SetQuestState("SwitchBridge", "active")
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -3030,7 +3029,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Use panel to open the door.
+        value: Use panel naer by to open the last door.
         type: 0
         typeString: 
       - title: Sequence
@@ -3104,14 +3103,14 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: SetQuestState("PickItem", "active")
+      userScript: SetQuestState("SwitchBridge", "active")
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 441.09427
-        y: 75.20572
+        x: 438.96658
+        y: 129.46104
         width: 160
         height: 30
     - id: 15
@@ -3137,7 +3136,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: In the last step, you need to drop the box on the <color="yellow">yellow</color>
+        value: In the last step, you need to drop the box on the <color="blue">blue</color>
           tile with [Right Mouse] button.
         type: 0
         typeString: 
@@ -3160,7 +3159,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 242.30505
+        x: 241.24121
         y: 409.3623
         width: 160
         height: 30
