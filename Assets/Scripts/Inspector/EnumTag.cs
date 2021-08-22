@@ -11,4 +11,5 @@
 	Switch,
 	NPC,
 	DialogueSystem,
+	CheckPoint,
 }
