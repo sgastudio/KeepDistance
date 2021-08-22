@@ -8,6 +8,7 @@ public class NetworkOffline : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(!GameObject.FindGameObjectWithTag(EnumTag.GameController.ToString()))
         PhotonNetwork.OfflineMode = true;
     }
 
