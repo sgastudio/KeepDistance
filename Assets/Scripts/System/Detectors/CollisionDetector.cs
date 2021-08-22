@@ -70,14 +70,14 @@ public class CollisionDetector : MonoBehaviour
 
     public virtual void Start()
     {
-        timeTable = new Dictionary<GameObject, float>();
+        
         StartCoroutine(ListWatcher());
     }
 
     public virtual void Awake()
     {
         activeList.Clear();
-
+        timeTable = new Dictionary<GameObject, float>();
         if (this.GetComponentInParent<PhotonView>() && !photonView)
             photonView = this.GetComponentInParent<PhotonView>();
         else if (this.GetComponent<PhotonView>() && !photonView)
