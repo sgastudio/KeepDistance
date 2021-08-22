@@ -9,15 +9,20 @@ public class PlayerAgent : MonoBehaviourPun
 {
     public string playerName;
     public int playerGroup;
-
+    public int gender;
     public ParticleSystem virusParticle;
     public ParticleSystem cleanParticle;
+
+    public const string PLAYER_GENDER_KEY = "pg";
+
+    public Vector2 spawnOffset;
+
+    public Transform spawnTransform;
+    public Vector3 spwanPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (string.IsNullOrEmpty(playerName))
-            playerName = PhotonNetwork.LocalPlayer.NickName;
         BindCamera();
     }
 
@@ -49,6 +54,10 @@ public class PlayerAgent : MonoBehaviourPun
     void SwitchVirusEffect(bool state)
     {
         SwitchParticleSystem(virusParticle, state);
+        if (state)
+            GetComponent<PlayerInput>().extraValue = .7f;
+        else
+            GetComponent<PlayerInput>().extraValue = 1f;
     }
 
     [PunRPC]
@@ -72,6 +81,65 @@ public class PlayerAgent : MonoBehaviourPun
             SwitchCleanEffect();
         else
             photonView.RPC("SwitchCleanEffect", RpcTarget.All);
+    }
+
+
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == EnumTag.Player.ToString() || other.gameObject.tag == EnumTag.NPC.ToString())
+        {
+            TriggerVirusEffect(true);
+            BouncedOff(other);
+            DropItemsInInventory();
+        }
+        else if (other.gameObject.tag == EnumTag.Respawn.ToString())
+        {
+            RestPostion();
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == EnumTag.CheckPoint.ToString())
+        {
+            if (spawnTransform != other.gameObject.transform)
+            {
+                spawnTransform = other.gameObject.transform;
+                spwanPosition = spawnTransform.position;
+            }
+        }
+    }
+
+    void BouncedOff(Collision other, float force = 5f)
+    {
+        Vector3 target = other.transform.position;
+        Vector3 direction = (this.transform.position - target).normalized;
+        direction.y = 0;
+        float distance = (this.transform.position - target).magnitude;
+
+
+        GetComponent<PlayerInput>().jumpButton = true;
+        Rigidbody body = this.GetComponent<Rigidbody>();
+        body.AddForceAtPosition((direction + Vector3.up) * force, direction * distance * .5f, ForceMode.VelocityChange);
+        // if(other.rigidbody)
+        //     other.rigidbody.AddForceAtPosition((-direction + Vector3.up) * force, direction * distance * .5f, ForceMode.Acceleration);
+    }
+
+    void DropItemsInInventory()
+    {
+        GetComponentInChildren<SimpleInventoryManager>().DropItemAll(null);
+    }
+
+    public void RestPostion()
+    {
+        Vector3 respawnPoint = spwanPosition + new Vector3(spawnOffset.x, 0, spawnOffset.y);
+        this.GetComponent<Rigidbody>().position = respawnPoint;
+    }
+
+    public void UpdateSpawn(Transform trans)
+    {
+        spawnTransform = trans;
     }
 
 }
