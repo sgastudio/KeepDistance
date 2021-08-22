@@ -2924,8 +2924,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: OK, here come the boxes from pipes, get closer and pick up with [Left
-          Mouse] key.
+        value: Your main job is take and deliver the box to the finish.
         type: 0
         typeString: 
       - title: Sequence
@@ -2939,16 +2938,22 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 3
+        originDialogueID: 11
+        destinationConversationID: 3
+        destinationDialogueID: 22
+        isConnector: 0
+        priority: 2
       conditionsString: 
-      userScript: SetQuestState("PickItem", "active")
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 246.41342
-        y: 74.021454
+        x: 238.96664
+        y: 69.76613
         width: 160
         height: 30
     - id: 12
@@ -3476,6 +3481,56 @@ MonoBehaviour:
         serializedVersion: 2
         x: 558.6582
         y: 293.05228
+        width: 160
+        height: 30
+    - id: 22
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: LMB
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: OK, here come the boxes from pipes, get closer and pick up with [Left
+          Mouse] key.
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 3
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: SetQuestState("PickItem", "active")
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 437.02127
+        y: 71.276596
         width: 160
         height: 30
     entryGroups: []
