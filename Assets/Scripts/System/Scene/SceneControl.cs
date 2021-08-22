@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon;
+using Photon.Pun;
 
 public class SceneControl : MonoBehaviour
 {
@@ -63,5 +66,19 @@ public class SceneControl : MonoBehaviour
         Debug.Log("Next Level!");
         if (!string.IsNullOrWhiteSpace(nextScene))
             SceneManager.LoadScene(loadScene);
+    }
+
+
+    public void LoadLocal(EnumLevel level)
+    {
+        nextScene = level.ToString();
+        SceneManager.LoadScene(EnumLevel.Loading.ToString());
+    }
+
+    public void LoadNetwork(EnumLevel level)
+    {
+        nextNetworkScene = level.ToString();
+        PhotonNetwork.LoadLevel(EnumLevel.Loading.ToString());
+
     }
 }

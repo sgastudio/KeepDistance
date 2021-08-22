@@ -25,6 +25,6 @@ public class TutorialEndTrigger : MonoBehaviour
     public void TriggerEnd()
     {
         if(networkManager)
-            networkManager.StartMainMenu();
+            networkManager.StartMainMenu(1);
     }
 }
