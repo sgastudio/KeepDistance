@@ -10,7 +10,7 @@ public class ItemDetector : MonoBehaviour
     public CollisionDetector detector;
     public List<ItemCheckerPair> requireItems;
     public WorkMode workMode;
-    public bool LocalPlayerCheckOnly = true;
+    public bool isLocalDetector = true;
 
     [Header("Events")]
     public UnityEvent onCheckSucceeded;
@@ -38,7 +38,7 @@ public class ItemDetector : MonoBehaviour
         foreach (GameObject item in detector.activeList)
         {
             ItemAgent itemAgent = item.GetComponent<ItemAgent>();
-            if (!itemAgent || (itemAgent.photonView.Owner != PhotonNetwork.LocalPlayer && !LocalPlayerCheckOnly))
+            if (!itemAgent || (itemAgent.photonView.Owner != PhotonNetwork.LocalPlayer && !isLocalDetector))
                 break;
             // int requireIndex = requireItems.FindIndex(matcher =>
             // {
