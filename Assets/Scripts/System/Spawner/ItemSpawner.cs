@@ -7,6 +7,9 @@ public class ItemSpawner : MonoBehaviour
     // Start is called before the first frame update
     public GameObject prefab;
     public Vector3 positionOffset;
+    public Vector3 positionNoise;
+    public Quaternion rotationOffset;
+    //public Quaternion rotationNoise;
     public Vector3 spawnForce;
     public float forceRandomize;
     Vector3 forceOffset;
@@ -44,10 +47,12 @@ public class ItemSpawner : MonoBehaviour
         GameObject obj;
         if (prefab)
         {
-            if (usePhotonSpawn)
-                obj = Photon.Pun.PhotonNetwork.InstantiateRoomObject(prefab.name, spawnPointTransform.position + positionOffset, spawnPointTransform.rotation);
+            Vector3 targetPostion = spawnPointTransform.position + positionOffset + Vector3.Lerp(-positionNoise,positionNoise,Random.Range(0f,1f));
+            Quaternion targetQuaternion = spawnPointTransform.rotation * rotationOffset;// * Quaternion.Lerp(Quaternion.Inverse(rotationNoise),rotationNoise,Random.Range(0f,1f));
+            if (usePhotonSpawn && Photon.Pun.PhotonNetwork.IsConnected)
+                obj = Photon.Pun.PhotonNetwork.InstantiateRoomObject(prefab.name, targetPostion, targetQuaternion);
             else
-                obj = GameObject.Instantiate(prefab, spawnPointTransform.position + positionOffset, spawnPointTransform.rotation);
+                obj = GameObject.Instantiate(prefab, targetPostion, targetQuaternion);
 
             if(!obj)
                 return;
