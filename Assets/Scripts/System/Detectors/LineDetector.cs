@@ -63,7 +63,8 @@ public class LineDetector : CollisionDetector
         {
             return (result.Object == other.gameObject);
         });
-
+        if(pair == null)
+            return;
         playerList.Remove(pair);
         GameObject.Destroy(pair.LineObject);
     }
