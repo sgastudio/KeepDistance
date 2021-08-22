@@ -58,7 +58,8 @@ public class SimpleInventoryManager : Inventory
     }
     public override void DropItemAll(ItemAgent other)
     {
-        DropItem(item, item.amount);
+        if(item)
+            DropItem(item, item.amount);
     }
 
     public override int FindItem(string name)
