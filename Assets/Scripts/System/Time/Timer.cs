@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Photon;
+using Photon.Pun;
 
-public class Timer : MonoBehaviour
+public class Timer : MonoBehaviour, IPunObservable
 {
     [Header("Time Options")]
     public float duration = 10f;
@@ -13,7 +15,10 @@ public class Timer : MonoBehaviour
     public float passedTime;
     public bool activeOnStart = false;
     public bool unscaled = true;
+    public bool synchronization = false;
+    
     [Header("Events")]
+    public bool masterOnly = false;
     public UnityEvent onStart;
     public UnityEvent onEnd;
     public UnityEvent onPaused;
@@ -55,11 +60,13 @@ public class Timer : MonoBehaviour
     {
         if (state != TimerState.Running)
         {
+            state = TimerState.Running;
+            if(masterOnly && !PhotonNetwork.IsMasterClient)
+                return;
             if (state == TimerState.Paused)
                 onResume.Invoke();
             else
                 onStart.Invoke();
-            state = TimerState.Running;
         }
     }
 
@@ -67,8 +74,10 @@ public class Timer : MonoBehaviour
     {
         if (state == TimerState.Running)
         {
-            onPaused.Invoke();
             state = TimerState.Paused;
+            if(masterOnly && !PhotonNetwork.IsMasterClient)
+                return;
+            onPaused.Invoke();
         }
     }
 
@@ -82,11 +91,28 @@ public class Timer : MonoBehaviour
         else
             state = TimerState.Finished;
         passedTime = 0;
+
+        if(masterOnly && !PhotonNetwork.IsMasterClient)
+                return;
         onEnd.Invoke();
     }
 
     public TimerState GetTimerState()
     {
         return state;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (synchronization)
+            if (stream.IsWriting)
+            {
+                stream.SendNext(passedTime);
+            }
+            else
+            {
+                float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime));
+                passedTime = (float)stream.ReceiveNext() + lag;
+            }
     }
 }
