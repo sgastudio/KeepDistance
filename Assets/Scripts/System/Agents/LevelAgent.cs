@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon;
 using Photon.Pun;
+using Photon.Realtime;
 
 
 public class LevelAgent : MonoBehaviourPun
@@ -19,46 +20,46 @@ public class LevelAgent : MonoBehaviourPun
 
     void Update()
     {
-        if (PhotonNetwork.IsMasterClient)
-            if (DataManager.ContainData("result"))
-                systemObjet.GetComponent<NetworkManager>().StartResult();
+
     }
 
     [PunRPC]
-    void SetResult(int viewID)
+    void SetResult(int gender , string name)
     {
-        Debug.Log("Result View ID:" + viewID.ToString());
-        if (viewID != -1) 
+        Debug.Log("Result player "+name+"g:" + gender.ToString());
+        //Player player = PhotonNetwork.CurrentRoom.GetPlayer(playerID, true);
+        if (gender>=0)
         {
-            PhotonView view = PhotonView.Find(viewID);
-            PlayerAgent agent = view.GetComponent<PlayerAgent>(); ;
-            DataManager.SetData("result", agent.gender, agent.playerName, true);
+            DataManager.SetData("result", gender, name, true);
         }
         else
         {
             DataManager.SetData("result", -1, "", true);
         }
+        if(networkManager)
+            networkManager.StartResult();
     }
 
-    public void SyncResult(int viewID)
+    public void SyncResult(int gender, string name)
     {
+        //int playerID = player != null ? player.ActorNumber : -1;
         if (!PhotonNetwork.IsConnected || PhotonNetwork.OfflineMode)
         {
-            SetResult(viewID);
+            SetResult(gender,name);
         }
         else
         {
-            photonView.RPC("SetResult", RpcTarget.All, viewID);
+            photonView.RPC("SetResult", RpcTarget.All, gender, name);
         }
     }
 
     public void TriggerWin()
     {
-        SyncResult(networkManager.localPlayerView);
+        SyncResult((int)(byte)PhotonNetwork.LocalPlayer.CustomProperties[PlayerAgent.PLAYER_GENDER_KEY],PhotonNetwork.LocalPlayer.NickName);
     }
 
     public void TriggerFailed()
     {
-        SyncResult(-1);
+        SyncResult(-1, null);
     }
 }
