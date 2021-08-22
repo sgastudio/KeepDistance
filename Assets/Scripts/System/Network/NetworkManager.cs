@@ -1,3 +1,4 @@
+using System.Data;
 using System.Runtime.CompilerServices;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -6,14 +7,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     public string gameVersion = "0.1";
     public string clientNickName;
+    public int gender;
+    public GameObject localPlayerObject;
     public List<RoomInfo> roomList;
     SceneControl sceneControl;
+
+    public const string MAP_PROP_KEY = "map";
+    public const string GAME_MODE_PROP_KEY = "gm";
+    public const string GAME_STARTED_KEY = "st";
 
     /// <summary>
     /// The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created.
@@ -63,7 +71,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void CreateRoom(string roomName)
     {
         Debug.Log("PUN Creating room with name - " + roomName);
-        PhotonNetwork.CreateRoom(roomName, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.CustomRoomPropertiesForLobby = new string[] { MAP_PROP_KEY, GAME_MODE_PROP_KEY, GAME_STARTED_KEY };
+        roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable { { MAP_PROP_KEY, (byte)1 }, { GAME_MODE_PROP_KEY, (byte)0 }, { GAME_STARTED_KEY, (byte)0 } };
+        roomOptions.MaxPlayers = maxPlayersPerRoom;
+        //PhotonNetwork.CreateRoom(roomName, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
+        PhotonNetwork.CreateRoom(roomName, roomOptions);
         //PhotonNetwork.JoinLobby();
         //PhotonNetwork.GetCustomRoomList(TypedLobby.Default,"Select *");
     }
@@ -78,42 +91,52 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinRoom(room, expectedUsers);
     }
 
+    public void JoinRoomRandom()
+    {
+        Hashtable expectedCustomRoomProperties = new Hashtable { { GAME_STARTED_KEY, (byte)0 } };
+        PhotonNetwork.JoinRandomRoom(expectedCustomRoomProperties, maxPlayersPerRoom);
+    }
+
     public void StartArena()
     {
+
         if (!PhotonNetwork.IsMasterClient)
         {
-            Debug.LogError("PUN Try to load level but not the master client");
+            Debug.LogWarning("PUN Try to load level but not the master client");
             return;
         }
-
-
-        PhotonNetwork.LoadLevel(EnumLevel.Loading.ToString());
+        PhotonNetwork.CurrentRoom.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { GAME_STARTED_KEY, (byte)1 } });
 
         //Level selection here
         if (sceneControl)
-            sceneControl.nextNetworkScene = EnumLevel.Level_Tutorial.ToString();
+            sceneControl.LoadNetwork(EnumLevel.Level_city);
     }
 
     public void StartTutorial()
     {
-        PhotonNetwork.OfflineMode = true;
-
-        PhotonNetwork.LoadLevel(EnumLevel.Loading.ToString());
-
-        //Level selection here
         if (sceneControl)
-            sceneControl.nextNetworkScene = EnumLevel.Level_Tutorial.ToString();
+            sceneControl.LoadLocal(EnumLevel.Level_Tutorial);
     }
 
-    public void StartMainMenu()
+    public void StartMainMenu(int menuEntry)
     {
-        PhotonNetwork.OfflineMode=true;
+        DataManager.SetData("entry", menuEntry, "", true);
 
-        PhotonNetwork.LoadLevel(EnumLevel.Loading.ToString());
+        if (sceneControl)
+            sceneControl.LoadLocal(EnumLevel.MainMenu);
+    }
+
+    public void StartResult()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            Debug.LogWarning("PUN Try to load level but not the master client");
+            return;
+        }
 
         //Level selection here
         if (sceneControl)
-            sceneControl.nextScene = EnumLevel.MainMenu.ToString();
+            sceneControl.LoadNetwork(EnumLevel.Result);
     }
 
     public void Disconnect()
@@ -128,15 +151,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
+        base.OnConnectedToMaster();
         Debug.Log("PUN Connected and calling OnConnectedTOMaster()");
         PhotonNetwork.JoinLobby();
-        base.OnConnectedToMaster();
     }
 
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
-        PhotonNetwork.JoinRandomRoom();
+        JoinRoomRandom();
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -149,6 +172,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("PUN called OnJoinRandomFailed(), but no room avaliable");
         base.OnJoinRoomFailed(returnCode, message);
+        CreateRoom(clientNickName + Time.time.ToString());
     }
 
     public override void OnJoinedRoom()
@@ -160,6 +184,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void SetNickName(string name)
     {
         clientNickName = name;
+    }
+
+    public void SetGender(int g)
+    {
+        gender = g;
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> rooms)
@@ -176,5 +205,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         base.OnPlayerLeftRoom(otherPlayer);
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    {
+        base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
+        Debug.Log("Player "+targetPlayer.NickName+" updated "+ changedProps.ToStringFull());
+    }
+
+    public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+    {
+        base.OnRoomPropertiesUpdate(propertiesThatChanged);
+        Debug.Log("Room updated " + propertiesThatChanged.ToStringFull());
     }
 }
