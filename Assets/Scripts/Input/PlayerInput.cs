@@ -105,6 +105,8 @@ public class PlayerInput : MonoBehaviour
     [FoldoutGroup("Adjustment"), Range(0, 1)]
     public float AdjustWeight = 0.8f;
     [FoldoutGroup("Adjustment"), DisplayAsString]
+    public float extraValue = 1f;
+    [FoldoutGroup("Adjustment"), DisplayAsString]
     public float AdjustValue;
     [FoldoutGroup("Adjustment"), DisplayAsString]
     public Vector3 adjustedVelocity;
@@ -229,7 +231,7 @@ public class PlayerInput : MonoBehaviour
                 AdjustValue *= (1f - percentage);
             }
         }
-        adjustedVelocity = desiredVelocity * AdjustValue;
+        adjustedVelocity = desiredVelocity * AdjustValue * extraValue;
 
         // if (isCrouching)
         //     caculatedVelocity = this.transform.rotation * adjustedVelocity * crouchVelocity;
