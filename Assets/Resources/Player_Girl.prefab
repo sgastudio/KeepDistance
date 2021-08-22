@@ -105,7 +105,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -659,7 +659,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 10
+    type: 0
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -4999,6 +4999,7 @@ MonoBehaviour:
   isCrouching: 0
   AdjustObjects: {fileID: 1306362840034485826}
   AdjustWeight: 0.8
+  extraValue: 1
   AdjustValue: 0
   adjustedVelocity: {x: 0, y: 0, z: 0}
   positionAxis: {x: 0, y: 0}
@@ -5024,6 +5025,9 @@ MonoBehaviour:
   gender: 0
   virusParticle: {fileID: 9028020920206200144}
   cleanParticle: {fileID: 8327829737946307157}
+  spawnOffset: {x: 0, y: 0}
+  spawnTransform: {fileID: 0}
+  spwanPosition: {x: 0, y: 0, z: 0}
 --- !u!136 &4108659910518768892
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5381,7 +5385,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -10092,7 +10096,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9c6fec768cad62b4999e54505195ef97, type: 2}
+  - {fileID: 2100000, guid: 7fb51ea0df63217459b17161ced61e93, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10235,22 +10239,19 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 1
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Forward
   - Type: 1
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Right
-  - Type: 1
-    SynchronizeType: 1
-    Name: Turn
   - Type: 4
     SynchronizeType: 1
     Name: Crouch
   - Type: 4
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: OnGround
   - Type: 1
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Jump
   - Type: 1
     SynchronizeType: 1
