@@ -13,18 +13,20 @@ public class UI_Network : StackPanel
         TriggerLastPanel();
     }
 
-    public void triggerConnect()
+    public void triggerConnect(int g)
     {
         if(userNameField)
             if(string.IsNullOrEmpty(userNameField.text))
             {
                 string tempName = "Guest"+GetInstanceID();
                 networkManager.SetNickName(tempName);
+                networkManager.SetGender(g);
                 userNameField.text = tempName; 
             }
             else
             {
                 networkManager.SetNickName(userNameField.text);
+                networkManager.SetGender(g);
             }
         if(networkManager)
             networkManager.Connect();

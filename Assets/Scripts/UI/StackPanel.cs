@@ -10,23 +10,25 @@ using Photon.Realtime;
 public class StackPanel : MonoBehaviourPunCallbacks
 {
     public NetworkManager networkManager;
-    public GameObject lastPanel;
-    public GameObject[] nextPanel;
+    public StackPanel lastPanel;
+    public StackPanel[] nextPanel;
 
-    public UnityEvent<GameObject> onNextPanel;
-    public UnityEvent<GameObject> onLastPanel;
+    public UnityEvent<StackPanel> onNextPanel;
+    public UnityEvent<StackPanel> onLastPanel;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
-        if (!networkManager)
-            networkManager = GameObject.FindGameObjectWithTag(EnumTag.GameController.ToString()).GetComponent<NetworkManager>();
+        // if (!networkManager)
+        //     networkManager = GameObject.FindGameObjectWithTag(EnumTag.GameController.ToString()).GetComponent<NetworkManager>();
     }
 
-    void Awake()
+    public virtual void Awake()
     {
-        if (lastPanel)
-            this.gameObject.SetActive(false);
+        //if (lastPanel)
+        //    this.gameObject.SetActive(false);
+        if (!networkManager)
+            networkManager = GameObject.FindGameObjectWithTag(EnumTag.GameController.ToString()).GetComponent<NetworkManager>();
     }
 
     public void TriggerNextPanel(string panelObjectName)
@@ -41,7 +43,7 @@ public class StackPanel : MonoBehaviourPunCallbacks
     {
         if (!nextPanel[index])
             return;
-        this.nextPanel[index].SetActive(true);
+        this.nextPanel[index].gameObject.SetActive(true);
         this.gameObject.SetActive(false);
         onNextPanel.Invoke(nextPanel[index]);
     }
@@ -50,7 +52,7 @@ public class StackPanel : MonoBehaviourPunCallbacks
     {
         if (!lastPanel)
             return;
-        this.lastPanel.SetActive(true);
+        this.lastPanel.gameObject.SetActive(true);
         this.gameObject.SetActive(false);
         onLastPanel.Invoke(lastPanel);
     }

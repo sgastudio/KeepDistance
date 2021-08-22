@@ -36,6 +36,7 @@ public class UI_Lobby : StackPanel
     public void triggerRandomJoin()
     {
         //onRefresh.Invoke();
+        networkManager.JoinRoomRandom();
     }
 
     public void triggerCreate()
