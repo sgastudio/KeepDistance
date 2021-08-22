@@ -1,3 +1,4 @@
+using System.Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,6 +41,13 @@ public class DataManager : MonoBehaviour
             datasets.Add(new Data(tag, data,str));
         }
     }
+
+    static public void AddRangeData(IEnumerable<Data> datas)
+    {
+        InitDatasets();
+        datasets.AddRange(datas);
+    }
+
     static public void SetData(string tag, float data, string str, bool createWhenNoItem = false)
     {
         InitDatasets();
