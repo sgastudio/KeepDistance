@@ -114,7 +114,7 @@ public class SelfAnimation : MonoBehaviour
         else
         {
             if (enablePosition)
-                this.transform.Translate(Vector3.LerpUnclamped(initialPosition, targetPosition, percentage));
+                this.transform.position = (Vector3.LerpUnclamped(initialPosition, targetPosition, percentage));
             if (enableRotation)
                 this.transform.rotation = this.transform.rotation * Quaternion.LerpUnclamped(initialRotation, Quaternion.Euler(targetRotation), percentage);
         }
