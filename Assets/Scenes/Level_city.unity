@@ -1448,6 +1448,10 @@ PrefabInstance:
       value: CubeCheck
       objectReference: {fileID: 0}
     - target: {fileID: 4211209154536978289, guid: d1cde310720db404ba3b2ba97b985e72, type: 3}
+      propertyPath: isLocalDetector
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211209154536978289, guid: d1cde310720db404ba3b2ba97b985e72, type: 3}
       propertyPath: onCheckSucceeded.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -13394,6 +13398,45 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 603aef0051debc5459e1edd2ecbfb4ad, type: 3}
+--- !u!1 &1749705877 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1017393084111433121, guid: 603aef0051debc5459e1edd2ecbfb4ad, type: 3}
+  m_PrefabInstance: {fileID: 1749705876}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1749705878 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4011571150082842689, guid: 603aef0051debc5459e1edd2ecbfb4ad, type: 3}
+  m_PrefabInstance: {fileID: 1749705876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749705877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eef816077a9e2b4d8484e5549a33fa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1749705879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749705877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1749705878}
+  sceneViewId: 23
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &1749999232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13578,6 +13621,10 @@ PrefabInstance:
     - target: {fileID: 4211209154526457333, guid: d1cde310720db404ba3b2ba97b985e72, type: 3}
       propertyPath: m_Name
       value: CubeCheck (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211209154536978289, guid: d1cde310720db404ba3b2ba97b985e72, type: 3}
+      propertyPath: isLocalDetector
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4211209154536978289, guid: d1cde310720db404ba3b2ba97b985e72, type: 3}
       propertyPath: onCheckSucceeded.m_PersistentCalls.m_Calls.Array.size
@@ -14064,7 +14111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5499346436315456983, guid: d82aedb786b8fb04fa16375ef4b0f36e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8676971916675199538, guid: d82aedb786b8fb04fa16375ef4b0f36e, type: 3}
       propertyPath: m_RootOrder
@@ -16278,7 +16325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2725981589721205908, guid: 3cc23dbd190e9a140a600542d293fe0b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3720220277304891569, guid: 3cc23dbd190e9a140a600542d293fe0b, type: 3}
       propertyPath: m_Enabled
