@@ -62,8 +62,8 @@ public class ItemAgent : MonoBehaviourPun
         if (playerView && inventory)
         {
             inventory.AddItem(this);
-            
-            this.photonView.TransferOwnership(playerView.Owner.ActorNumber);
+            if(!PhotonNetwork.OfflineMode)
+                this.photonView.TransferOwnership(playerView.Owner.ActorNumber);
             //this.photonView.TransferOwnership(playerViewID);
             //lastOwnerID = playerViewID;
         }

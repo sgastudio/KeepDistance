@@ -152,6 +152,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();
+        if(PhotonNetwork.OfflineMode)
+            return;
         Debug.Log("PUN Connected and calling OnConnectedTOMaster()");
         PhotonNetwork.JoinLobby();
     }

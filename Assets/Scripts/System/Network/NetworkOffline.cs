@@ -6,10 +6,8 @@ using Photon.Pun;
 public class NetworkOffline : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        if(PhotonNetwork.IsConnected)
-            return;
         PhotonNetwork.OfflineMode = true;
     }
 
