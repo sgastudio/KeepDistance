@@ -187,6 +187,8 @@ public class PlayerInput : MonoBehaviour
         //translatePlayer();
 
         rotatePlayer();
+
+        UpdateCursorState();
     }
 
     #region UpdateFunc
