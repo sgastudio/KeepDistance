@@ -188,14 +188,17 @@ public class PlayerInput : MonoBehaviour
 
         rotatePlayer();
 
-        UpdateCursorState();
+        //UpdateCursorState();
     }
 
     #region UpdateFunc
     public void UpdateCursorState()
     {
         Cursor.lockState = cursorLock;
-        Cursor.visible = cursorVisible;
+        if (DialogueManager.isConversationActive)
+            Cursor.visible = true;
+        else
+            Cursor.visible = cursorVisible;
     }
 
     void updateInputVectors()
@@ -429,7 +432,7 @@ public class PlayerInput : MonoBehaviour
         connectionWorldPosition = rigidBody.position;
         //connectionLocalPosition = connectedBody.transform.InverseTransformPoint(this.transform.position);
         connectionLocalPosition = connectedBody.transform.InverseTransformPoint(connectionWorldPosition);
-        
+
     }
 
     bool SnapToGround()
