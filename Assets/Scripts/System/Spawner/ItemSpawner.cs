@@ -23,6 +23,7 @@ public class ItemSpawner : MonoBehaviour
     public int loopTimes = 0;
     int spawnedTimes;
     float lastSpawnTime;
+    
 
     void Start()
     {
@@ -49,7 +50,7 @@ public class ItemSpawner : MonoBehaviour
         {
             Vector3 targetPostion = spawnPointTransform.position + positionOffset + Vector3.Lerp(-positionNoise,positionNoise,Random.Range(0f,1f));
             Quaternion targetQuaternion = spawnPointTransform.rotation * rotationOffset;// * Quaternion.Lerp(Quaternion.Inverse(rotationNoise),rotationNoise,Random.Range(0f,1f));
-            if (usePhotonSpawn && Photon.Pun.PhotonNetwork.IsConnected)
+            if (usePhotonSpawn && Photon.Pun.PhotonNetwork.IsConnected && !Photon.Pun.PhotonNetwork.OfflineMode)
                 obj = Photon.Pun.PhotonNetwork.InstantiateRoomObject(prefab.name, targetPostion, targetQuaternion);
             else
                 obj = GameObject.Instantiate(prefab, targetPostion, targetQuaternion);
