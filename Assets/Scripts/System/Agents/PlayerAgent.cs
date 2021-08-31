@@ -107,6 +107,9 @@ public class PlayerAgent : MonoBehaviourPun
             {
                 spawnTransform = other.gameObject.transform;
                 spwanPosition = spawnTransform.position;
+                CheckPointAgent agent = other.GetComponent<CheckPointAgent>();
+                if(agent)
+                    spawnOffset = agent.GetOffset(GetComponent<PhotonView>().OwnerActorNr); 
             }
         }
     }
