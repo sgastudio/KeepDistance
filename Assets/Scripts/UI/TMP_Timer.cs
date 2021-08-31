@@ -8,6 +8,8 @@ public class TMP_Timer : MonoBehaviour
     NetworkManager networkManager;
     TMP_Text textElement;
     public Timer timer;
+    public string prefix = "Time: ";
+    public string suffix;
     void Awake()
     {
         textElement = this.GetComponent<TMP_Text>();
@@ -27,18 +29,18 @@ public class TMP_Timer : MonoBehaviour
             switch (timer.state)
             {
                 case Timer.TimerState.Paused:
-                    textElement.text = "Time: Paused";
+                    textElement.text = prefix + "Paused" + suffix;
                     break;
                 case Timer.TimerState.Running:
                     int minutes = ((int)(timer.duration - timer.passedTime) / 60);
                     int seconds = ((int)(timer.duration - timer.passedTime) % 60);
-                    textElement.text = "Time: " + minutes.ToString() + ":" + (seconds < 10 ? "0" + seconds.ToString() : seconds.ToString());
+                    textElement.text = prefix + minutes.ToString() + ":" + (seconds < 10 ? "0" + seconds.ToString() : seconds.ToString()) + suffix;
                     break;
                 case Timer.TimerState.Finished:
-                    textElement.text = "Time: End";
+                    textElement.text = prefix + "End" + suffix;
                     break;
                 default:
-                    textElement.text = "Time: Waiting";
+                    textElement.text = prefix + "Waiting" + suffix;
                     break;
             }
 
