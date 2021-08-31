@@ -13,6 +13,9 @@ public class ResultPlayerSpawner : MonoBehaviour
     public TMP_Text textTitle;
     public TMP_Text textPlayer;
     GameObject playerObject;
+
+    public GameObject winGroup;
+    public GameObject loseGroup;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,11 +32,15 @@ public class ResultPlayerSpawner : MonoBehaviour
             playerObject.GetComponent<Animator>().Play("Wave");
             textTitle.text = " <rainb f=0.2><wave>Employee of the Day</wave><rainb>";
             textPlayer.text = "Player - " + resultData.str;
+            if(winGroup)
+                winGroup.SetActive(true);
         }
         else
         {
             textTitle.text = "<pend>No best employee today<pend>";
             textPlayer.text = "";
+            if(loseGroup)
+                loseGroup.SetActive(true);
         }
 
         DataManager.RemoveData("result");
