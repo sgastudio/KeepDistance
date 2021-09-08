@@ -93,7 +93,7 @@ public class FixedInteractDetector : CollisionDetector//, IPunObservable
             interactable.Interact();
             //switchAgent.SwitchOnce();
         }
-        else if(dialogueTrigger)
+        else if (dialogueTrigger)
         {
             dialogueTrigger.OnUse(this.transform.parent);
             //dialogueTrigger.Fire(this.transform.parent);
@@ -128,7 +128,7 @@ public class FixedInteractDetector : CollisionDetector//, IPunObservable
         UpdateList();
         OutlinedList();
 
-        if(PixelCrushers.DialogueSystem.DialogueManager.isConversationActive)
+        if (PixelCrushers.DialogueSystem.DialogueManager.isConversationActive)
             return;
 
         processInput();
@@ -173,7 +173,9 @@ public class FixedInteractDetector : CollisionDetector//, IPunObservable
     {
         if (!obj || !GetNetworkingTest())
             return;
-        var outline = obj.AddComponent<Outline>();
+        var outline = obj.GetComponent<Outline>();
+        if (!outline)
+            outline = obj.AddComponent<Outline>();
         outline.OutlineMode = Outline.Mode.OutlineAll;
         outline.OutlineColor = Color.yellow;
         outline.OutlineWidth = 8f;
@@ -197,7 +199,7 @@ public class FixedInteractDetector : CollisionDetector//, IPunObservable
 
     #region IPunObservable implementation
 
-    
+
     // public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     // {
     //     //TODO: might be slow to control in this way
