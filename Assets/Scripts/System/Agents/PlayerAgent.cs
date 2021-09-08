@@ -123,8 +123,6 @@ public class PlayerAgent : MonoBehaviourPun
         direction.y = 0;
         float distance = (this.transform.position - target).magnitude;
 
-
-        GetComponent<PlayerInput>().jumpButton = true;
         Rigidbody body = this.GetComponent<Rigidbody>();
         body.AddForceAtPosition((direction + Vector3.up) * force, direction * distance * .5f, ForceMode.VelocityChange);
         // if(other.rigidbody)
