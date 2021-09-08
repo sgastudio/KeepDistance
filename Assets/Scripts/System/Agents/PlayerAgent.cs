@@ -54,10 +54,12 @@ public class PlayerAgent : MonoBehaviourPun
     void SwitchVirusEffect(bool state)
     {
         SwitchParticleSystem(virusParticle, state);
-        if (state)
-            GetComponent<PlayerInput>().extraValue = .7f;
-        else
-            GetComponent<PlayerInput>().extraValue = 1f;
+        PlayerInput input = GetComponent<PlayerInput>();
+        if (input)
+            if (state)
+                input.extraValue = .7f;
+            else
+                input.extraValue = 1f;
     }
 
     [PunRPC]
@@ -108,8 +110,8 @@ public class PlayerAgent : MonoBehaviourPun
                 spawnTransform = other.gameObject.transform;
                 spwanPosition = spawnTransform.position;
                 CheckPointAgent agent = other.GetComponent<CheckPointAgent>();
-                if(agent)
-                    spawnOffset = agent.GetOffset(GetComponent<PhotonView>().OwnerActorNr); 
+                if (agent)
+                    spawnOffset = agent.GetOffset(GetComponent<PhotonView>().OwnerActorNr);
             }
         }
     }
